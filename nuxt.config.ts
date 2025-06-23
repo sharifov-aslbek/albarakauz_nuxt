@@ -3,6 +3,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  ssr: true,
   modules: ['@nuxt/ui', '@pinia/nuxt'],
       colorMode: {
       preference: 'light',
