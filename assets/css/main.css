@@ -1,0 +1,15 @@
+@import "tailwindcss";  
+@import "@nuxt/ui";
+
+
+
+.container {
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0px 15px;
+}
+
+body {
+    font-family: 'Inter' , sans-serif;
+}

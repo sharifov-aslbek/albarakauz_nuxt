@@ -1,0 +1,119 @@
+<template>
+  <NotFoundSearch v-if="!seoStore.product" />
+  <template v-else-if="seoStore.product && seoStore.product.marketResultmodel">
+    <UzumItem 
+      v-if="seoStore.product.marketResultmodel.url.includes('uzum.uz')"
+    />
+    <OlchaItem
+      v-else-if="seoStore.product.marketResultmodel.url.includes('olcha.uz')"
+    />
+    <TexnomartItem
+      v-else-if="seoStore.product.marketResultmodel.url.includes('texnomart.uz')"
+    />
+  </template>
+  <!-- <div v-if="seoStore.product">
+    <h1 class="text-xl font-bold">{{ seoStore.title }}</h1>
+    <img :src="seoStore.image" alt="Product Image" class="max-w-sm my-4" />
+    <p>{{ seoStore.description }}</p>
+  </div> -->
+
+</template>
+
+<script setup lang="ts">
+import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+import { useProductSeoStore } from '@/stores/productSeo'
+import { useHead } from '#imports'
+
+const route = useRoute()
+const seoStore = useProductSeoStore()
+
+// Mahsulotni yuklab olish
+await seoStore.getProductSeo(route.params.id as string)
+
+// Head ni yuklash
+useHead(() => {
+  const url = `https://albaraka.uz/product/${route.params.id}`
+
+  return {
+    title: seoStore.title,
+    meta: [
+      { name: 'description', content: seoStore.description },
+      { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
+      { name: 'author', content: 'Albaraka.uz' },
+      { name: 'robots', content: 'index, follow' },
+
+      // Open Graph
+      { property: 'og:title', content: seoStore.title },
+      { property: 'og:description', content: seoStore.description },
+      { property: 'og:image', content: seoStore.image },
+      { property: 'og:url', content: url },
+      { property: 'og:type', content: 'product' },
+      { property: 'og:site_name', content: 'Albaraka.uz' },
+
+      // Twitter
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: seoStore.title },
+      { name: 'twitter:description', content: seoStore.description },
+      { name: 'twitter:image', content: seoStore.image },
+
+      // Viewport
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+
+      // Charset
+      { charset: 'utf-8' }
+    ],
+    link: [
+      { rel: 'canonical', href: url }
+    ]
+  }
+})
+
+
+
+// Router param o'zgarsa
+onBeforeRouteUpdate(async (to, from) => {
+  if (to.params.id !== from.params.id) {
+    await seoStore.getProductSeo(to.params.id as string)
+
+    // route o'zgarganda headni yangilash
+    useHead(() => {
+      const url = `https://albaraka.uz/product/${to.params.id}`
+
+      return {
+        title: seoStore.title,
+        meta: [
+          { name: 'description', content: seoStore.description },
+          { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
+          { name: 'author', content: 'Albaraka.uz' },
+          { name: 'robots', content: 'index, follow' },
+
+          // Open Graph
+          { property: 'og:title', content: seoStore.title },
+          { property: 'og:description', content: seoStore.description },
+          { property: 'og:image', content: seoStore.image },
+          { property: 'og:url', content: url },
+          { property: 'og:type', content: 'product' },
+          { property: 'og:site_name', content: 'Albaraka.uz' },
+
+          // Twitter
+          { name: 'twitter:card', content: 'summary_large_image' },
+          { name: 'twitter:title', content: seoStore.title },
+          { name: 'twitter:description', content: seoStore.description },
+          { name: 'twitter:image', content: seoStore.image },
+
+          // Viewport
+          { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+
+          // Charset
+          { charset: 'utf-8' }
+        ],
+        link: [
+          { rel: 'canonical', href: url }
+        ]
+      }
+    }) // ✅ bu — useHead yopilishi
+  } // ✅ bu — if yopilishi
+}) // ✅ bu — onBeforeRouteUpdate yopilishi
+
+</script>
+
