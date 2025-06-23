@@ -1,5 +1,6 @@
 <template>
   <div
+  @click="navigaItem(product.id)"
   v-for="product in data"
   :key="product.id"
   class="bg-gray-100 card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
@@ -58,10 +59,12 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 const props = defineProps<{
   data: Array<any>
 }>()
 
+const router = useRouter();
 /**
  * Har bir productModel'ni parse qiluvchi yordamchi funksiya
  */
@@ -72,6 +75,11 @@ const getParsedProductModel = (productModel: string): Record<string, any> | null
   } catch {
     return null
   }
+}
+
+
+const navigaItem = (id : Number) => {
+  router.push(`/product/${id}`)
 }
 
 /**

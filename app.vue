@@ -1,10 +1,14 @@
 <template>
   <!-- <UApp> -->
+    <Navbar />
     <NuxtPage />
+    <Footer />
   <!-- </UApp> -->
 </template>
 
-<script setup> 
+<script setup>
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue' 
 useHead({
   htmlAttrs: {
     class: 'light' // bu orqali dark rejimni butunlay o'chiramiz

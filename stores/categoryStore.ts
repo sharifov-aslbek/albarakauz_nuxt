@@ -8,6 +8,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
   const title = ref('')
   const description = ref('')
   const image = ref('')
+  const showCategory = ref(false)
 
  
   const getAllCategory = async () => {
@@ -33,6 +34,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     description,
     image,
     getAllCategory,
-    categoryData
+    categoryData,
+    showCategory
   }
 })
