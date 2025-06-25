@@ -46,22 +46,37 @@ watch(
   currentCategory,
   (category) => {
     if (category) {
+      const title = category.seoHeader || category.name;
+      const description = category.seoMetaTag || `Eng yaxshi ${category.name} mahsulotlar`;
+      const url = `https://your-domain.uz/category/${category.id}`; // shu yerga to‘liq URL kiriting
+      const image = category.image
+        ? `https://your-domain.uz${category.image}`
+        : 'https://your-domain.uz/default-image.jpg'; // default image qo‘yiladi agar yo‘q bo‘lsa
+
       useHead({
-        title: category.name,
+        title,
         meta: [
-          {
-            name: 'description',
-            content: category.seoMetaTag || `Eng yaxshi ${category.name} mahsulotlar`
-          },
-          {
-            name: 'og:title',
-            content: category.seoHeader || category.name
-          }
+          // Standart meta
+          { name: 'description', content: description },
+
+          // Open Graph (Facebook, Telegram)
+          { property: 'og:title', content: title },
+          { property: 'og:description', content: description },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: url },
+          { property: 'og:image', content: image },
+
+          // Twitter Cards
+          { name: 'twitter:card', content: 'summary_large_image' },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: description },
+          { name: 'twitter:image', content: image },
         ]
       });
     }
   },
   { immediate: true }
 );
+
 </script>
 
