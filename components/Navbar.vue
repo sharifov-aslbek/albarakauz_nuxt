@@ -98,7 +98,7 @@
                 <div 
                   v-for="childCategory in category.childCategories"
                   :key="childCategory.id"
-                  class="p-4 border rounded-lg hover:shadow-lg transition"
+                  class="p-4 border border-gray-200 rounded-lg hover:shadow-lg transition"
                 >
                   <h3 
                     @click="navigateCategory(childCategory.id)"

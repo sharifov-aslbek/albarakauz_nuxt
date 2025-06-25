@@ -5,6 +5,7 @@ import { ref } from 'vue'
 export const useCategoryStore = defineStore('categoryStore', () => {
   const product = ref<any>(null)
   const categoryData = ref<any>(null)
+  const onecategoryData = ref<any>(null)
   const title = ref('')
   const description = ref('')
   const image = ref('')
@@ -27,6 +28,22 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     }
   }
 
+  const getOneCategory = async (id: Number) => {
+    try {
+      const res = await fetch(`https://albaraka.uz/api/uz/category/retrieve?id=${id}`)
+      const json = await res.json()
+      
+      if (json?.data) {
+        const data = json.data
+        onecategoryData.value = data
+      } else {
+        console.warn('APIdan data yo‘q')
+      }
+    } catch (e) {
+      console.error('API error:', e)
+    }
+  }
+
 
   return {
     product,
@@ -35,6 +52,8 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     image,
     getAllCategory,
     categoryData,
-    showCategory
+    showCategory,
+    getOneCategory,
+    onecategoryData
   }
 })

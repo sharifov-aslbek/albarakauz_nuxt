@@ -28,6 +28,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const title = ref('')
   const description = ref('')
   const image = ref('')
+  const oneCategoryProducts = ref<any>([])
   const categoryStore = useCategoryStore();
 
   const getProductSeo = async (id: string | number) => {
@@ -117,6 +118,39 @@ const { data, error } = await useFetch<{ code: number, message: string, data: Pr
     }
   }
 
+  // Bitta apiga 2 ta function qilinganini sababi function ichidagi actionlar boshqacha bir biriga to'gri kelmaydi shu sabab 2 ta qilingan
+
+   async function getOneCategoryProducts(id: number, locale: string) {
+    productLoader.value = true
+
+    try {
+    
+      // mahsulotlarni fetch qilamiz
+const { data, error } = await useFetch<{ code: number, message: string, data: Product[] }>(
+  () => `https://albaraka.uz/api/${locale}/product/retrieve-by-categoryId?PageSize=100&id=${id}`,
+  { method: 'GET' }
+)
+
+
+      console.log(data.value?.data , 'data one category');
+      
+
+      if (error.value) {
+        throw new Error(error.value.message)
+      }
+
+      if (data.value?.data.length) {
+        oneCategoryProducts.value = data.value?.data
+      } else {
+        console.warn(`Category id ${id} uchun mahsulot topilmadi.`)
+      }
+    } catch (err) {
+      console.error('API Error:', err)
+    } finally {
+      productLoader.value = false
+    }
+  }
+
   // HTML <p> taglaridan tozalash (description uchun)
   function stripHtml(html: string): string {
     return html.replace(/<[^>]*>/g, '').trim()
@@ -131,6 +165,8 @@ const { data, error } = await useFetch<{ code: number, message: string, data: Pr
     getAllProducts,
     productAll,
     getCategoryIdProduct,
-    productCategoryList
+    productCategoryList,
+    getOneCategoryProducts ,
+    oneCategoryProducts
   }
 })
