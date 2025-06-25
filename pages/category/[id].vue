@@ -46,12 +46,12 @@ watch(
   currentCategory,
   (category) => {
     if (category) {
-      const title = category.seoHeader || category.name;
+      const title = category.name;
       const description = category.seoMetaTag || `Eng yaxshi ${category.name} mahsulotlar`;
-      const url = `https://your-domain.uz/category/${category.id}`; // shu yerga to‘liq URL kiriting
+      const url = `https://albarakauzz.netlify.app/category/${category.id}`; // shu yerga to‘liq URL kiriting
       const image = category.image
-        ? `https://your-domain.uz${category.image}`
-        : 'https://your-domain.uz/default-image.jpg'; // default image qo‘yiladi agar yo‘q bo‘lsa
+        ? `https://albarakauzz.netlify.app/${category.image}`
+        : 'https://albarakauzz.netlify.app/sigma.png'; // default image qo‘yiladi agar yo‘q bo‘lsa
 
       useHead({
         title,
