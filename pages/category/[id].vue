@@ -49,28 +49,22 @@ watch(
       const title = category.name;
       const description = category.seoMetaTag || `Eng yaxshi ${category.name} mahsulotlar`;
       const url = `https://albarakauzz.netlify.app/category/${category.id}`; // shu yerga to‘liq URL kiriting
-      const image = category.image
-        ? `https://albarakauzz.netlify.app/${category.image}`
-        : 'https://albarakauzz.netlify.app/sigma.png'; // default image qo‘yiladi agar yo‘q bo‘lsa
 
       useHead({
         title,
         meta: [
           // Standart meta
           { name: 'description', content: description },
-
           // Open Graph (Facebook, Telegram)
           { property: 'og:title', content: title },
           { property: 'og:description', content: description },
           { property: 'og:type', content: 'website' },
           { property: 'og:url', content: url },
-          { property: 'og:image', content: image },
 
           // Twitter Cards
           { name: 'twitter:card', content: 'summary_large_image' },
           { name: 'twitter:title', content: title },
           { name: 'twitter:description', content: description },
-          { name: 'twitter:image', content: image },
         ]
       });
     }
