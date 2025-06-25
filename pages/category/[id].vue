@@ -47,7 +47,7 @@ watch(
   (category) => {
     if (category) {
       const title = category.name;
-      const description = category.seoMetaTag || `Eng yaxshi ${category.name} mahsulotlar`;
+      const description = `Eng yaxshi ${category.name} mahsulotlar`;
       const url = `https://albarakauzz.netlify.app/category/${category.id}`; // shu yerga to‘liq URL kiriting
 
       useHead({
