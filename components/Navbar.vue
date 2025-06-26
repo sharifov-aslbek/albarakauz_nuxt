@@ -13,30 +13,55 @@
         </div>
 
 
-        <div class="flex items-center gap-1">
+        <div class="flex items-center justify-center w-full max-w-[600px] mx-auto gap-2">
           <button @click="categoryStore.showCategory = !categoryStore.showCategory"
-        class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-lg bg-green-100 transition-all duration-300 hover:bg-green-300">
+        class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-lg bg-[#06D6A0]/10 transition-all duration-300 cursor-pointer hover:bg-[#06D6A0]/30">
   <div class="relative w-6 h-6">
     <!-- Folder Icon -->
     <UIcon name="bx:category-alt" :class="[
-      'absolute top-0 left-0 w-6 h-6 text-green-500 transition-all duration-300',
+      'absolute top-0 left-0 w-6 h-6 text-[#06D6A0] transition-all duration-300',
       categoryStore.showCategory ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
     ]" />
     <!-- X Icon -->
     <UIcon name="heroicons:x-mark" :class="[
-      'absolute top-0 left-0 w-6 h-6 text-green-500 transition-all duration-300',
+      'absolute top-0 left-0 w-6 h-6 text-[#06D6A0] transition-all duration-300',
       categoryStore.showCategory ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
     ]" />
   </div>
-  <span class="text-green-500 hidden md:block font-medium">Katalog</span>
+  <span class="text-[#06D6A0] hidden md:block font-medium">Katalog</span>
 </button>
 
-<UInput icon="i-lucide-search" size="md" variant="outline" placeholder="Search..." />
+<UInput icon="i-lucide-search" size="md" variant="outline" placeholder="Search..." class="w-full max-w-full" />
+           <UButton icon="material-symbols:search" size="md"  variant="solid"
+  class="bg-[#06D6A0] text-white hover:bg-[#05c293] px-4"></UButton>
+
         </div>
 
         <div class="actions flex items-center gap-3">
-           <UButton icon="material-symbols-light:favorite" size="md" color="primary" variant="solid">Favorites</UButton>
-           <UButton icon="material-symbols:account-box" size="md" color="primary" variant="solid">My profile</UButton>
+              <RouterLink to="/favorites" class="relative w-fit">
+                <div class="relative w-fit">
+                  <!-- Heart icon container -->
+                  <div class="group relative p-2 flex justify-center items-center cursor-pointer">
+                    <!-- Background circle with scale animation -->
+                    <div
+                      class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
+                    <UIcon class="size-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols-light:favorite" />
+                  </div>
+                </div>
+              </RouterLink>
+
+              <RouterLink to="/favorites" class="relative w-fit">
+                <div class="relative w-fit">
+                  <!-- Heart icon container -->
+                  <div class="group relative p-2 flex justify-center items-center cursor-pointer">
+                    <!-- Background circle with scale animation -->
+                    <div
+                      class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
+                    <UIcon class="size-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols:account-box" />
+                  </div>
+                </div>
+              </RouterLink>
+            
         </div>
       </div>
 

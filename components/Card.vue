@@ -18,7 +18,7 @@
   <!-- Kontent (pastki qism) -->
   <div class="flex flex-col justify-between flex-grow">
     <div>
-      <h3 class="text-sm font-medium mb-3 line-clamp-2 min-h-[48px]">{{ product.name }}</h3>
+      <h3 class="text-sm font-medium mb-3 line-clamp-2">{{ product.name }}</h3>
 
       <!-- To‘lov bo‘lsa -->
       <div class="mb-3 min-h-[32px]">
