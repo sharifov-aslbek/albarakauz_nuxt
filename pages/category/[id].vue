@@ -8,7 +8,7 @@
 
 
 <script setup>
-import { watch, computed } from 'vue';
+import { watch, computed , onBeforeRouteUpdate } from 'vue';
 import { useRoute } from 'vue-router';
 import { useHead } from '#imports';
 import { useProductSeoStore, useCategoryStore } from '#imports';
@@ -17,60 +17,85 @@ const store = useProductSeoStore();
 const categoryStore = useCategoryStore();
 const route = useRoute();
 
-// ID bo‘yicha category ni topish (asosiy yoki child ichidan)
-const currentCategory = computed(() => {
-  const id = Number(route.params.id);
-  const main = categoryStore.onecategoryData;
 
-  if (!main) return null;
 
-  if (main.id === id) return main;
+useHead(() => {
+   const url = `https://albaraka.uz/category/${route.params.id}`
 
-  return main.childCategories?.find((child) => child.id === id) || null;
-});
+  return {
+    title: categoryStore.onecategoryData.name,
+    meta: [
+      { name: 'description', content: `Eng yaxshi mahsulotlar ${categoryStore.onecategoryData.name} dagi` },
+      { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
+      { name: 'author', content: 'Albaraka.uz' },
+      { name: 'robots', content: 'index, follow' },
 
-// Har safar route ID o‘zgarganda product va category fetch qilinadi
-watch(
-  () => route.params.id,
-  (id) => {
-    if (id) {
-      store.getOneCategoryProducts(id, 'uz');
-      categoryStore.getOneCategory(id);
-    }
-  },
-  { immediate: true }
-);
+      // Open Graph
+      { property: 'og:title', content: categoryStore.onecategoryData.name },
+      { property: 'og:description', content: `Eng yaxshi mahsulotlar ${categoryStore.onecategoryData.name}` },
+      { property: 'og:url', content: url },
+      { property: 'og:type', content: 'category' },
+      { property: 'og:site_name', content: 'Albaraka.uz' },
 
-// Har safar currentCategory tayyor bo‘lsa, SEO head qo‘shiladi
-watch(
-  currentCategory,
-  (category) => {
-    if (category) {
-      const title = category.name;
-      const description = `Eng yaxshi ${category.name} mahsulotlar`;
-      const url = `https://albarakauzz.netlify.app/category/${category.id}`; // shu yerga to‘liq URL kiriting
+      // Twitter
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: categoryStore.onecategoryData.name },
+      { name: 'twitter:description', content:  `Eng yaxshi mahsulotlar ${categoryStore.onecategoryData.name}` },
 
-      useHead({
-        title,
-        meta: [
-          // Standart meta
-          { name: 'description', content: description },
-          // Open Graph (Facebook, Telegram)
-          { property: 'og:title', content: title },
-          { property: 'og:description', content: description },
-          { property: 'og:type', content: 'website' },
-          { property: 'og:url', content: url },
+      // Viewport
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
 
-          // Twitter Cards
-          { name: 'twitter:card', content: 'summary_large_image' },
-          { name: 'twitter:title', content: title },
-          { name: 'twitter:description', content: description },
-        ]
-      });
-    }
-  },
-  { immediate: true }
-);
+      // Charset
+      { charset: 'utf-8' }
+    ],
+    link: [
+      { rel: 'canonical', href: url }
+    ]
+  }
+})
+
+onBeforeRouteUpdate(async (to, from) => {
+  if (to.params.id !== from.params.id) {
+    await store.getOneCategoryProducts(id , 'uz')
+    await categoryStore.getOneCategory(to.params.id)
+
+    // route o'zgarganda headni yangilash
+    useHead(() => {
+   const url = `https://albaraka.uz/category/${route.params.id}`
+
+  return {
+    title: categoryStore.onecategoryData.name,
+    meta: [
+      { name: 'description', content: `Eng yaxshi mahsulotlar ${categoryStore.onecategoryData.name} dagi` },
+      { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
+      { name: 'author', content: 'Albaraka.uz' },
+      { name: 'robots', content: 'index, follow' },
+
+      // Open Graph
+      { property: 'og:title', content: categoryStore.onecategoryData.name },
+      { property: 'og:description', content: `Eng yaxshi mahsulotlar ${categoryStore.onecategoryData.name}` },
+      { property: 'og:url', content: url },
+      { property: 'og:type', content: 'category' },
+      { property: 'og:site_name', content: 'Albaraka.uz' },
+
+      // Twitter
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: categoryStore.onecategoryData.name },
+      { name: 'twitter:description', content:  `Eng yaxshi mahsulotlar ${categoryStore.onecategoryData.name}` },
+
+      // Viewport
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+
+      // Charset
+      { charset: 'utf-8' }
+    ],
+    link: [
+      { rel: 'canonical', href: url }
+    ]
+  }
+})
+  } // ✅ bu — if yopilishi
+})
 
 </script>
 
