@@ -21,7 +21,21 @@
       <h3 class="text-sm font-medium mb-3 line-clamp-2">{{ product.name }}</h3>
 
       <!-- To‘lov bo‘lsa -->
-      <div class="mb-3 min-h-[32px]">
+      <div class="mb-3 flex justify-between gap-10 min-h-[32px]">
+        <div
+            v-if="
+              product.productModel && product.marketResultmodel?.name === 'Uzum' && getParsedProductModel(product.productModel).Rating
+            "
+            class="flex items-center gap-1"
+          >
+            <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-5" />
+            <div
+  v-if="product.productModel && product.marketResultmodel && product.marketResultmodel.url === 'https://uzum.uz'"
+  class="text-sm font-bold"
+>
+              {{ getParsedProductModel(product.productModel).Rating }}
+            </div>
+          </div>
         <span
           v-if="getParsedProductModel(product.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth && product.marketResultmodel?.url === 'https://uzum.uz'"
           class="inline-block w-full text-center rounded-lg bg-green-100 text-green-800 py-1 text-sm font-medium"
@@ -39,6 +53,7 @@
             getParsedProductModel(product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
           }} so'm / 12 months
         </span>
+
       </div>
     </div>
 

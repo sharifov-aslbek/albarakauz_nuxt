@@ -13,9 +13,9 @@
         </div>
 
 
-        <div class="flex items-center justify-center w-full max-w-[600px] mx-auto gap-2">
+        <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
           <button @click="categoryStore.showCategory = !categoryStore.showCategory"
-        class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-lg bg-[#06D6A0]/10 transition-all duration-300 cursor-pointer hover:bg-[#06D6A0]/30">
+        class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-lg bg-[#06D6A0]/10 transition-all duration-300 cursor-pointer hover:bg-[#06D6A0]/30">
   <div class="relative w-6 h-6">
     <!-- Folder Icon -->
     <UIcon name="bx:category-alt" :class="[
@@ -31,9 +31,9 @@
   <span class="text-[#06D6A0] hidden md:block font-medium">Katalog</span>
 </button>
 
-<UInput icon="i-lucide-search" size="md" variant="outline" placeholder="Search..." class="w-full max-w-full" />
+<UInput size="md" variant="outline" placeholder="Search..." class="w-full rounded-r-lg max-w-full" />
            <UButton icon="material-symbols:search" size="md"  variant="solid"
-  class="bg-[#06D6A0] text-white hover:bg-[#05c293] px-4"></UButton>
+  class="bg-[#06D6A0] text-white hover:bg-[#05c293] py-1.5 px-4 ml-4"></UButton>
 
         </div>
 
@@ -45,7 +45,7 @@
                     <!-- Background circle with scale animation -->
                     <div
                       class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols-light:favorite" />
+                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols-light:favorite" />
                   </div>
                 </div>
               </RouterLink>
@@ -57,8 +57,8 @@
                     <!-- Background circle with scale animation -->
                     <div
                       class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols:account-box" />
-                  </div>
+                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols:account-box" />
+                  </div>  
                 </div>
               </RouterLink>
             
