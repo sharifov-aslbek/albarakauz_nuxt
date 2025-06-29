@@ -1,10 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 import tailwindcss from "@tailwindcss/vite";
+// import AutoImport from 'unplugin-auto-import/vite'
+// import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+// import Components from 'unplugin-vue-components/vite'
 
 export default defineNuxtConfig({ 
   ssr: true,
-  modules: ['@nuxt/ui', '@pinia/nuxt'],
+  modules: ['@nuxt/ui', '@pinia/nuxt' , "@bg-dev/nuxt-naiveui"],
       colorMode: {
       preference: 'light',
       fallback: 'light',
@@ -16,7 +19,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [
-      tailwindcss(),
+      tailwindcss()
     ],
   },
 })

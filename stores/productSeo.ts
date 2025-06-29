@@ -20,6 +20,20 @@ interface ProductCategoryItem {
   products: Product[]
 }
 
+interface Product {
+  id: number
+  name: string
+  price: number
+  // boshqa fieldlar bo‘lsa qo‘sh
+}
+
+interface RetrieveByMarketIdResponse {
+  data: {
+    count: number
+    data: Product[]
+  }
+}
+
 export const useProductSeoStore = defineStore('productSeo', () => {
   const product = ref<any>(null)
   const productLoader = ref(false)
@@ -30,6 +44,51 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const image = ref('')
   const oneCategoryProducts = ref<any>([])
   const categoryStore = useCategoryStore();
+  const marketProductLoader: Ref<boolean> = ref(false)
+  const marketProductsCount: Ref<number> = ref(0)
+  const marketProductsData: Ref<Product[]> = ref([])
+  
+  const locale: Ref<string> = ref('uz')
+
+
+
+
+const API_HOST_DEFAULT = 'https://albaraka.uz/api'
+
+async function getProductWithMarketId(
+  id: number,
+  pageindex: number = 1
+): Promise<void> {
+  marketProductLoader.value = true
+
+  try {
+    const url = `${API_HOST_DEFAULT}/${locale.value}/product/retrieve-by-marketId?PageSize=30&PageIndex=${pageindex}&id=${id}`
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // kerak bo‘lsa Authorization header qo‘sh
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    const data: RetrieveByMarketIdResponse = await response.json()
+
+    console.log(data, 'product with market id data')
+
+    marketProductsCount.value = data.data.count
+    marketProductsData.value = data.data.data
+  } catch (err) {
+    console.error('API Error:', err)
+  } finally {
+    marketProductLoader.value = false
+  }
+}
+
 
   const getProductSeo = async (id: string | number) => {
     try {
@@ -167,6 +226,10 @@ const { data, error } = await useFetch<{ code: number, message: string, data: Pr
     getCategoryIdProduct,
     productCategoryList,
     getOneCategoryProducts ,
-    oneCategoryProducts
+    oneCategoryProducts,
+    getProductWithMarketId,
+    marketProductLoader,
+    marketProductsCount,
+    marketProductsData  
   }
 })
