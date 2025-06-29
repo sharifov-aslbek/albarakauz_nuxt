@@ -1,4 +1,6 @@
-<script setup lang="ts">
+<script setup>
+import { ref } from 'vue'
+import { useRoute , useRouter } from 'vue-router'
 // const items = [
 //   'https://picsum.photos/468/468?random=1',
 //   'https://picsum.photos/468/468?random=2',
@@ -8,7 +10,8 @@
 //   'https://picsum.photos/468/468?random=6'
 // ]
 
-
+const route = useRoute();
+const router = useRouter();
 
 const marketplaces = [
     {
@@ -47,6 +50,12 @@ const marketplaces = [
           imgClass: 'rounded-lg'
         }
 ]
+
+const navigateMarket = (id) => {
+  
+  router.push(`market/${id}`)
+}
+
 </script>
 
 
@@ -56,6 +65,7 @@ const marketplaces = [
         <h2 class="text-3xl font-medium my-6">Markets</h2>
         <UCarousel v-slot="{ item }" :items="marketplaces" :ui="{ item: 'basis-1/3' }">
           <div 
+          @click="navigateMarket(item.id)"
           :class="item.bgClass"
           class="cursor-pointer rounded-2xl p-8 flex items-center justify-center h-[160px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
         >
