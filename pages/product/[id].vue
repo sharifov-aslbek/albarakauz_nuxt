@@ -20,15 +20,79 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from '#imports'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { useProductSeoStore } from '@/stores/productSeo'
 import { useHead } from '#imports'
+import { watch } from 'vue'
+
+// SimilarProductRelation interfeys
+interface SimilarProductRelation {
+  productId1: number
+  productId2: number
+  product1: any | null
+  product2: any | null
+  id: number
+  createdOn: string
+  updatedOn: string | null
+  deletedOn: string | null
+  updatedById: number | null
+  deletedById: number | null
+  isDeleted: boolean
+}
 
 const route = useRoute()
 const seoStore = useProductSeoStore()
 
+watch(
+  () => route.params.id,
+  (newId) => {
+    if (newId !== undefined && newId !== null) {
+      const currentId = Number(newId)
+
+      const similarRelations: SimilarProductRelation[] = Array.isArray(seoStore.similarsId)
+        ? seoStore.similarsId
+        : []
+
+      if (similarRelations.length === 0) {
+        console.log('similarsId bo‘sh yoki undefined')
+        return
+      }
+
+      const relatedIds = similarRelations
+        .filter(item =>
+          item.productId1 === currentId || item.productId2 === currentId
+        )
+        .flatMap(item => {
+          const ids: number[] = []
+          if (item.productId1 !== currentId) {
+            ids.push(item.productId1)
+          }
+          if (item.productId2 !== currentId) {
+            ids.push(item.productId2)
+          }
+          return ids
+        })
+
+      const uniqueIds: number[] = [...new Set(relatedIds)]
+
+      uniqueIds.forEach((id) => {
+        seoStore.getOneProductSimilar(id)
+      })
+
+      console.log('Similar product ids:', uniqueIds)
+    }
+  },
+  { immediate: true }
+)
+
+
+
 // Mahsulotni yuklab olish
 await seoStore.getProductSeo(route.params.id as string)
+await seoStore.getProductSimilars(route.params.id as string)
+
+
 
 // Head ni yuklash
 useHead(() => {

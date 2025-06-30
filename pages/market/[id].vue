@@ -11,9 +11,9 @@
         </div>
 
 
-        <h2 class="text-3xl font-bold">Topilgan barcha mahsulotlar soni: {{ store.marketProductsCount }}</h2>
+        <h2 v-if="store.marketProductsData.length > 0 && store.marketProductsCount > 0" class="text-3xl font-bold">Topilgan barcha mahsulotlar soni: {{ store.marketProductsCount }}</h2>
 
-        <div class="grid grid-cols-5 gap-3 my-10">
+        <div v-if="store.marketProductsData.length > 0" class="grid grid-cols-5 gap-3 my-10">
             <Card :data="store.marketProductsData"  />
           </div>
           <div class="flex justify-end w-full">

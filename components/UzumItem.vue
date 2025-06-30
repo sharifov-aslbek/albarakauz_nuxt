@@ -1,7 +1,8 @@
 <template>
     <div class="container py-6">
+      <div class="flex justify-between items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
-          <div class="flex w-full h-[500px]">
+          <div class="flex gap-5 w-full h-[500px]">
             <div class="flex flex-col gap-1 justify-around pt-4 max-w-xs mx-auto">
               <div
                 v-for="(item, index) in store.product.productImages"
@@ -30,59 +31,19 @@
       class="rounded-lg object-cover w-[500px] h-[500px]"
     >
   </UCarousel>
-
-</div>
-
-              <!-- <div class="flex md:justify-center gap-4 w-full">
-           <div class="md:flex flex-col gap-5 h-[500px] hidden overflow-y-scroll">
-             <img
-               v-for="(image, index) in store.product.productImages"
-               :key="index"
-               class="w-14 cursor-pointer rounded-lg object-cover"
-               @click="goToSlide(index)"
-               :class="{
-                 'border border-blue-500': activeIndex === index,
-                 'border-gray-300': activeIndex !== index,
-               }"
-               :src="image.imageEntity.externalImagePath"
-               alt=""
-             />
-           </div>
-      
-           <el-carousel
-             ref="carouselRef"
-             class="w-[400px]"
-             height="500px"
-             arrow="always"
-             indicator-position="outside"
-             @change="handleChange"
-           >
-             <el-carousel-item
-               v-for="(image, index) in store.product.productImages"
-               :key="index"
-             >
-               <div class="relative">
-                 <img
-                   class="w-full h-[500px] object-cover rounded-lg"
-                   :src="image.imageEntity.externalImagePath"
-                   alt=""
-                 />
-               </div>
-             </el-carousel-item>
-           </el-carousel>
-         </div> -->
-       
+  
+  </div>
            <div class="flex w-full max-w-full flex-col items-start space-y-6">
-                               <div class="flex justify-between w-full gap-3 py-4">
+                               <div class="flex justify-between w-full gap-3 pb-4">
                            <h1 class="text-3xl mr-4 w-full max-w-[470px] font-bold">{{ store.product.name }}</h1>
                        </div>
-
-
+  
+  
                        <div class="text-2xl font-bold text-gray-900 mb-2">
                  {{ store.product.price.toLocaleString('uz-UZ') }} so'm
                </div>
-
-
+  
+  
                <div class="flex items-center gap-2 mt-4">
                  <!-- <CreditCard class="w-5 h-5" /> -->
                  <img class="w-10 rounded-lg" src="/assets/uzum-nasiya.png" alt="Error">
@@ -91,7 +52,7 @@
                  </span>
                  <span class="text-sm text-gray-500">({{ monthly }} oy)</span>
                </div>
-
+  
                <div class="bg-white p-6 rounded-lg shadow-sm border">
                  <h3 class="text-lg font-semibold mb-4">Sotuvchi</h3>
                  <div class="flex items-center justify-between">
@@ -109,19 +70,24 @@
                    </div>
                  </div>
                </div>
-
+  
                <UButton
         label="Do'konga o'tish  "
         icon="solar:shop-linear"
         :to="store.product.productUrl"
         target="_blank"
       />
-
-
+  
+  
            </div>  
             
         </div>
-        
+  
+          <div class="h-[510px] overflow-y-auto flex flex-col gap-5" >
+            <h3 class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+            <Card :data="store.similarProductData" />
+          </div>
+      </div>
 
           <h3 class="text-green-500 font-medium text-3xl my-5 border-b-2 w-[300px] border-b-green-400">Description:</h3>
            <div class="text-gray-700 leading-relaxed" v-html="store.product.description" />
@@ -130,11 +96,12 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { useProductSeoStore } from '@/stores/productSeo'
-import { ref, computed } from 'vue'
+import { ref, computed , watch , onMounted } from 'vue'
 
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
-
+const route = useRoute();
 
 // Product model o'zgaruvchilari
 const monthlyRepayment = computed(() => {
@@ -158,6 +125,11 @@ const sellersReviews = computed(() => {
 })
 
 
+
+// onMounted(() => {
+//   const id = route.params.id
+//   store.getProductSimilars(id)
+// })
 
 
 // Carousel slider parametrs

@@ -1,6 +1,7 @@
 <template>
   <!-- {{ store.productAll }} -->
   <!-- <Card :data="store.productAll" /> -->
+  <!-- <Login /> -->
    <Slider />
    <MarketSlider />
   <HomeCategoryProduct />
@@ -16,6 +17,7 @@ import Card from '@/components/Card.vue'
 import { useProductSeoStore }   from '@/stores/productSeo'
 import { onMounted } from 'vue'
 import MarketSlider from '~/components/MarketSlider.vue'
+import Login from '~/components/Modals/Login.vue'
 
 const store = useProductSeoStore();
 

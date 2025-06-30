@@ -47,7 +47,8 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const marketProductLoader: Ref<boolean> = ref(false)
   const marketProductsCount: Ref<number> = ref(0)
   const marketProductsData: Ref<Product[]> = ref([])
-  
+  const similarsId = ref<any>(null)
+  const similarProductData = ref<any[]>([])
   const locale: Ref<string> = ref('uz')
 
 
@@ -102,6 +103,41 @@ async function getProductWithMarketId(
         description.value = stripHtml(data.description || '')
         image.value =
           data.productImages?.[0]?.imageEntity?.externalImagePath || ''
+      } else {
+        console.warn('APIdan data yo‘q')
+      }
+    } catch (e) {
+      console.error('API error:', e)
+    }
+  }
+
+  // 1 ta apiga so'rov bajaruvchi 2ta function qlganm sababi bittasi product ma'lumotini 2-esa usha productni similarslarini oladi bta functionda qlmaganm sababi similarda bitta function 3-4marta iwlab productlar 3-4ta boliwi mumkn
+
+    const getOneProductSimilar = async (id: string | number) => {
+      similarProductData.value = []
+    try {
+      const res = await fetch(`https://albaraka.uz/api/uz/product/retrieve${id}`)
+      const json = await res.json()
+
+      if (json?.data) {
+        const data = json.data
+        similarProductData.value.push(data)
+      } else {
+        console.warn('APIdan data yo‘q')
+      }
+    } catch (e) {
+      console.error('API error:', e)
+    }
+  }
+
+    const getProductSimilars = async (id: string | number) => {
+    try {
+      const res = await fetch(`https://albaraka.uz/api/uz/product/retrieve-similars?id=${id}`)
+      const json = await res.json()
+
+      if (json?.data) {
+        const data = json.data
+        similarsId.value = data
       } else {
         console.warn('APIdan data yo‘q')
       }
@@ -230,6 +266,10 @@ const { data, error } = await useFetch<{ code: number, message: string, data: Pr
     getProductWithMarketId,
     marketProductLoader,
     marketProductsCount,
-    marketProductsData  
+    marketProductsData  ,
+    getProductSimilars,
+    similarsId,
+    getOneProductSimilar,
+    similarProductData,
   }
 })
