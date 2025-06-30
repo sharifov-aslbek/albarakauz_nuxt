@@ -1,5 +1,37 @@
 <template>
     <div class="container py-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <CategoryPath />
+        
+          <div 
+  v-if="
+    store.product.productModel &&
+    getParsedProductModel(store.product.productModel).Rating
+  " 
+  class="flex items-center gap-4 my-4"
+>
+  <n-rate
+    readonly 
+    :default-value="getParsedProductModel(store.product.productModel).Rating" 
+  />
+
+  <a target="_blank" :href="store.product.productUrl" class="text-gray-500 text-sm">
+    {{ getParsedProductModel(store.product.productModel).Rating }} - 
+    <span>({{ getParsedProductModel(store.product.productModel).ReviewsAmount }} sharh)</span> - 
+    <span>{{ getParsedProductModel(store.product.productModel).OrdersAmount }} marta sotilgan</span>
+  </a>
+</div>
+        </div>
+
+
+        <div class="flex gap-3">
+           <UButton icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Add to favorites</UButton>
+
+           <UButton icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
+        </div>
+      </div>
+
         <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
           <div class="flex w-full h-[500px]">
             <div class="flex flex-col gap-1 justify-around pt-4 max-w-xs mx-auto">
@@ -88,7 +120,7 @@
         <div
           v-if="store.product.marketResultmodel.name === 'Olcha' &&
           getParsedProductModel(store.product.productModel)?.main_features?.data"
-          class="space-y-2 w-full lg:w-[500px]"
+          class="space-y-2 w-full lg:w-[450px]"
         >
           <div
             v-for="feature in getParsedProductModel(store.product.productModel).main_features.data.slice(0 , 5)"
@@ -143,7 +175,27 @@
 
 
            </div>  
-            
+            <div class="h-[510px] w-[900px] overflow-y-auto flex flex-col gap-5" >
+            <h3 v-if="store.similarProductData" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+            <Card :data="store.similarProductData" />
+
+            <div   v-if="!store.similarProductData || Object.keys(store.similarProductData).length === 0"
+   class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-sm h-full py-6">
+        <div class="w-24 h-24 mb-6 text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Mahsulot topilmadi</h3>
+        <p class="text-gray-500 text-center max-w-sm">
+          Hozirda o'xshash mahsulotlar mavjud emas. Iltimos, keyinroq qayta tekshiring.
+        </p>
+        <button class="mt-6 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors">
+          Bosh sahifaga qaytish
+        </button>
+      </div>
+          </div>
+
         </div>
         
 
@@ -162,6 +214,8 @@
 <script setup lang="ts">
 import { useProductSeoStore } from '@/stores/productSeo'
 import { ref, computed } from 'vue'
+import CategoryPath from './CategoryPath.vue'
+import Card from './Card.vue'
 
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 

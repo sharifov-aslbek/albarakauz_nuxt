@@ -11,7 +11,6 @@ export const useCategoryStore = defineStore('categoryStore', () => {
   const image = ref('')
   const showCategory = ref(false)
 
- 
   const getAllCategory = async () => {
     try {
       const res = await fetch(`https://albaraka.uz/api/uz/category/all`)
@@ -32,7 +31,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     try {
       const res = await fetch(`https://albaraka.uz/api/uz/category/retrieve?id=${id}`)
       const json = await res.json()
-      
+
       if (json?.data) {
         const data = json.data
         onecategoryData.value = data
@@ -43,7 +42,6 @@ export const useCategoryStore = defineStore('categoryStore', () => {
       console.error('API error:', e)
     }
   }
-
 
   return {
     product,
@@ -56,4 +54,8 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     getOneCategory,
     onecategoryData
   }
+}, {
+    persist: {
+    pick: ['categoryData'],
+  },
 })

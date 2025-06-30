@@ -7,7 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({ 
   ssr: true,
-  modules: ['@nuxt/ui', '@pinia/nuxt' , "@bg-dev/nuxt-naiveui"],
+  modules: ['@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt', '@nuxt/ui' , "@bg-dev/nuxt-naiveui"],
       colorMode: {
       preference: 'light',
       fallback: 'light',

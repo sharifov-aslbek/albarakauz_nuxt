@@ -15,7 +15,7 @@
 
         <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
           <button @click="categoryStore.showCategory = !categoryStore.showCategory"
-        class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-lg bg-[#06D6A0]/10 transition-all duration-300 cursor-pointer hover:bg-[#06D6A0]/30">
+        class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-[#06D6A0]/10 transition-all duration-300 cursor-pointer hover:bg-[#06D6A0]/30">
   <div class="relative w-6 h-6">
     <!-- Folder Icon -->
     <UIcon name="bx:category-alt" :class="[
@@ -31,9 +31,12 @@
   <span class="text-[#06D6A0] hidden md:block font-medium">Katalog</span>
 </button>
 
-<UInput size="md" variant="outline" placeholder="Search..." class="w-full rounded-r-lg max-w-full" />
+
+<n-auto-complete v-model:value="search" :options="filteredOptions" @keydown.enter="navigateSearch"
+                placeholder="Tovar va kategoriyalarni qidiring ..." />
+
            <UButton icon="material-symbols:search" size="md"  variant="solid"
-  class="bg-[#06D6A0] text-white hover:bg-[#05c293] py-1.5 px-4 ml-4"></UButton>
+  class="bg-[#06D6A0] text-white rounded-xs hover:bg-[#05c293] py-1.5 px-4 ml-2"></UButton>
 
         </div>
 
@@ -45,7 +48,7 @@
                     <!-- Background circle with scale animation -->
                     <div
                       class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols-light:favorite" />
+                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols-light:favorite-outline" />
                   </div>
                 </div>
               </RouterLink>
@@ -57,7 +60,7 @@
                     <!-- Background circle with scale animation -->
                     <div
                       class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols:account-box" />
+                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="iconamoon:profile-thin" />
                   </div>  
                 </div>
               </RouterLink>
@@ -176,6 +179,7 @@
 
 
 <script setup>
+import { NAutoComplete } from '#components';
 import { useCategoryStore } from '@/stores/categoryStore'
 import { useRouter } from 'vue-router';
 
@@ -183,10 +187,55 @@ const categoryStore = useCategoryStore();
 const router = useRouter();
 // Category div parametrs
 const activeCategory = ref(1);
+const search = ref('')
+
+function searchCategories(categories, searchText) {
+  const result = []
+
+  for (const category of categories) {
+    if (
+      category.name &&
+      category.name.toLowerCase().includes(searchText.toLowerCase())
+    ) {
+      result.push({
+        label: category.name,
+        value: category.name
+      })
+    }
+
+    if (category.childCategories?.length) {
+      result.push(...searchCategories(category.childCategories, searchText))
+    }
+  }
+
+  return result
+}
+
+const filteredOptions = computed(() => {
+  if (!search.value) return []
+
+  const results = searchCategories(categoryStore.categoryData, search.value)
+
+  // search.value ni birinchi option sifatida qo‘shish
+  return [
+    {
+      label: search.value,
+      value: search.value
+    },
+    ...results
+  ]
+})
+
+// Navigates
 
 const navigateCategory = (id) => {
   categoryStore.showCategory = false;
   router.push(`/category/${id}`);
+}
+
+const navigateSearch = () => {
+  const encodedQuery = encodeURIComponent(search.value.trim());
+  router.push(`/search/${encodedQuery}`);
 }
 
 </script>
