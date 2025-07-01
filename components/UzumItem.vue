@@ -114,13 +114,13 @@
            </div>  
             
         </div>
-  
-          <div class="h-[510px] overflow-y-auto flex flex-col gap-5" >
-            <h3 v-if="store.similarProductData" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
-            <Card :data="store.similarProductData" />
+        
+          <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
+            <h3 v-if="store.similarProductData && store.similarProductData.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+            <Card  v-if="store.similarProductData && store.similarProductData.length > 0"  :data="store.similarProductData" />
 
-            <div   v-if="!store.similarProductData || Object.keys(store.similarProductData).length === 0"
-   class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-sm h-full py-6">
+            <div   v-if="!store.similarProductData || store.similarProductData?.length === 0"
+   class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-lg h-full py-6">
         <div class="w-24 h-24 mb-6 text-gray-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -137,14 +137,110 @@
           </div>
       </div>
 
-          <h3 class="text-green-500 font-medium text-3xl my-5 border-b-2 w-[300px] border-b-green-400">Description:</h3>
-           <div class="text-gray-700 leading-relaxed" v-html="store.product.description" />
+      <div class="max-w-4xl pt-2 bg-white">
+    <div class="flex items-center gap-3 mb-6">
+      <span class="text-3xl font-bold text-gray-900">{{ getParsedProductModel(store.product.productModel).ReviewsAmount }}</span>
+      <div class="flex items-center gap-1">
+        <svg v-for="star in 5" :key="star" class="w-5 h-5" :class="star <= 3 ? 'text-yellow-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      </div>
+      <span class="text-gray-500">{{ getParsedProductModel(store.product.productModel).ReviewsAmount }} sharh</span>
+    </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div
+  v-if="getParsedProductModel(store.product.productModel).TopFeedback &&
+        Object.values(getParsedProductModel(store.product.productModel).TopFeedback).some(v => v)"
+  class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm"
+>
+  <div class="flex items-start justify-between mb-3">
+    <div>
+      <h3 class="font-semibold text-gray-900">
+        {{ getParsedProductModel(store.product.productModel).TopFeedback.Customer }}
+      </h3>
+      <p class="text-sm text-gray-500">
+        {{ formatDate(getParsedProductModel(store.product.productModel).TopFeedback.Date) }}
+      </p>
+    </div>
+    <div class="flex items-center">
+       <UIcon name="material-symbols:kid-star" class=" text-yellow-400 fill-current mr-1 size-5" />
+      <span class="text-sm text-gray-600 ml-1">
+        {{ getParsedProductModel(store.product.productModel).TopFeedback.Rating }}.0
+      </span>
+    </div>
+  </div>
+  <p class="text-gray-700">
+    <span class="font-medium">Izoh:</span>
+    {{ getParsedProductModel(store.product.productModel).TopFeedback.Content }}
+  </p>
+</div>
+    </div>
+
+  </div>
+
+            <n-tabs type="line" animated>
+  <template #tabs="{ panes }">
+    <div class="flex w-full">
+      <div
+        v-for="pane in panes"
+        :key="pane.name"
+        class="flex-1 text-center border border-gray-300 py-2 cursor-pointer"
+        :class="{ 'bg-gray-200 font-bold': pane.name === store.activeTab }"
+        @click="store.activeTab = pane.name"
+      >
+        {{ pane.tab }}
+      </div>
+    </div>
+  </template>
+
+  <n-tab-pane name="oasis" tab="Описание">
+     <div
+    v-if="store.product.description"
+    class="gap-x-12 gap-y-2 max-w-full mt-6"
+  >
+    <!-- Chap ustun -->
+    <!-- <ul>
+      <li
+        v-for="(item, index) in getParsedProductModel(store.product.productModel)?.[locale]?.shortDescription"
+        :key="'left-' + index"
+        class="list-disc list-inside"
+      >
+        {{ item }}
+      </li>
+    </ul> -->
+
+               <div class="text-gray-700 leading-relaxed" v-html="store.product.description"></div>
+  </div>
+
+    <p
+      v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
+      class="w-full max-w-[900px] mt-12"
+      v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
+    ></p>
+  </n-tab-pane>
+
+  <n-tab-pane
+    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.composition"
+    name="sostav"
+    tab="Состав"
+  >
+    <p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].composition"></p>
+  </n-tab-pane>
+
+  <n-tab-pane
+    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.sizes"
+    name="the beatles"
+    tab="Размеры"
+  >
+    <p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].sizes"></p>
+  </n-tab-pane>
+</n-tabs>
     </div>
 </template>
 
 <script setup lang="ts">
-import { NRate } from '#components'
+import { NRate , NTab , NTabs , NTabPane } from '#components'
 import { useRoute } from 'vue-router'
 import { useProductSeoStore } from '@/stores/productSeo'
 import { ref, computed , watch , onMounted } from 'vue'
@@ -174,6 +270,16 @@ const sellersReviews = computed(() => {
   return parsedModel.value?.Seller?.Reviews ?? null
 })
 
+
+// Format data
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp)
+  return date.toLocaleDateString('uz-UZ', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  })
+}
 
 
 // onMounted(() => {
@@ -206,7 +312,7 @@ function select(index: number) {
 
 const breadcrumb = computed(() => {
   const categories = categoryStore.categoryData || []
-  const categoryModel = store.oneProductData?.categoryResultModel
+  const categoryModel = store.product?.categoryResultModel
 
   if (!categories.length || !categoryModel?.name) return []
 

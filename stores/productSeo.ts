@@ -37,6 +37,7 @@ interface RetrieveByMarketIdResponse {
 export const useProductSeoStore = defineStore('productSeo', () => {
   const product = ref<any>(null)
   const productLoader = ref(false)
+  const similarLoader = ref(false)
   const productAll = ref<any>(null)
   const productCategoryList = ref<any>([])
   const title = ref('')
@@ -115,6 +116,7 @@ async function getProductWithMarketId(
 
     const getOneProductSimilar = async (id: string | number) => {
       similarProductData.value = []
+      similarLoader.value = true
     try {
       const res = await fetch(`https://albaraka.uz/api/uz/product/retrieve${id}`)
       const json = await res.json()
@@ -127,6 +129,8 @@ async function getProductWithMarketId(
       }
     } catch (e) {
       console.error('API error:', e)
+    } finally {
+      similarLoader.value = false
     }
   }
 
@@ -220,24 +224,17 @@ const { data, error } = await useFetch<{ code: number, message: string, data: Pr
 
     try {
     
-      // mahsulotlarni fetch qilamiz
-const { data, error } = await useFetch<{ code: number, message: string, data: Product[] }>(
-  () => `https://albaraka.uz/api/${locale}/product/retrieve-by-categoryId?PageSize=100&id=${id}`,
-  { method: 'GET' }
-)
+
+      const res = await fetch(`https://albaraka.uz/api/${locale}/product/retrieve-by-categoryId?PageSize=10&id=${id}`)
 
 
-      console.log(data.value?.data , 'data one category');
-      
+      const json = await res.json()
 
-      if (error.value) {
-        throw new Error(error.value.message)
-      }
-
-      if (data.value?.data.length) {
-        oneCategoryProducts.value = data.value?.data
+      if (json?.data) {
+        const data = json.data
+        oneCategoryProducts.value = data
       } else {
-        console.warn(`Category id ${id} uchun mahsulot topilmadi.`)
+        console.warn('APIdan data yo‘q')
       }
     } catch (err) {
       console.error('API Error:', err)
@@ -271,5 +268,6 @@ const { data, error } = await useFetch<{ code: number, message: string, data: Pr
     similarsId,
     getOneProductSimilar,
     similarProductData,
+    similarLoader
   }
 })

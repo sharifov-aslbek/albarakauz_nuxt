@@ -10,6 +10,23 @@
     <TexnomartItem
       v-else-if="seoStore.product.marketResultmodel.url.includes('texnomart.uz')"
     />
+
+    <ProductSkeleton v-else />
+
+    <SimilarProducts :data="seoStore.oneCategoryProducts" />
+    <!-- <UCarousel v-slot="{ item }" :items="seoStore.oneCategoryProducts" :ui="{ item: 'basic-1/3' }">
+      <Card :data="seoStore.oneCategoryProducts" />
+    </UCarousel> -->
+
+    <!-- <div class="" v-for="category in seoStore.productCategoryList" :key="category.categoryInfo.id">
+    
+                <h2 class="text-2xl text-category cursor-pointer flex items-center gap-3">{{ category.categoryInfo.name }} <UIcon name="ic:outline-chevron-right" class="size-10 flex justify-center" />
+</h2>
+                <div class="grid grid-cols-5 gap-3">
+                  <Card :data="category.products" />
+                </div>
+               </div>   -->
+
   </template>
   <!-- <div v-if="seoStore.product">
     <h1 class="text-xl font-bold">{{ seoStore.title }}</h1>
@@ -25,6 +42,7 @@ import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { useProductSeoStore } from '@/stores/productSeo'
 import { useHead } from '#imports'
 import { watch } from 'vue'
+import ProductSkeleton from '~/components/Item/ProductSkeleton.vue'
 
 // SimilarProductRelation interfeys
 interface SimilarProductRelation {
@@ -92,6 +110,15 @@ watch(
 await seoStore.getProductSeo(route.params.id as string)
 await seoStore.getProductSimilars(route.params.id as string)
 
+watch(
+  () => seoStore.product,
+  (newVal) => {
+    if (newVal && newVal.categoryResultModel?.id) {
+      seoStore.getOneCategoryProducts(newVal.categoryResultModel.id as number, 'uz')
+    }
+  },
+  { immediate: true }
+)
 
 
 // Head ni yuklash

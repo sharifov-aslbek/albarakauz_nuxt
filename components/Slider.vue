@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <n-carousel class="rounded-lg" autoplay>
+    <n-carousel class="rounded-lg" autoplay show-arrow>
       <div @click="navigateItem(product.id)"
   v-for="(product, index) in filteredProducts"
   :key="product.id">

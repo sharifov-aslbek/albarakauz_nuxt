@@ -32,7 +32,7 @@
         </div>
       </div>
 
-        <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
+        <div class="flex flex-col md:flex-row pb-5 justify-between gap-5 w-full max-w-full mr-7 py-12">
           <div class="flex w-full h-[500px]">
             <div class="flex flex-col gap-1 justify-around pt-4 max-w-xs mx-auto">
               <div
@@ -104,7 +104,7 @@
            </el-carousel>
          </div> -->
        
-           <div class="flex w-full max-w-full flex-col items-start space-y-6">
+           <div class="flex w-full max-w-[450px] flex-col items-start space-y-6">
                                <div class="flex justify-between w-full gap-3 py-4">
                            <h1 class="text-3xl mr-4 w-full max-w-[470px] font-bold">{{ store.product.name }}</h1>
                        </div>
@@ -120,7 +120,7 @@
         <div
           v-if="store.product.marketResultmodel.name === 'Olcha' &&
           getParsedProductModel(store.product.productModel)?.main_features?.data"
-          class="space-y-2 w-full lg:w-[450px]"
+          class="space-y-2 w-full lg:w-[400px]"
         >
           <div
             v-for="feature in getParsedProductModel(store.product.productModel).main_features.data.slice(0 , 5)"
@@ -175,12 +175,12 @@
 
 
            </div>  
-            <div class="h-[510px] w-[900px] overflow-y-auto flex flex-col gap-5" >
+            <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
             <h3 v-if="store.similarProductData" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card :data="store.similarProductData" />
 
             <div   v-if="!store.similarProductData || Object.keys(store.similarProductData).length === 0"
-   class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-sm h-full py-6">
+   class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-lg h-full py-6">
         <div class="w-24 h-24 mb-6 text-gray-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
