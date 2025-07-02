@@ -3,7 +3,7 @@
   <!-- <Card :data="store.productAll" /> -->
   <!-- <Login /> -->
    <Slider />
-   <MarketSlider />
+   <MarketSlider /> 
   <HomeCategoryProduct />
   <!-- <NButton>Default</NButton> -->
 </template>
@@ -17,6 +17,8 @@ import Card from '@/components/Card.vue'
 import { useProductSeoStore }   from '@/stores/productSeo'
 import { onMounted } from 'vue'
 import MarketSlider from '~/components/MarketSlider.vue'
+import { Modals } from '#components'
+import Toast from '~/components/Toast.vue'
 
 const store = useProductSeoStore();
 

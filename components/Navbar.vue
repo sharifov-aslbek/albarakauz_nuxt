@@ -48,23 +48,12 @@
                     <!-- Background circle with scale animation -->
                     <div
                       class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols-light:favorite-outline" />
+                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols:favorite-outline" />
                   </div>
                 </div>
               </RouterLink>
-
-              <RouterLink to="/favorites" class="relative w-fit">
-                <div class="relative w-fit">
-                  <!-- Heart icon container -->
-                  <div class="group relative p-2 flex justify-center items-center cursor-pointer">
-                    <!-- Background circle with scale animation -->
-                    <div
-                      class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="iconamoon:profile-thin" />
-                  </div>  
-                </div>
-              </RouterLink>
-            
+              <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
+            <ModalsNmodal  v-else />
         </div>
       </div>
 
@@ -180,10 +169,12 @@
 
 <script setup>
 import { NAutoComplete } from '#components';
+import { useAuthStore } from "@/stores/auth"
 import { useCategoryStore } from '@/stores/categoryStore'
 import { useRouter } from 'vue-router';
 
 const categoryStore = useCategoryStore();
+const authStore = useAuthStore();
 const router = useRouter();
 // Category div parametrs
 const activeCategory = ref(1);
