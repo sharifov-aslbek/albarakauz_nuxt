@@ -48,7 +48,7 @@
                     <!-- Background circle with scale animation -->
                     <div
                       class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="material-symbols:favorite-outline" />
+                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="line-md:heart" />
                   </div>
                 </div>
               </RouterLink>

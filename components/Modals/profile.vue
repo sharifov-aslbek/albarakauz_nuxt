@@ -151,9 +151,9 @@ const password = ref('******')
 const showModal = ref(false)
 
 
-onMounted(() => {
-  store.getProfileData()
-})
+// onMounted(() => {
+//   store.getProfileData()
+// })
 
 watch(
   () => store.profileData,

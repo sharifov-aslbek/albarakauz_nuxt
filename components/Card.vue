@@ -5,7 +5,8 @@
   :key="product.id"
   class="bg-gray-100 relative card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
 >
-<UIcon class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
+<UIcon  v-if="isFavorite(product.id)"  @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 text-red-500 absolute right-2 z-50" name="material-symbols:favorite" />
+<UIcon v-else  @click.stop="addFavorites(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
   <!-- Rasm -->
   <div class="flex justify-center items-center aspect-square mb-4">
     <img
@@ -75,10 +76,129 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '#imports';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue'
+import { useToast } from '#imports'
+import successAudio from '@/assets/audio.mp3'
+import errorAudio from '@/assets/not-success.m4a'
+
 const props = defineProps<{
   data: Array<any>
 }>()
+
+
+const favoritesLoader = ref<number | false>(false)
+const toast = useToast()
+const store = useAuthStore()
+
+async function addFavorites(
+  favouritesId: number,
+  productId: number,
+  productName: string
+): Promise<void> {
+  try {
+    favoritesLoader.value = productId
+
+    const token = localStorage.getItem('accessToken')
+
+    const response = await fetch('https://albaraka.uz/api/favorites/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        favouritesId,
+        productId,
+      }),
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      store.getProfileData()
+        new Audio(successAudio).play();
+      toast.add({
+        title: 'Muvaffaqiyatli',
+        description: `${productName} sevimliga qo'shildi`,
+        icon: 'mynaui:check',
+      })
+
+      // store.getProfileData() // Agar kerak bo‘lsa, import qilib ishlat
+    } else {
+        new Audio(errorAudio).play();
+      toast.add({
+        title: 'Xatolik!',
+        description: data?.message || 'Xatolik yuz berdi.',
+        icon: 'mynaui:x-circle',
+      })
+    }
+  } catch (error: any) {
+    console.error(error)
+        new Audio(errorAudio).play();
+    toast.add({
+      title: 'Xatolik!',
+      description: error?.message || 'Internetni tekshiring.',
+      icon: 'mynaui:x-circle',
+    })
+  } finally {
+    favoritesLoader.value = false
+  }
+}
+
+
+async function deleteFavoritesHandler(
+  favouritesId: number,
+  productId: number,
+  productName: string
+): Promise<void> {
+  try {
+    favoritesLoader.value = productId
+
+    const token = localStorage.getItem('token')
+
+    const response = await fetch('https://albaraka.uz/api/favorites/remove', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        favouritesId,
+        productId,
+      }),
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      toast.add({
+        title: "O'chirildi",
+        description: `${productName} sevimlidan o'chirildi`,
+        icon: 'gravity-ui:xmark',
+      })
+
+      store.getProfileData()
+    } else {
+      toast.add({
+        title: 'Xatolik!',
+        description: data?.message || 'Nomaʼlum xatolik yuz berdi.',
+        icon: 'mynaui:x-circle',
+      })
+    }
+  } catch (error: any) {
+    console.error(error)
+    toast.add({
+      title: 'Xatolik!',
+      description: error?.message || 'So‘rov bajarilmadi. Internetni tekshiring.',
+      icon: 'mynaui:x-circle',
+    })
+  } finally {
+    favoritesLoader.value = false
+  }
+}
+
 
 const router = useRouter();
 /**
@@ -107,6 +227,15 @@ const getMarketLogo = (url: string): string => {
   if (url.includes('texnomart.uz')) return '/texnomart-text.png'
   return '/fallback.png'
 }
+
+const isFavorite = (productId: number): boolean => {
+  return (
+    store.profileData?.data?.favorites?.favoriteProducts?.some(
+      (item: { product: { id: number } }) => item.product.id === productId
+    ) ?? false
+  )
+} 
+
 </script>
 
 <style scoped>
