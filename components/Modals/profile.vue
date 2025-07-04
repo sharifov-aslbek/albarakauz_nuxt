@@ -141,7 +141,7 @@
 
 
 <script setup>
-import { NModal , NButton , NUpload } from '#components';
+// import { NModal , NButton , NUpload } from 'naive-ui';
 import { useAuthStore } from '#imports';
 import { ref , onMounted , watch } from 'vue';
 
