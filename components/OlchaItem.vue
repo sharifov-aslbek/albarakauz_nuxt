@@ -198,7 +198,7 @@
         </div>
         
 
-        <div class="flex items-center gap-12 justify-center">
+        <div class="flex gap-12 justify-center">
           <n-tabs type="line" animated>
                   <template #tabs="{ panes }">
                     <div class="flex w-full">
@@ -265,9 +265,10 @@
                    <div class="mb-7 w-full xl:w-[28%]">
       <div v-if="store.product.marketResultmodel.name == 'Olcha'" 
         :class="[
-          'flex flex-col justify-between border-gray-300 border gap-8 md:gap-14 rounded-lg py-6 md:py-10 px-4 md:px-10',
-          getParsedProductModel(store.product.productModel)?.description_ru ? 'w-full' : 'w-full'
+          'flex flex-col justify-between border-gray-300 border gap-8 md:gap-14 rounded-lg py-4 md:py-10 px-4 md:px-5'
         ]">
+                  <ItemOlchaMarketMap />
+
         <!-- <YandexMap
           v-if="lat !== null && lng !== null"
           :lat="lat"
@@ -310,12 +311,12 @@
 </h3>
 
 
+<!-- {{ getParsedProductModel(store.product.productModel).store.lng }} -->
 
         </h3>
       </div>
     </div>
   
-                  <!-- <ItemOlchaMarketMap /> -->
         </div>
 
         
