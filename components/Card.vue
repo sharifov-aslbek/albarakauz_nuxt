@@ -38,24 +38,31 @@
               {{ getParsedProductModel(product.productModel).Rating }}
             </div>
           </div>
-        <span
+        <n-tag
+        type='success'
           v-if="getParsedProductModel(product.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth && product.marketResultmodel?.url === 'https://uzum.uz'"
-          class="inline-block w-full text-center rounded-lg bg-green-100 text-green-800 py-1 text-sm font-medium"
         >
           {{
             getParsedProductModel(product.productModel).SkuList[0].ProductOptionDtos[0].PaymentPerMonth
           }} so'm / oy
-        </span>
+        </n-tag>
 
-        <span
+        <!-- <span
           v-else-if="getParsedProductModel(product.productModel)?.storeProducts?.[0]?.monthly_repayment && product.marketResultmodel?.url === 'https://olcha.uz'"
           class="inline-block w-full text-center rounded-lg bg-green-100 text-green-800 py-1 text-sm font-medium"
         >
           {{
             getParsedProductModel(product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
           }} so'm / 12 months
-        </span>
+        </span> -->
 
+        <n-tag 
+          v-else-if="getParsedProductModel(product.productModel)?.storeProducts?.[0]?.monthly_repayment && product.marketResultmodel?.url === 'https://olcha.uz'"
+        type="success">
+                    {{
+            getParsedProductModel(product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
+          }} so'm / 12 oy
+        </n-tag>
       </div>
     </div>
 
@@ -76,6 +83,7 @@
 </template>
 
 <script setup lang="ts">
+import { NTag } from '#components';
 import { useAuthStore } from '#imports';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue'

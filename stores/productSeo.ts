@@ -115,7 +115,6 @@ async function getProductWithMarketId(
   // 1 ta apiga so'rov bajaruvchi 2ta function qlganm sababi bittasi product ma'lumotini 2-esa usha productni similarslarini oladi bta functionda qlmaganm sababi similarda bitta function 3-4marta iwlab productlar 3-4ta boliwi mumkn
 
     const getOneProductSimilar = async (id: string | number) => {
-      similarProductData.value = []
       similarLoader.value = true
     try {
       const res = await fetch(`https://albaraka.uz/api/uz/product/retrieve${id}`)

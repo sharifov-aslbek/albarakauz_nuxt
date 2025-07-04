@@ -7,10 +7,11 @@
     <OlchaItem
       v-else-if="seoStore.product.marketResultmodel.url.includes('olcha.uz')"
     />
-    <TexnomartItem
-      v-else-if="seoStore.product.marketResultmodel.url.includes('texnomart.uz')"
-    />
 
+    <TexnomartItem
+    v-else-if="seoStore.product.marketResultmodel.url.includes('texnomart.uz')"
+    />
+    
     <ProductSkeleton v-else />
 
     <SimilarProducts :data="seoStore.oneCategoryProducts" />
@@ -41,7 +42,7 @@ import { onMounted } from '#imports'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { useProductSeoStore } from '@/stores/productSeo'
 import { useHead } from '#imports'
-import { watch } from 'vue'
+import { watch  } from 'vue'
 import ProductSkeleton from '~/components/Item/ProductSkeleton.vue'
 
 // SimilarProductRelation interfeys
@@ -62,53 +63,102 @@ interface SimilarProductRelation {
 const route = useRoute()
 const seoStore = useProductSeoStore()
 
-watch(
-  () => route.params.id,
-  (newId) => {
-    if (newId !== undefined && newId !== null) {
-      const currentId = Number(newId)
+// watch(
+//   () => route.params.id,
+//   (newId) => {
+//     if (newId !== undefined && newId !== null) {
+//       const currentId = Number(newId)
 
-      const similarRelations: SimilarProductRelation[] = Array.isArray(seoStore.similarsId)
-        ? seoStore.similarsId
-        : []
+//       const similarRelations: SimilarProductRelation[] = Array.isArray(seoStore.similarsId)
+//         ? seoStore.similarsId
+//         : []
 
-      if (similarRelations.length === 0) {
-        console.log('similarsId bo‘sh yoki undefined')
-        return
-      }
+//       if (similarRelations.length === 0) {
+//         console.log('similarsId bo‘sh yoki undefined')
+//         return
+//       }
 
-      const relatedIds = similarRelations
-        .filter(item =>
-          item.productId1 === currentId || item.productId2 === currentId
-        )
-        .flatMap(item => {
-          const ids: number[] = []
-          if (item.productId1 !== currentId) {
-            ids.push(item.productId1)
-          }
-          if (item.productId2 !== currentId) {
-            ids.push(item.productId2)
-          }
-          return ids
-        })
+//       const relatedIds = similarRelations
+//         .filter(item =>
+//           item.productId1 === currentId || item.productId2 === currentId
+//         )
+//         .flatMap(item => {
+//           const ids: number[] = []
+//           if (item.productId1 !== currentId) {
+//             ids.push(item.productId1)
+//           }
+//           if (item.productId2 !== currentId) {
+//             ids.push(item.productId2)
+//           }
+//           return ids
+//         })
 
-      const uniqueIds: number[] = [...new Set(relatedIds)]
+//       const uniqueIds: number[] = [...new Set(relatedIds)]
 
-      uniqueIds.forEach((id) => {
-        seoStore.getOneProductSimilar(id)
-      })
+//       uniqueIds.forEach((id) => {
+//         seoStore.getOneProductSimilar(id)
+//       })
 
-      console.log('Similar product ids:', uniqueIds)
-    }
-  },
-  { immediate: true }
-)
+//       console.log('Similar product ids:', uniqueIds)
+//     }
+//   },
+//   { immediate: true }
+// )
 
 
 
 // Mahsulotni yuklab olish
-await seoStore.getProductSeo(route.params.id as string)
-await seoStore.getProductSimilars(route.params.id as string)
+// await seoStore.getProductSeo(route.params.id as string)
+// await seoStore.getProductSimilars(route.params.id as string)
+
+const loadProductAndSimilars = async (id: string) => {
+  await seoStore.getProductSeo(id)
+  await seoStore.getProductSimilars(id)
+
+  const similarRelations = seoStore.similarsId || []
+  if (similarRelations.length === 0) {
+    console.log('similarsId bo‘sh yoki undefined')
+    return
+  }
+
+  const currentId = Number(id)
+
+  const relatedIds = similarRelations
+    .filter(item =>
+      item.productId1 === currentId || item.productId2 === currentId
+    )
+    .flatMap(item => {
+      const ids: number[] = []
+      if (item.productId1 !== currentId) ids.push(item.productId1)
+      if (item.productId2 !== currentId) ids.push(item.productId2)
+      return ids
+    })
+
+  const uniqueIds = [...new Set(relatedIds)]
+
+    seoStore.similarProductData = []
+
+
+  for (const relId of uniqueIds) {
+    await seoStore.getOneProductSimilar(relId)
+  }
+
+  console.log('Similar product ids:', uniqueIds)
+}
+
+onMounted(async () => {
+  await loadProductAndSimilars(route.params.id as string)
+})
+
+watch(
+  () => route.params.id,
+  async (newId) => {
+    if (newId != null) {
+      await loadProductAndSimilars(newId as string)
+    }
+  }
+)
+
 
 watch(
   () => seoStore.product,

@@ -28,7 +28,7 @@
         <div class="flex gap-3">
            <UButton icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Add to favorites</UButton>
 
-           <UButton icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
+           <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
         </div>
       </div>
 
@@ -159,7 +159,7 @@
 </div>
 
 
-                       <div class="text-2xl font-bold text-gray-900 mb-2">
+                       <div class="text-2xl font-bold text-gray-900 mb-6">
                  {{ store.product.price.toLocaleString('uz-UZ') }} so'm
                </div>
 
@@ -178,8 +178,7 @@
             <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
             <h3 v-if="store.similarProductData" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card :data="store.similarProductData" />
-
-            <div   v-if="!store.similarProductData || Object.keys(store.similarProductData).length === 0"
+            <div   v-if="!store.similarProductData"
    class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-lg h-full py-6">
         <div class="w-24 h-24 mb-6 text-gray-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -199,12 +198,125 @@
         </div>
         
 
-          <h3 class="text-green-500 font-medium text-3xl my-5 border-b-2 w-[300px] border-b-green-400">Description:</h3>
-           <p
-  v-if="getParsedProductModel(store.product.productModel)?.description_ru"
-  v-html="getParsedProductModel(store.product.productModel).description_ru"
-  class="text-sm md:text-base"
-></p>
+        <div class="flex items-center gap-12 justify-center">
+          <n-tabs type="line" animated>
+                  <template #tabs="{ panes }">
+                    <div class="flex w-full">
+                      <div
+                        v-for="pane in panes"
+                        :key="pane.name"
+                        class="flex-1 text-center border border-gray-300 py-2 cursor-pointer text-sm md:text-base"
+                        :class="{ 'bg-gray-200 font-bold': pane.name === store.activeTab }"
+                        @click="store.activeTab = pane.name"
+                      >
+                        {{ pane.tab }}
+                      </div>
+                    </div>
+                  </template>
+          
+                  <n-tab-pane name="oasis" tab="Описание">
+                    <p
+                      v-if="getParsedProductModel(store.product.productModel).description_ru"
+                      class="w-full max-w-full text-sm md:text-base"
+                      v-html="getParsedProductModel(store.product.productModel).description_ru"
+                    ></p>
+                  
+                    <p v-else class="w-full max-w-full text-sm md:text-base">
+                      {{ getParsedProductModel(store.product.productModel).description_uz }}
+                    </p>
+                    
+                    <div v-if="store.product.descriptionUz || store.product.descriptionRu" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 max-w-4xl mt-6">
+                      <p v-if="store.product.descriptionUz" class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
+                        {{ store.product.descriptionUz }}
+                      </p>
+                      <p v-else class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
+                        {{ store.product.descriptionRu }}
+                      </p>
+                    </div>
+          
+                    <!-- <p
+                      v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
+                      class="w-full max-w-[900px] mt-6 md:mt-12 text-sm md:text-base"
+                      v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
+                    ></p> -->
+                  </n-tab-pane>
+          
+                  <n-tab-pane
+                    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.main_features?.data"
+                    name="xarakteristika"
+                    tab="Характеристика"
+                  >
+                    <div
+                      v-for="feature in getParsedProductModel(store.product.productModel).features[getParsedProductModel(store.product.productModel).main_features.data[0].group_id].data"
+                      :key="feature.feature_name_uz"
+                      class="flex justify-between text-sm md:text-base text-gray-700 w-full gap-3"
+                    >
+                      <span class="text-gray-400 py-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+                        {{ feature.feature_name_ru }}
+                      </span>
+                      <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
+                      <span class="text-black whitespace-nowrap overflow-hidden max-w-full">
+                        {{ feature.feature_value_name_ru }}
+                      </span>
+                    </div>
+                  </n-tab-pane>
+                </n-tabs>
+
+                   <div class="mb-7 w-full xl:w-[28%]">
+      <div v-if="store.product.marketResultmodel.name == 'Olcha'" 
+        :class="[
+          'flex flex-col justify-between border-gray-300 border gap-8 md:gap-14 rounded-lg py-6 md:py-10 px-4 md:px-10',
+          getParsedProductModel(store.product.productModel)?.description_ru ? 'w-full' : 'w-full'
+        ]">
+        <!-- <YandexMap
+          v-if="lat !== null && lng !== null"
+          :lat="lat"
+          :lng="lng"
+          class="h-[200px] md:h-[250px]"
+        /> -->
+        
+        <h3 v-if="store.product.marketResultmodel.name === 'Olcha' &&
+          getParsedProductModel(store.product.productModel)?.store
+        ">
+          <span class="flex items-center font-bold text-lg gap-2 mb-2">
+            <UIcon class="size-8" name="material-symbols-light:home-work-rounded" />
+            {{ getParsedProductModel(store.product.productModel).store.name_ru }}
+          </span>
+          <p class="text-sm md:text-base">{{ getParsedProductModel(store.product.productModel).store.address_ru }}</p>
+  
+  
+          <h3 class="flex text-base md:text-lg font-semibold gap-2 mt-7 items-center">
+            <UIcon class="size-8" name="material-symbols:delivery-truck-bolt-outline-rounded" />
+            Стандартная доставка
+          </h3>
+          <p class="text-sm md:text-base">
+            {{ getParsedProductModel(store.product.productModel).store.delivery_info_ru }}
+          </p>
+  
+          <h3 class="flex text-base md:text-lg font-semibold gap-2 items-center mt-6 md:mt-10">
+            <UIcon class="size-8" name="ph:hand-coins-fill" />
+            Рассрочка от:
+          </h3>
+          <h3
+  v-if="
+    getParsedProductModel(store.product.productModel)?.storeProducts?.length > 0 &&
+    getParsedProductModel(store.product.productModel).storeProducts[0].monthly_repayment
+  "
+  class="text-brand-green text-lg md:text-lg mt-5 font-semibold"
+>
+  {{
+    getParsedProductModel(store.product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
+  }} so'm / 12 months
+</h3>
+
+
+
+        </h3>
+      </div>
+    </div>
+  
+                  <!-- <ItemOlchaMarketMap /> -->
+        </div>
 
         
 
@@ -212,18 +324,56 @@
 </template>
 
 <script setup lang="ts">
+import { NTabs , NTabPane } from '#components'
+import { useRoute } from 'vue-router'
 import { useProductSeoStore } from '@/stores/productSeo'
-import { ref, computed } from 'vue'
+import { ref, computed , watch } from 'vue'
 import CategoryPath from './CategoryPath.vue'
 import Card from './Card.vue'
+import successAudio from '@/assets/audio.mp3'
+import errorAudio from '@/assets/not-success.m4a'
 
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
+const toast = useToast();
+const route = useRoute();
+// const lng = ref(null)
+// const lat = ref(null)
 
+// watch(
+//   () => store.product,
+//   (newVal) => {
+//     const parsed = getParsedProductModel(newVal.productModel);
+//     if (parsed?.store?.lat && parsed?.store?.lng) {
+//       lat.value = parsed.store.lat;
+//       lng.value = parsed.store.lng;
+//     } else {
+//       lat.value = null;
+//       lng.value = null;
+//     }
+//   },
+//   { immediate: true, deep: true }
+// );
 
-// Product model o'zgaruvchilari
-// const monthlyRepayment = computed(() => {
-//   return parsedModel.value?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth ?? null
-// })
+const copyRoute = async () => {
+  try {
+    const fullUrl = window.location.origin + route.fullPath
+    await navigator.clipboard.writeText(fullUrl)
+        new Audio(successAudio).play();
+    toast.add({
+      title: 'Mahsulot muvaffaqiyatli copy qilindi',
+      color: 'success',
+      icon: 'lucide:copy'
+    })
+  } catch (error) {
+        new Audio(errorAudio).play();
+    toast.add({
+      title: 'Copy qilishda xatolik yuz berdi',
+      color: 'error',
+      icon: 'lucide:x-circle'
+    })
+    console.error('Copy failed:', error)
+  }
+}
 
 
 
