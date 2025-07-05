@@ -28,8 +28,27 @@ const limitedCategories = ref([])
 const remainingCount = ref(0)
 
 onMounted(async () => {
-  await categoryStore.getAllCategory()
+  const saved = localStorage.getItem('categoryStore')
+
+  if (!saved) {
+    console.log('LocalStorage-da yo‘q, API chaqirildi.')
+    await categoryStore.getAllCategory()
+  } else {
+    console.log('LocalStorage-dan o‘qildi, API chaqirilmadi.')
+
+    // LocalStorage’dan o‘qib store-ga yuklash
+    const parsed = JSON.parse(saved)
+
+    if (parsed?.categoryData) {
+      categoryStore.categoryData = parsed.categoryData
+    } else {
+      // LocalStorage bor, lekin categoryData yo‘q bo‘lsa API chaqir
+      console.log('categoryData yo‘q, API chaqirildi.')
+      await categoryStore.getAllCategory()
+    }
+  }
 })
+
 
 
 watch(

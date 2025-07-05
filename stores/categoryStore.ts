@@ -1,4 +1,4 @@
-// stores/productSeo.ts
+
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -55,7 +55,8 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     onecategoryData
   }
 }, {
-    persist: {
-    pick: ['categoryData'],
-  },
+  persist: {
+    storage: piniaPluginPersistedstate.localStorage(),
+    paths: ['categoryData']
+  }
 })

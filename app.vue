@@ -4,7 +4,7 @@
     <UApp>
 
       <NuxtPage />
-
+       <n-back-top :right="20" />
     </UApp>
     <Footer />
   <!-- </UApp> -->
@@ -25,6 +25,7 @@ useHead({
 const store = useAuthStore()
 const colorMode = useColorMode()
 colorMode.value = 'light'
+
 
 onMounted(() => {
   store.getProfileData();

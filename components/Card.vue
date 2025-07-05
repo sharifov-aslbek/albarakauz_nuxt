@@ -6,7 +6,7 @@
   class="bg-gray-100 relative card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
 >
 <UIcon  v-if="isFavorite(product.id)"  @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 text-red-500 absolute right-2 z-50" name="material-symbols:favorite" />
-<UIcon v-else  @click.stop="addFavorites(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
+<UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
   <!-- Rasm -->
   <div class="flex justify-center items-center aspect-square mb-4">
     <img
@@ -100,6 +100,26 @@ const favoritesLoader = ref<number | false>(false)
 const toast = useToast()
 const store = useAuthStore()
 
+function handleAddFavorites(product: Product) {
+  const accessToken = localStorage.getItem('accessToken') 
+  if (!accessToken) {
+    new Audio(errorAudio).play()
+    toast.add({
+      title: 'Diqqat!',
+      description: 'Avval login qilishingiz kerak.',
+      icon: 'mynaui:x-circle'
+    })
+    return
+  }
+
+  addFavorites(
+    store.profileData.data.favorites.id,
+    product.id,
+    product.name
+  )
+}
+
+
 async function addFavorites(
   favouritesId: number,
   productId: number,
@@ -108,7 +128,20 @@ async function addFavorites(
   try {
     favoritesLoader.value = productId
 
+    // Tokenni localStorage’dan olamiz
     const token = localStorage.getItem('accessToken')
+
+    // Agar token bo‘lmasa, foydalanuvchiga xabar beramiz
+    if (!token) {
+      new Audio(errorAudio).play()
+      toast.add({
+        title: 'Diqqat!',
+        description: 'Avval login qilishingiz kerak.',
+        icon: 'mynaui:x-circle',
+      })
+      favoritesLoader.value = false
+      return
+    }
 
     const response = await fetch('https://albaraka.uz/api/favorites/add', {
       method: 'POST',
@@ -126,16 +159,14 @@ async function addFavorites(
 
     if (response.ok) {
       store.getProfileData()
-        new Audio(successAudio).play();
+      new Audio(successAudio).play()
       toast.add({
         title: 'Muvaffaqiyatli',
         description: `${productName} sevimliga qo'shildi`,
         icon: 'mynaui:check',
       })
-
-      // store.getProfileData() // Agar kerak bo‘lsa, import qilib ishlat
     } else {
-        new Audio(errorAudio).play();
+      new Audio(errorAudio).play()
       toast.add({
         title: 'Xatolik!',
         description: data?.message || 'Xatolik yuz berdi.',
@@ -144,7 +175,7 @@ async function addFavorites(
     }
   } catch (error: any) {
     console.error(error)
-        new Audio(errorAudio).play();
+    new Audio(errorAudio).play()
     toast.add({
       title: 'Xatolik!',
       description: error?.message || 'Internetni tekshiring.',
@@ -154,6 +185,7 @@ async function addFavorites(
     favoritesLoader.value = false
   }
 }
+
 
 
 async function deleteFavoritesHandler(

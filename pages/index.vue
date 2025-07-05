@@ -23,6 +23,11 @@ import Toast from '~/components/Toast.vue'
 const store = useProductSeoStore();
 
 onMounted(() => {
-  store.getAllProducts();
+  // localStorage da borligini tekshir
+  if (!localStorage.getItem('productSeo')) {
+    store.getAllProducts()
+  } else {
+    console.log('localStorage-dan productAll ishlatilmoqda')
+  }
 })
 </script>
