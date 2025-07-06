@@ -22,6 +22,9 @@
 <script setup>
 import { useProductSeoStore } from '#imports';
 
+definePageMeta({
+  ssr: false
+})
 
 const store = useProductSeoStore()
 

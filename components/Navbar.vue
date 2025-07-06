@@ -54,6 +54,7 @@
               </RouterLink>
               <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
             <ModalsNmodal  v-else />
+            <LanguageSwitcher />
         </div>
       </div>
 

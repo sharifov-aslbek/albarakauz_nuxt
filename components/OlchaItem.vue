@@ -334,6 +334,10 @@ import Card from './Card.vue'
 import successAudio from '@/assets/audio.mp3'
 import errorAudio from '@/assets/not-success.m4a'
 
+definePageMeta({
+  ssr: false
+})
+
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 const toast = useToast();
 const route = useRoute();

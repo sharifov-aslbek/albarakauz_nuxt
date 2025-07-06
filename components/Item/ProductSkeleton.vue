@@ -98,6 +98,11 @@
 </template>
 
 <script setup>
+
+definePageMeta({
+  ssr: false
+})
+
 import { ref, onMounted } from 'vue'
 
 const isLoading = ref(true)

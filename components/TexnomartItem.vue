@@ -279,6 +279,9 @@ const authStore = useAuthStore();
 //   return parsedModel.value?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth ?? null
 // })
 
+definePageMeta({
+  ssr: false
+})
 
 
 

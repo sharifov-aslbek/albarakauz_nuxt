@@ -22,6 +22,10 @@ import Toast from '~/components/Toast.vue'
 
 const store = useProductSeoStore();
 
+definePageMeta({
+  ssr: false
+})
+
 onMounted(() => {
   // localStorage da borligini tekshir
   if (!localStorage.getItem('productSeo')) {

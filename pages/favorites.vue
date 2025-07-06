@@ -116,6 +116,9 @@ const favoriteProducts = computed(() =>
 )
 
 
+definePageMeta({
+  ssr: false
+})
 
 async function addFavorites(
   favouritesId: number,

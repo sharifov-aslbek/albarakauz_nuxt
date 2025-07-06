@@ -140,6 +140,10 @@ const loader = ref(false);
 const showPassword = ref(false);
 const errorMessage = ref(null);
 
+definePageMeta({
+  ssr: false
+})
+
 const toast = useToast();
 const authStore = useAuthStore();
 

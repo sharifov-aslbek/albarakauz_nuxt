@@ -124,6 +124,10 @@ const password = ref('')
 const showPassword = ref(false)
 const loading = ref(false)
 
+definePageMeta({
+  ssr: false
+})
+
 const handleSubmit = () => {
   loading.value = true
 

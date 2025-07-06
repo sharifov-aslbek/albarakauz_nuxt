@@ -27,7 +27,7 @@
 
         <div class="flex gap-3">
            <UButton v-if="isFavorite(store.product.id)"  @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
-           <UButton  v-else  @click.stop="addFavorites(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Add to favorites</UButton>
+           <UButton  v-else  @click.stop="handleAddFavorites(product)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Add to favorites</UButton>
 
            <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
         </div>
@@ -255,6 +255,10 @@ const route = useRoute();
 const toast = useToast();
 const authStore = useAuthStore();
 
+definePageMeta({
+  ssr: false
+})
+
 
 // Product model o'zgaruvchilari
 const monthlyRepayment = computed(() => {
@@ -276,6 +280,25 @@ const sellersRating = computed(() => {
 const sellersReviews = computed(() => {
   return parsedModel.value?.Seller?.Reviews ?? null
 })
+
+function handleAddFavorites(product: Product) {
+  const accessToken = localStorage.getItem('accessToken') 
+  if (!accessToken) {
+    new Audio(errorAudio).play()
+    toast.add({
+      title: 'Diqqat!',
+      description: 'Avval login qilishingiz kerak.',
+      icon: 'mynaui:x-circle'
+    })
+    return
+  }
+
+  addFavorites(
+    authStore.profileData.data.favorites.id,
+    product.id,
+    product.name
+  )
+}
 
 
 // Format data

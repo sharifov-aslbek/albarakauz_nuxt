@@ -1,8 +1,10 @@
-
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export const useCategoryStore = defineStore('categoryStore', () => {
+  const { locale } = useI18n()
+
   const product = ref<any>(null)
   const categoryData = ref<any>(null)
   const onecategoryData = ref<any>(null)
@@ -13,12 +15,15 @@ export const useCategoryStore = defineStore('categoryStore', () => {
 
   const getAllCategory = async () => {
     try {
-      const res = await fetch(`https://albaraka.uz/api/uz/category/all`)
+      const res = await fetch(`https://albaraka.uz/api/${locale.value}/category/all`)
       const json = await res.json()
 
+
+      console.log('locale.value', locale.value);
+      
+
       if (json?.data) {
-        const data = json.data
-        categoryData.value = data
+        categoryData.value = json.data
       } else {
         console.warn('APIdan data yo‘q')
       }
@@ -27,14 +32,13 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     }
   }
 
-  const getOneCategory = async (id: Number) => {
+  const getOneCategory = async (id: number) => {
     try {
-      const res = await fetch(`https://albaraka.uz/api/uz/category/retrieve?id=${id}`)
+      const res = await fetch(`https://albaraka.uz/api/${locale.value}/category/retrieve?id=${id}`)
       const json = await res.json()
 
       if (json?.data) {
-        const data = json.data
-        onecategoryData.value = data
+        onecategoryData.value = json.data
       } else {
         console.warn('APIdan data yo‘q')
       }

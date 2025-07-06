@@ -40,6 +40,10 @@ const route = useRoute()
 const store = useProductSeoStore();
 const page = ref(1)
 
+definePageMeta({
+  ssr: false
+})
+
 const pageCount = computed(() => {
   const count = Math.ceil(store.marketProductsCount / 20)
   return count < 1 ? 1 : count

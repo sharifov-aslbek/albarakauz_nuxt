@@ -1,5 +1,9 @@
 <template>
     <div class="container" v-if="store.oneCategoryProducts">
+      <h3 class="text-2xl font-bold">{{ categoryStore.onecategoryData.name }}</h3>
+      <p class="text-lg font-bold mt-4 mb-10">{{ store.oneCategoryProducts.length }} ta mahsulot topildi.</p>
+      <CategoryPath />
+      <CategoryTagSlide />
         <div class="grid grid-cols-5 gap-4 justify-between">
             <Card :data="store.oneCategoryProducts" />
         </div>

@@ -150,6 +150,10 @@ const data = ref(null)
 const password = ref('******')
 const showModal = ref(false)
 
+definePageMeta({
+  ssr: false
+})
+
 
 // onMounted(() => {
 //   store.getProfileData()

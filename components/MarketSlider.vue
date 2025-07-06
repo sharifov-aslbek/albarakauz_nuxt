@@ -63,7 +63,7 @@ const navigateMarket = (id) => {
 <template>
     <div class="container">
         <h2 class="text-3xl font-medium my-6">Markets</h2>
-        <UCarousel v-slot="{ item }" :items="marketplaces" :ui="{ item: 'basis-1/3' }">
+        <UCarousel arrows v-slot="{ item }" :items="marketplaces" :ui="{ item: 'basis-1/3' }">
           <div 
           @click="navigateMarket(item.id)"
           :class="item.bgClass"

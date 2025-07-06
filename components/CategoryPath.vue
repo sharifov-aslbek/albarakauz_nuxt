@@ -19,15 +19,37 @@
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router';
 import { onMounted } from '#imports';
 import { useCategoryStore } from '#imports';
 import { useProductSeoStore } from '#imports';
 const categoryStore = useCategoryStore()
 const store = useProductSeoStore()
+const route = useRoute()
+
+import { computed } from 'vue'
+
+definePageMeta({
+  ssr: false
+})
+
 
 const breadcrumb = computed(() => {
   const categories = categoryStore.categoryData || []
-  const categoryModel = store.product?.categoryResultModel
+
+  // pathni tekshir
+  let categoryModel
+
+  if (route.path.startsWith('/category/')) {
+    // category page uchun
+    categoryModel = categoryStore.onecategoryData
+  } else if (route.path.startsWith('/product/')) {
+    // product page uchun
+    categoryModel = store.product?.categoryResultModel
+  } else {
+    // fallback (boshqa sahifalar)
+    categoryModel = null
+  }
 
   if (!categories.length || !categoryModel?.name) return []
 
@@ -40,24 +62,25 @@ const breadcrumb = computed(() => {
   }
 })
 
-  function findCategoryPath(categories, targetName, path = []) {
-  if (!Array.isArray(categories)) return []; // ❗ himoya: agar categories undefined bo‘lsa, bo‘sh array qaytaradi
+function findCategoryPath(categories, targetName, path = []) {
+  if (!Array.isArray(categories)) return []
 
   for (const category of categories) {
-    const newPath = [...path, { id: category.id, name: category.name }];
+    const newPath = [...path, { id: category.id, name: category.name }]
 
     if (category.name === targetName) {
-      return newPath;
+      return newPath
     }
 
     if (Array.isArray(category.childCategories) && category.childCategories.length) {
-      const found = findCategoryPath(category.childCategories, targetName, newPath);
-      if (found.length) return found;
+      const found = findCategoryPath(category.childCategories, targetName, newPath)
+      if (found.length) return found
     }
   }
 
-  return [];
+  return []
 }
+
 
 
 </script>

@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     "@bg-dev/nuxt-naiveui",
     '@nuxtjs/leaflet',
+    '@nuxtjs/i18n'
   ],
       colorMode: {
       preference: 'light',
@@ -20,6 +21,15 @@ export default defineNuxtConfig({
       classSuffix: '',
       storageKey: 'color-mode' // bu default key, o‘zgartirish shart emas
     },
+    i18n: {
+    locales: [
+      { code: 'uz', name: 'Oʻzbekcha', file: 'uz.js' },
+      { code: 'ru', name: 'Русский', file: 'ru.js' }
+    ],
+    defaultLocale: 'uz',
+    lazy: true,
+    langDir: 'locales/'
+  },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
