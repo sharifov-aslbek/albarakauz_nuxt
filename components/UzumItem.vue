@@ -36,17 +36,26 @@
       <div class="flex justify-between items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
           <div class="flex gap-5 w-full h-[500px]">
-            <div class="flex flex-col gap-1 justify-around pt-4 max-w-xs mx-auto">
-              <div
-                v-for="(item, index) in store.product.productImages"
-                :key="index"
-                class="size-11 opacity-40 hover:opacity-100 transition-opacity"
-                :class="{ 'opacity-100': activeIndex === index }"
-                @click="select(index)"
-              >
-                <img :src="item.imageEntity.externalImagePath" width="100" height="100" class="rounded-lg">
-              </div>
-            </div>
+             <n-scrollbar
+    style="max-height: 500px; width: 80px;"
+  >
+    <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
+      <div
+        v-for="(item, index) in store.product.productImages"
+        :key="index"
+        class="size-11 opacity-40 hover:opacity-100 transition-opacity"
+        :class="{ 'opacity-100': activeIndex === index }"
+        @click="select(index)"
+      >
+        <img
+          :src="item.imageEntity.externalImagePath"
+          width="100"
+          height="100"
+          class="rounded-lg"
+        >
+      </div>
+    </div>
+  </n-scrollbar>
   <UCarousel
     ref="carousel"
     v-slot="{ item }"

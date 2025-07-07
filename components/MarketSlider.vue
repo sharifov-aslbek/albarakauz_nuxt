@@ -63,23 +63,29 @@ const navigateMarket = (id) => {
 <template>
     <div class="container">
         <h2 class="text-3xl font-medium my-6">Markets</h2>
-        <UCarousel arrows v-slot="{ item }" :items="marketplaces" :ui="{ item: 'basis-1/3' }">
-          <div 
-          @click="navigateMarket(item.id)"
-          :class="item.bgClass"
-          class="cursor-pointer rounded-2xl p-8 flex items-center justify-center h-[160px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-        >
-          <div class="text-white text-center flex flex-col justify-center items-center">
-            <img 
-              :class="item.imgClass"
-              :src="item.icon" 
-              :alt="item.name"
-              class="w-16 my-4"
-            >
-            <h3 class="text-xl font-bold">{{ item.name }}</h3>
-          </div>
-        </div>
-        </UCarousel>
+        <UCarousel
+  arrows
+  v-slot="{ item }"
+  :items="marketplaces"
+  :ui="{ item: 'basis-full sm:basis-1/2 md:basis-1/3' }"
+>
+  <div 
+    @click="navigateMarket(item.id)"
+    :class="item.bgClass"
+    class="cursor-pointer rounded-2xl p-8 flex items-center justify-center h-[160px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+  >
+    <div class="text-white text-center flex flex-col justify-center items-center">
+      <img 
+        :class="item.imgClass"
+        :src="item.icon" 
+        :alt="item.name"
+        class="w-16 my-4"
+      >
+      <h3 class="text-xl font-bold">{{ item.name }}</h3>
+    </div>
+  </div>
+</UCarousel>
+
     </div>
     <br>
 </template>

@@ -141,7 +141,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
       }
 
       const { data, error } = await useFetch<{ code: number; message: string; data: Product[] }>(
-        () => `${API_HOST_DEFAULT}/${locale.value}/product/retrieve-by-categoryId?PageSize=5&id=${id}`,
+        () => `${API_HOST_DEFAULT}/uz/product/retrieve-by-categoryId?PageSize=5&id=${id}`,
         { method: 'GET' }
       )
 
@@ -160,6 +160,10 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     } finally {
       productLoader.value = false
     }
+  }
+
+  function resetProductCategoryList() {
+    productCategoryList.value = []
   }
 
   async function getOneCategoryProducts(id: number) {
@@ -204,13 +208,14 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     getProductSimilars,
     similarsId,
     getOneProductSimilar,
-    similarProductData
+    similarProductData,
+    resetProductCategoryList
   }
 }, {
-  persist: process.client
-    ? {
-        storage: piniaPluginPersistedstate.localStorage(),
-        paths: ['productAll']
-      }
-    : false
+  // persist: process.client
+  //   ? {
+  //       storage: piniaPluginPersistedstate.localStorage(),
+  //       paths: ['productAll']
+  //     }
+  //   : false
 })

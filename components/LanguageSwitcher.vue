@@ -1,52 +1,59 @@
 <template>
-  <div class="flex justify-end p-4">
-    <n-dropdown
-      :options="locales"
-      trigger="click"
-      @select="changeLocale"
-    >
-      <n-button>
-        🌐 {{ currentLabel }}
-      </n-button>
-    </n-dropdown>
-  </div>
+  <n-dropdown
+    trigger="hover"
+    :options="options"
+    @select="handleSelect"
+  >
+    <n-button>{{ currentLanguageName }}</n-button>
+  </n-dropdown>
 </template>
 
-<script setup>
+<script>
+import { defineComponent, ref, computed } from 'vue'
+import { NDropdown, NButton } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { useProductSeoStore } from '#imports'
-import { useCategoryStore } from '~/stores/categoryStore'
-import { computed, onMounted } from 'vue'
 
-const { locale, setLocale } = useI18n()
-const categoryStore = useCategoryStore()
-const productSeoStore = useProductSeoStore()
+export default defineComponent({
+  components: {
+    NDropdown,
+    NButton
+  },
+  setup() {
+    const { locale } = useI18n()
+    
+    // Get the initial locale from localStorage or use default
+    const savedLocale = process.client ? localStorage.getItem('locale') : null
+    if (savedLocale) {
+      locale.value = savedLocale
+    }
 
-// Til variantlari
-const locales = [
-  { label: '🇺🇿 Oʻzbekcha', key: 'uz' },
-  { label: '🇷🇺 Русский', key: 'ru' }
-]
+    const options = ref([
+      {
+        label: 'Oʻzbekcha',
+        key: 'uz'
+      },
+      {
+        label: 'Русский',
+        key: 'ru'
+      }
+    ])
 
-// Hozirgi til labelini olish
-const currentLabel = computed(() => {
-  return locales.find(l => l.key === locale.value)?.label || 'Til'
-})
+    const currentLanguageName = computed(() => {
+      return locale.value === 'uz' ? 'Oʻzbekcha' : 'Русский'
+    })
 
-// Tilni o‘zgartirish + localStorage + sahifani qayta yuklash
-function changeLocale(lang) {
-  localStorage.setItem('selectedLang', lang)
-  setLocale(lang)
-  categoryStore.categoryData = null;
-  categoryStore.getAllCategory()
-}
+    const handleSelect = (key) => {
+      locale.value = key
+      if (process.client) {
+        localStorage.setItem('locale', key)
+      }
+    }
 
-// Sahifa ochilganda localStorage dan tilni o‘qib qo‘llash
-onMounted(() => {
-  const savedLang = localStorage.getItem('selectedLang')
-  if (savedLang && savedLang !== locale.value) {
-    setLocale(savedLang)
+    return {
+      options,
+      currentLanguageName,
+      handleSelect
+    }
   }
 })
 </script>
-

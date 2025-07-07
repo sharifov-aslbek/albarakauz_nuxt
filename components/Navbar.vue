@@ -54,7 +54,7 @@
               </RouterLink>
               <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
             <ModalsNmodal  v-else />
-            <LanguageSwitcher />
+            <!-- <LanguageSwitcher /> -->
         </div>
       </div>
 
@@ -180,6 +180,12 @@ const router = useRouter();
 // Category div parametrs
 const activeCategory = ref(1);
 const search = ref('')
+
+definePageMeta({
+  ssr: false
+})
+
+
 
 function searchCategories(categories, searchText) {
   const result = []

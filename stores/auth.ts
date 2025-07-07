@@ -3,7 +3,11 @@ import { ref } from 'vue'
 
 export const useAuthStore = defineStore('authStore', () => {
   const profileData = ref(null)
-
+  const registerModal = ref(false)
+  const verifyEmailModal = ref(false)
+  const changePasswordModal = ref(false)
+  const resetPasswordModal = ref(false)
+  const currentStep = ref(1)
   const getProfileData = async () => {
     try {
       const token = localStorage.getItem('accessToken')
@@ -31,6 +35,11 @@ export const useAuthStore = defineStore('authStore', () => {
 
   return {
     profileData,
-    getProfileData
+    getProfileData,
+    registerModal,
+    verifyEmailModal,
+    changePasswordModal,
+    resetPasswordModal,
+    currentStep
   }
 })

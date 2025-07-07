@@ -15,9 +15,10 @@
         />
       </h2>
 
-      <div class="grid grid-cols-5 gap-3">
-        <Card :data="category.products" />
-      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+  <Card :data="category.products" />
+</div>
+
     </div>
   </div>
 </template>
@@ -33,6 +34,10 @@ const router = useRouter()
 const { locale } = useI18n()
 const productStore = useProductSeoStore()
 const categoryStore = useCategoryStore()
+definePageMeta({
+  ssr: false
+})
+
 
 // Local states
 const limitedCategories = ref([])
@@ -64,12 +69,21 @@ const navigateCategory = (id: number) => {
 }
 
 // categoryData va locale.value kuzatish
-watch(
-  [() => categoryStore.categoryData, () => locale.value],
-  ([categoryData, loc]) => {
-    if (!Array.isArray(categoryData) || categoryData.length === 0) return
+// locale almashsa category reload qilish
+// watch(
+//   () => locale.value,
+//   (newLocale) => {
+//     console.log('Locale o‘zgardi:', newLocale)
+//     productStore.resetProductCategoryList()
+//     categoryStore.getAllCategory()
+//   }
+// )
 
-    productStore.productCategoryList = []
+// categoryData update bo‘lsa, mahsulotlarni chaqirish
+watch(
+  () => categoryStore.categoryData,
+  (categoryData) => {
+    if (!Array.isArray(categoryData) || categoryData.length === 0) return
 
     limitedCategories.value = categoryData.slice(0, 10)
     remainingCount.value = categoryData.length - 10
@@ -77,21 +91,18 @@ watch(
     const usedChildIds = new Set<number>()
 
     limitedCategories.value.forEach(category => {
-      const childId = category.childCategories?.[2]?.id
-      if (
-        childId &&
-        !usedChildIds.has(childId) &&
-        !productStore.productCategoryList.some(
-          (item) => item.categoryInfo?.id === childId
-        )
-      ) {
+      const childId = category.childCategories?.[3]?.id
+      if (childId && !usedChildIds.has(childId)) {
         usedChildIds.add(childId)
-        productStore.getCategoryIdProduct(childId, loc)
+        console.log('child idss', childId)
+        productStore.getCategoryIdProduct(childId)
       }
     })
   },
   { immediate: true }
 )
+
+
 </script>
 
 <style scoped>

@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     "@bg-dev/nuxt-naiveui",
     '@nuxtjs/leaflet',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxt/image',
   ],
       colorMode: {
       preference: 'light',
@@ -30,6 +31,9 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: 'locales/'
   },
+   plugins: [
+    '~/plugins/i18n.js'
+  ],
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],

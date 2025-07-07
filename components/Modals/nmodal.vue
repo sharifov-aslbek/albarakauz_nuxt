@@ -114,19 +114,22 @@
 
               <p class="flex items-center gap-3 mt-8 text-center text-gray-500">
                 Don't have an account?
-                <h3 class="cursor-pointer text-brand-green hover:text-brand-green/70">Signup</h3>
+                <h3 @click="authStore.registerModal = !authStore.registerModal" class="cursor-pointer text-brand-green hover:text-brand-green/70">Signup</h3>
               </p>
             </div>
           </div>
 
         </div>
       </n-modal>
+
+      <register />
     </client-only>
   </div>
 </template>
 
 
 <script setup>
+import register from "./register.vue";
 import { ref } from "vue";
 import { useToast } from "#imports";
 import { useAuthStore } from "#imports";

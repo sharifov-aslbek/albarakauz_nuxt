@@ -59,8 +59,8 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     onecategoryData
   }
 }, {
-  persist: {
-    storage: piniaPluginPersistedstate.localStorage(),
-    paths: ['categoryData']
-  }
+  // persist: {
+  //   storage: piniaPluginPersistedstate.localStorage(),
+  //   paths: ['categoryData']
+  // }
 })
