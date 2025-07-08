@@ -1,9 +1,7 @@
 <template>
-  <div v-if="productStore.productCategoryList.length < 1" class="container">
+  <!-- <div v-if="productStore.productCategoryList.length < 1" class="container">
     <div class="relative flex w-full max-w-96 animate-pulse gap-2 py-4">
-  <!-- <div class="h-12 w-12 rounded-full bg-slate-400"></div> -->
   <div class="flex-1">
-    <!-- <div class="mb-1 h-5 w-3/5 rounded-lg bg-slate-400 text-lg"></div> -->
     <div class="h-5 w-[90%] rounded-lg bg-slate-300 text-sm"></div>
   </div>
   <div class="absolute bottom-5 right-0 h-4 w-4 rounded-full bg-slate-300"></div>
@@ -24,7 +22,7 @@
           </div>
         </div>
       </div>
-  </div>
+  </div> -->
 
   <div v-if="productStore.productCategoryList" class="container">
     <div

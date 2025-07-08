@@ -1,24 +1,28 @@
 <template>
-  <!-- <UApp> -->
-    <Navbar />
-    <UApp>
+  <Navbar />
+  <UApp>
+    <NuxtPage />
+    <n-back-top :right="20" />
+  </UApp>
 
-      <NuxtPage />
-       <n-back-top :right="20" />
-    </UApp>
-    <Footer />
-  <!-- </UApp> -->
+  <Suspense>
+    <template #default>
+      <LazyFooter />
+    </template>
+    <template #fallback>
+      <div class="text-center py-4 text-gray-500">Footer yuklanmoqda...</div>
+    </template>
+  </Suspense>
 </template>
 
 <script setup>
-import { onMounted } from '#imports'
 import Navbar from './components/Navbar.vue'
-import Footer from './components/Footer.vue'
-import { useAuthStore } from '#imports'
+import { defineAsyncComponent, onMounted } from 'vue'
+import { useAuthStore, useColorMode } from '#imports'
 
 useHead({
   htmlAttrs: {
-    class: 'light' // bu orqali dark rejimni butunlay o'chiramiz
+    class: 'light'
   }
 })
 
@@ -26,6 +30,9 @@ const store = useAuthStore()
 const colorMode = useColorMode()
 colorMode.value = 'light'
 
+const LazyFooter = defineAsyncComponent(() =>
+  import('./components/Footer.vue')
+)
 
 onMounted(() => {
   const token = localStorage.getItem('accessToken')
@@ -36,4 +43,3 @@ onMounted(() => {
   }
 })
 </script>
-
