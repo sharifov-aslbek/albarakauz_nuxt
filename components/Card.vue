@@ -9,9 +9,12 @@
 <UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
   <!-- Rasm -->
   <div class="flex justify-center items-center aspect-square mb-4">
+    <!--
+  :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
+    -->
     <NuxtImg
   v-if="product.productImages?.length > 0"
-  :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
+  :src="`${product.productImages[0].imageEntity.externalImagePath}`"
   :alt="`${product.name} - Image 1`"
   class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
 />

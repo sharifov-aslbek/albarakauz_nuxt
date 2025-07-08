@@ -1,12 +1,15 @@
 <template>
     <div class="container">
         <h3 class="text-3xl font-bold mt-30 mb-10">O'xshash mahsulotlar</h3>
-        <UCarousel
-        arrows
-          v-slot="{ item }"
-          :items="props.data"
-          :ui="{ item: 'basis-1/5' }"
-        >
+       <UCarousel
+  arrows
+  v-slot="{ item }"
+  :items="props.data"
+  :ui="{
+    item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5'
+  }"
+>
+
           <div
             @click="navigaItem(item.id)"
             class="bg-gray-100 card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"

@@ -27,19 +27,19 @@
 
         <div class="flex gap-3">
            <UButton v-if="isFavorite(store.product.id)"  @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
-           <UButton  v-else  @click.stop="handleAddFavorites(product)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Add to favorites</UButton>
+           <UButton  v-else  @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Sevimliga qo'shish</UButton>
 
-           <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
+           <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Nusxalash</UButton>
         </div>
       </div>
 
       <div class="flex justify-between items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
-          <div class="flex gap-5 w-full h-[500px]">
+          <div class="flex flex-col sm:flex-row gap-5 w-full h-[500px]">
              <n-scrollbar
     style="max-height: 500px; width: 80px;"
   >
-    <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
+    <div class="sm:flex hidden flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
       <div
         v-for="(item, index) in store.product.productImages"
         :key="index"
@@ -63,7 +63,7 @@
     :items="store.product.productImages"
     :prev="{ onClick: onClickPrev }"
     :next="{ onClick: onClickNext }"
-    class="w-[500px] mx-auto"
+    class="sm:w-[500px] mx-auto"
     @select="onSelect"
   >
     <img
@@ -73,7 +73,7 @@
       class="rounded-lg object-cover w-[500px] h-[500px]"
     >
   </UCarousel>
-  
+
   </div>
            <div class="flex w-full max-w-full flex-col items-start space-y-6">
                                <div class="flex justify-between w-full gap-3 pb-4">
@@ -147,7 +147,7 @@
           </div>
       </div>
 
-      <div class="max-w-4xl pt-2 bg-white">
+      <div class="max-w-4xl pt-2 mt-4 bg-white">
     <div class="flex items-center gap-3 mb-6">
       <span class="text-3xl font-bold text-gray-900">{{ getParsedProductModel(store.product.productModel).ReviewsAmount }}</span>
       <div class="flex items-center gap-1">
@@ -291,23 +291,33 @@ const sellersReviews = computed(() => {
 })
 
 function handleAddFavorites(product: Product) {
-  const accessToken = localStorage.getItem('accessToken') 
+  const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
-    new Audio(errorAudio).play()
+    new Audio(errorAudio).play();
     toast.add({
       title: 'Diqqat!',
       description: 'Avval login qilishingiz kerak.',
       icon: 'mynaui:x-circle'
-    })
-    return
+    });
+    return;
+  }
+
+  if (!authStore.profileData?.data?.favorites?.id) {
+    toast.add({
+      title: 'Xatolik!',
+      description: 'Favorites maʼlumotlari topilmadi.',
+      icon: 'mynaui:x-circle'
+    });
+    return;
   }
 
   addFavorites(
     authStore.profileData.data.favorites.id,
     product.id,
     product.name
-  )
+  );
 }
+
 
 
 // Format data
