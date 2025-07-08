@@ -16,6 +16,9 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/image',
   ],
+  image: {
+  domains: ['albaraka.uz']
+},
       colorMode: {
       preference: 'light',
       fallback: 'light',
