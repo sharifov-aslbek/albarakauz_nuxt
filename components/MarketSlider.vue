@@ -13,6 +13,10 @@ import { useRoute , useRouter } from 'vue-router'
 const route = useRoute();
 const router = useRouter();
 
+definePageMeta({
+  ssr: false
+})
+
 const marketplaces = [
     {
           id: 1,
@@ -75,12 +79,12 @@ const navigateMarket = (id) => {
     class="cursor-pointer rounded-2xl p-8 flex items-center justify-center h-[160px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
   >
     <div class="text-white text-center flex flex-col justify-center items-center">
-      <img 
-        :class="item.imgClass"
-        :src="item.icon" 
-        :alt="item.name"
-        class="w-16 my-4"
-      >
+      <NuxtImg
+  :class="['w-16 my-4', item.imgClass]"
+  :src="item.icon"
+  :alt="item.name"
+/>
+
       <h3 class="text-xl font-bold">{{ item.name }}</h3>
     </div>
   </div>
