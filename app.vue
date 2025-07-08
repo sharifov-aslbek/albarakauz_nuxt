@@ -28,7 +28,12 @@ colorMode.value = 'light'
 
 
 onMounted(() => {
-  store.getProfileData();
+  const token = localStorage.getItem('accessToken')
+  if (token) {
+    store.getProfileData()
+  } else {
+    console.log('Token mavjud emas, profileData olish shart emas')
+  }
 })
 </script>
 
