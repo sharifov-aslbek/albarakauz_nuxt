@@ -18,15 +18,14 @@
         class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-[#06D6A0]/10 transition-all duration-300 cursor-pointer hover:bg-[#06D6A0]/30">
   <div class="relative w-6 h-6">
     <!-- Folder Icon -->
-    <UIcon name="bx:category-alt" :class="[
+    <svg :class="[
       'absolute top-0 left-0 w-6 h-6 text-[#06D6A0] transition-all duration-300',
       categoryStore.showCategory ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
-    ]" />
-    <!-- X Icon -->
-    <UIcon name="heroicons:x-mark" :class="[
+    ]" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from BoxIcons by Atisa - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1M9 9H5V5h4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1m-1 6h-4v-4h4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4m0 6c-1.103 0-2-.897-2-2s.897-2 2-2s2 .897 2 2s-.897 2-2 2M7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4m0 6c-1.103 0-2-.897-2-2s.897-2 2-2s2 .897 2 2s-.897 2-2 2"/></svg>
+    <svg :class="[
       'absolute top-0 left-0 w-6 h-6 text-[#06D6A0] transition-all duration-300',
       categoryStore.showCategory ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
-    ]" />
+    ]" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from HeroIcons by Refactoring UI Inc - https://github.com/tailwindlabs/heroicons/blob/master/LICENSE --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
   </div>
   <span class="text-[#06D6A0] hidden md:block font-medium">Katalog</span>
 </button>
@@ -48,7 +47,8 @@
                     <!-- Background circle with scale animation -->
                     <div
                       class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                    <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="line-md:heart" />
+                    <!-- <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300"  name="line-md:heart" /> -->
+                    <svg class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Line Icons by Vjacheslav Trushkin - https://github.com/cyberalien/line-md/blob/master/license.txt --><path fill="none" stroke="currentColor" stroke-dasharray="32" stroke-dashoffset="32" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c0 0 0 0 -0.76 -1c-0.88 -1.16 -2.18 -2 -3.74 -2c-2.49 0 -4.5 2.01 -4.5 4.5c0 0.93 0.28 1.79 0.76 2.5c0.81 1.21 8.24 9 8.24 9M12 8c0 0 0 0 0.76 -1c0.88 -1.16 2.18 -2 3.74 -2c2.49 0 4.5 2.01 4.5 4.5c0 0.93 -0.28 1.79 -0.76 2.5c-0.81 1.21 -8.24 9 -8.24 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.7s" values="32;0"/></path></svg>
                   </div>
                 </div>
               </RouterLink>
