@@ -1,6 +1,7 @@
 // stores/productSeo.ts
 
 import { defineStore } from 'pinia'
+import { useCategoryAllStore } from '#imports'
 import { useCategoryStore } from './categoryStore'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -27,7 +28,7 @@ interface RetrieveByMarketIdResponse {
 export const useProductSeoStore = defineStore('productSeo', () => {
   const { locale } = useI18n()
   const categoryStore = useCategoryStore()
-
+  const allCategoryStore = useCategoryAllStore()
   const product = ref<any>(null)
   const productLoader = ref(false)
   const similarLoader = ref(false)
@@ -128,7 +129,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     productLoader.value = true
     try {
       let category: Category | null = null
-      for (const parentCategory of categoryStore.categoryData) {
+      for (const parentCategory of allCategoryStore.categoryData) {
         const foundChild = parentCategory.childCategories?.find((child: Category) => child.id === id)
         if (foundChild) {
           category = foundChild

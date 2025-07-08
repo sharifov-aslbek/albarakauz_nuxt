@@ -51,6 +51,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { watch, ref, onMounted } from 'vue'
+import { useCategoryAllStore } from '#imports'
 import { useProductSeoStore } from '@/stores/productSeo'
 import { useCategoryStore } from '@/stores/categoryStore'
 import { useI18n } from 'vue-i18n'
@@ -59,6 +60,7 @@ const router = useRouter()
 const { locale } = useI18n()
 const productStore = useProductSeoStore()
 const categoryStore = useCategoryStore()
+const allCategoryStore = useCategoryAllStore()
 definePageMeta({
   ssr: false
 })
@@ -70,20 +72,20 @@ const remainingCount = ref(0)
 
 // Sahifa yuklanganda categoryData localStorage'dan olinadi
 onMounted(async () => {
-  const saved = localStorage.getItem('categoryStore')
+  const saved = localStorage.getItem('categoryAllStore')
 
   if (!saved) {
     console.log('LocalStorage-da yo‘q, API chaqirildi.')
-    await categoryStore.getAllCategory()
+    await allCategoryStore.getAllCategory()
   } else {
     console.log('LocalStorage-dan o‘qildi, API chaqirilmadi.')
     const parsed = JSON.parse(saved)
 
     if (parsed?.categoryData) {
-      categoryStore.categoryData = parsed.categoryData
+      allCategoryStore.categoryData = parsed.categoryData
     } else {
       console.log('categoryData yo‘q, API chaqirildi.')
-      await categoryStore.getAllCategory()
+      await allCategoryStore.getAllCategory()
     }
   }
 })
@@ -106,7 +108,7 @@ const navigateCategory = (id: number) => {
 
 // categoryData update bo‘lsa, mahsulotlarni chaqirish
 watch(
-  () => categoryStore.categoryData,
+  () => allCategoryStore.categoryData,
   (categoryData) => {
     if (!Array.isArray(categoryData) || categoryData.length === 0) return
 

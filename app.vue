@@ -11,7 +11,7 @@
       <LazyFooter />
     </template>
     <template #fallback>
-      <div class="text-center py-4 text-gray-500">Footer yuklanmoqda...</div>
+      <!-- <div class="text-center py-4 text-gray-500">Footer yuklanmoqda...</div> -->
     </template>
   </Suspense>
 </template>

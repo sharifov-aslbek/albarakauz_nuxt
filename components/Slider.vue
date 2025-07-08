@@ -77,11 +77,11 @@
 import { onMounted, ref , computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { NSkeleton , NEllipsis , NTag  } from 'naive-ui'
-import { useProductSeoStore } from '#imports'
-import { useCategoryStore } from '#imports'
+import { useProductAllStore } from '#imports'
+import { useCategoryAllStore } from '#imports'
 
-const store = useCategoryStore();
-const productStore = useProductSeoStore();
+const store = useCategoryAllStore();
+const productStore = useProductAllStore();
 const router = useRouter();
 
 

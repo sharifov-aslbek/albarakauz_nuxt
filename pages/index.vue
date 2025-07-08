@@ -11,6 +11,7 @@
 
 <script setup>
 import { NButton } from 'naive-ui'
+import { useProductAllStore } from '../stores/productAll'
 import HomeCategoryProduct from '@/components/HomeCategoryProduct'
 import ColorModeButton from '@/components/ColorModeButton'
 import Card from '@/components/Card.vue'
@@ -20,6 +21,7 @@ import MarketSlider from '~/components/MarketSlider.vue'
 import Toast from '~/components/Toast.vue'
 
 const store = useProductSeoStore();
+const allProductStore = useProductAllStore()
 
 useHead({
   title: 'Albaraka.uz - Biz bilan oson qidiring',
@@ -46,8 +48,8 @@ useHead({
 
 onMounted(() => {
   // localStorage da borligini tekshir
-  if (!localStorage.getItem('productSeo')) {
-    store.getAllProducts()
+  if (!localStorage.getItem('productAllStore')) {
+    allProductStore.getAllProducts()
   } else {
     console.log('localStorage-dan productAll ishlatilmoqda')
   }

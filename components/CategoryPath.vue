@@ -21,10 +21,12 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { onMounted } from '#imports';
+import { useCategoryAllStore } from '#imports';
 import { useCategoryStore } from '#imports';
 import { useProductSeoStore } from '#imports';
 const categoryStore = useCategoryStore()
 const store = useProductSeoStore()
+const allCategoryStore = useCategoryAllStore()
 const route = useRoute()
 
 import { computed } from 'vue'
@@ -35,7 +37,7 @@ definePageMeta({
 
 
 const breadcrumb = computed(() => {
-  const categories = categoryStore.categoryData || []
+  const categories = allCategoryStore.categoryData || []
 
   // pathni tekshir
   let categoryModel
