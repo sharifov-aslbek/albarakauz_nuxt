@@ -35,15 +35,16 @@
             "
             class="flex items-center gap-1"
           >
-            <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-5" />
+            <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-3 sm:size-5" />
             <div
   v-if="product.productModel && product.marketResultmodel && product.marketResultmodel.url === 'https://uzum.uz'"
-  class="text-sm font-bold"
+  class="text-xs sm:text-sm font-bold"
 >
               {{ getParsedProductModel(product.productModel).Rating }}
             </div>
           </div>
         <n-tag
+        size="small"
         type='success'
           v-if="getParsedProductModel(product.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth && product.marketResultmodel?.url === 'https://uzum.uz'"
         >

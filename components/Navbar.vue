@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="container">
-      <div class="flex justify-between">
+      <div class="flex justify-between gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
           <a href="/" class="flex items-center space-x-2">
                           <img class="w-12" src="/assets/logo.png" alt="">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="actions flex items-center gap-3">
-              <RouterLink to="/favorites" class="relative w-fit">
+              <RouterLink to="/favorites" class="relative hidden sm:block w-fit">
                 <div class="relative w-fit">
                   <!-- Heart icon container -->
                   <div class="group relative p-2 flex justify-center items-center cursor-pointer">
@@ -159,7 +159,10 @@
       </main>
     </div>
   </div>
+
+
 </Transition> 
+<CategoryMenu v-if="categoryStore.showCategory" @navigateCategory="navigateCategory" />
 
     </div>
 

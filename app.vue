@@ -4,6 +4,7 @@
   <UApp>
     <NuxtPage />
     <n-back-top :right="20" />
+    <BottomMenu />
   </UApp>
 
   <Suspense>
