@@ -21,8 +21,27 @@ import Toast from '~/components/Toast.vue'
 
 const store = useProductSeoStore();
 
-definePageMeta({
-  ssr: false
+useHead({
+  title: 'Albaraka.uz - Biz bilan oson qidiring',
+  meta: [
+    { name: 'description', content: "O'zbekistondagi online marketlardan mahsulotlarni oson qidirish" },
+
+    // Open Graph (Facebook, LinkedIn va boshqalar uchun)
+    { property: 'og:title', content: 'Albaraka.uz - Biz bilan oson qidiring' },
+    { property: 'og:description', content: "O'zbekistondagi online marketlardan mahsulotlarni oson qidirish" },
+    { property: 'og:image', content: 'https://albaraka.uz/assets/logo.png' },
+    { property: 'og:url', content: 'https://albaraka.uz' },
+    { property: 'og:type', content: 'website' },
+
+    // Twitter Card
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Albaraka.uz - Biz bilan oson qidiring' },
+    { name: 'twitter:description', content: "O'zbekistondagi online marketlardan mahsulotlarni oson qidirish" },
+    { name: 'twitter:image', content: 'https://albaraka.uz/assets/logo.png' }
+  ],
+  link: [
+    { rel: 'icon', type: 'image/png', href: 'https://albaraka.uz/assets/logo.png' }
+  ]
 })
 
 onMounted(() => {
