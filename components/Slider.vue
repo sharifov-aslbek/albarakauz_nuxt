@@ -68,6 +68,8 @@
   </div>
       </div>
     </n-carousel>
+
+     <n-skeleton v-if="!filteredProducts.length" height="500px" width="100%" :sharp="false" />
   </div>
 </template>
 

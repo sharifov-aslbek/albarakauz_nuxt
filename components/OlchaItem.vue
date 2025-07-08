@@ -26,7 +26,8 @@
 
 
         <div class="flex gap-3">
-           <UButton icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Add to favorites</UButton>
+           <UButton v-if="isFavorite(store.product.id)"  @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
+           <UButton  v-else  @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Sevimliga qo'shish</UButton>
 
            <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
         </div>
@@ -336,6 +337,7 @@
 <script setup lang="ts">
 import { NTabs , NTabPane } from '#components'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '#imports'
 import { useProductSeoStore } from '@/stores/productSeo'
 import { ref, computed , watch } from 'vue'
 import CategoryPath from './CategoryPath.vue'
@@ -347,6 +349,7 @@ definePageMeta({
   ssr: false
 })
 
+const authStore = useAuthStore() // <- o'zingiz ishlatayotgan store
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 const toast = useToast();
 const route = useRoute();
@@ -367,6 +370,152 @@ const route = useRoute();
 //   },
 //   { immediate: true, deep: true }
 // );
+
+function handleAddFavorites(product: Product) {
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) {
+    new Audio(errorAudio).play();
+    toast.add({
+      title: 'Diqqat!',
+      description: 'Avval login qilishingiz kerak.',
+      icon: 'mynaui:x-circle'
+    });
+    return;
+  }
+
+  if (!authStore.profileData?.data?.favorites?.id) {
+    toast.add({
+      title: 'Xatolik!',
+      description: 'Favorites maʼlumotlari topilmadi.',
+      icon: 'mynaui:x-circle'
+    });
+    return;
+  }
+
+  addFavorites(
+    authStore.profileData.data.favorites.id,
+    product.id,
+    product.name
+  );
+}
+
+async function addFavorites(
+  favouritesId: number,
+  productId: number,
+  productName: string
+): Promise<void> {
+  try {
+
+    const token = localStorage.getItem('accessToken')
+
+    const response = await fetch('https://albaraka.uz/api/favorites/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        favouritesId,
+        productId,
+      }),
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      authStore.getProfileData()
+        new Audio(successAudio).play();
+      toast.add({
+        title: 'Muvaffaqiyatli',
+        description: `${productName} sevimliga qo'shildi`,
+        icon: 'mynaui:check',
+      })
+
+      // store.getProfileData() // Agar kerak bo‘lsa, import qilib ishlat
+    } else {
+        new Audio(errorAudio).play();
+      toast.add({
+        title: 'Xatolik!',
+        description: data?.message || 'Xatolik yuz berdi.',
+        icon: 'mynaui:x-circle',
+      })
+    }
+  } catch (error: any) {
+    console.error(error)
+        new Audio(errorAudio).play();
+    toast.add({
+      title: 'Xatolik!',
+      description: error?.message || 'Internetni tekshiring.',
+      icon: 'mynaui:x-circle',
+    })
+  }
+}
+
+
+async function deleteFavoritesHandler(
+  favouritesId: number,
+  productId: number,
+  productName: string
+) {
+  try {
+
+    const token = localStorage.getItem('token')
+
+    const response = await fetch('https://albaraka.uz/api/favorites/remove', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        favouritesId,
+        productId,
+      }),
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      toast.add({
+        title: "O'chirildi",
+        description: `${productName} sevimlidan o'chirildi`,
+        icon: 'gravity-ui:xmark',
+      })
+        new Audio(errorAudio).play();
+
+
+      authStore.getProfileData()
+    } else {
+      toast.add({
+        title: 'Xatolik!',
+        description: data?.message || 'Nomaʼlum xatolik yuz berdi.',
+        icon: 'mynaui:x-circle',
+      })
+        new Audio(errorAudio).play();
+
+    }
+  } catch (error: any) {
+    console.error(error)
+    toast.add({
+      title: 'Xatolik!',
+      description: error?.message || 'So‘rov bajarilmadi. Internetni tekshiring.',
+      icon: 'mynaui:x-circle',
+    })
+        new Audio(errorAudio).play();
+
+  }
+}
+
+
+const isFavorite = (productId: number): boolean => {
+  return (
+    authStore.profileData?.data?.favorites?.favoriteProducts?.some(
+      (item: { product: { id: number } }) => item.product.id === productId
+    ) ?? false
+  )
+} 
+
+
 
 const copyRoute = async () => {
   try {
