@@ -12,12 +12,14 @@
     <!--
   :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
     -->
-    <img
+    <NuxtImg
   v-if="product.productImages?.length > 0"
   :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
   :alt="`${product.name} - Image 1`"
+  format="webp"
   class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
 />
+
 
   </div>
 
