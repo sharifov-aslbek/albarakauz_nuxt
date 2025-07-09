@@ -217,7 +217,7 @@ function searchCategories(categories, searchText) {
 const filteredOptions = computed(() => {
   if (!search.value) return []
 
-  const results = searchCategories(categoryStore.categoryData, search.value)
+  const results = searchCategories(allCategoryStore.categoryData, search.value)
 
   // search.value ni birinchi option sifatida qo‘shish
   return [
