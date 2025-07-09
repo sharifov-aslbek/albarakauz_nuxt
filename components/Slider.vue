@@ -4,7 +4,7 @@
   <div
     v-for="(product, index) in filteredProducts"
     :key="product.id"
-    @click="navigateItem(product.id)"
+    @click="navigateItem(product.id , product.name)"
   >
     <div class="container relative w-full h-auto md:h-[600px] rounded-lg overflow-hidden">
       <div class="absolute inset-0 bg-[#06D6A0]/50"></div>
@@ -141,8 +141,15 @@ function findTopMostParentImage(categories, targetName, path = []) {
 
 
 
-const navigateItem = (id) => {
-    router.push(`/product/${id}`)
+const navigateItem = (id , slug) => {
+  const formattedSlug = slug
+    .toLowerCase()                   // kichik harf
+    .replace(/[^a-z0-9\s-]/g, '')    // barcha belgilarni olib tashlash (faqat lotin harflar, raqamlar, probel va - qoladi)
+    .replace(/\s+/g, '-')            // probel → -
+    .replace(/-+/g, '-')             // ketma-ket - ni bitta - ga tushirish
+    .trim()
+
+    router.push(`/product/${formattedSlug}-${id}`)
   }
 
 

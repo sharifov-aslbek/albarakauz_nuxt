@@ -66,6 +66,9 @@
   </div>
 </div>
 
+            <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+
+      <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
       <div class="flex justify-between items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
@@ -159,7 +162,7 @@
             
         </div>
         
-          <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
+          <div class="h-[510px] w-full max-w-[305px] overflow-y-auto hidden lg:flex flex-col gap-5" >
             <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 

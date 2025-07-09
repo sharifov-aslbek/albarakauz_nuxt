@@ -33,6 +33,10 @@
         </div>
       </div>
 
+      <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+
+      <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
+
         <div class="flex flex-col md:flex-row pb-5 justify-between w-full max-w-full gap-6 mr-7 py-12">
           <div class="flex w-[500px] h-[500px]">
                   <n-scrollbar

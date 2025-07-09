@@ -1,80 +1,96 @@
 <template>
   <div
-  @click="navigaItem(product.id , product.name)"
-  v-for="product in data"
-  :key="product.id"
-  class="bg-gray-100 relative card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
->
-<UIcon  v-if="isFavorite(product.id)"  @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 text-red-500 absolute right-2 z-50" name="material-symbols:favorite" />
-<UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
-  <!-- Rasm -->
-  <div class="flex justify-center items-center aspect-square mb-4">
-    <img
-  v-if="product.productImages?.length > 0"
-  :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
-   loading="lazy" 
-  :alt="`${product.name} - Image 1`"
-  class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
-/>
+    @click="navigaItem(product.id, product.name)"
+    v-for="product in data"
+    :key="product.id"
+    class="bg-gray-100 relative card my-4 w-full max-w-[400px] h-[120px] cursor-pointer rounded-lg p-4 lg:hidden flex flex-row items-center gap-3"
+  >
+    <!-- Chapda img -->
+    <div class="flex-shrink-0 w-[100px] h-[100px] flex justify-center items-center overflow-hidden rounded-md">
+      <img
+        v-if="product.productImages?.length > 0"
+        :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
+        loading="lazy"
+        :alt="`${product.name} - Image 1`"
+        class="w-full h-full object-cover"
+      />
+    </div>
 
-  </div>
+    <!-- Ongda kontent -->
+    <div class="flex flex-col justify-between flex-grow h-full">
+      <div class="flex justify-between items-start">
+        <h3 class="text-sm font-medium line-clamp-2 max-w-[180px]">
+          {{ product.name }}
+        </h3>
+        <UIcon
+          v-if="isFavorite(product.id)"
+          @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.id, product.name)"
+          class="w-5 h-5 text-red-500"
+          name="material-symbols:favorite"
+        />
+        <UIcon
+          v-else
+          @click.stop="handleAddFavorites(product)"
+          class="w-5 h-5"
+          name="material-symbols-light:favorite-outline"
+        />
+      </div>
 
-  <!-- Kontent (pastki qism) -->
-  <div class="flex flex-col justify-between flex-grow">
-    <div>
-      <h3 class="text-sm font-medium mb-3 line-clamp-2">{{ product.name }}</h3>
-
-      <!-- To‘lov bo‘lsa -->
-      <div class="mb-3 flex justify-between gap-10 min-h-[32px]">
+      <div class="flex gap-2 items-center">
         <div
-            v-if="
-              product.productModel && product.marketResultmodel?.name === 'Uzum' && getParsedProductModel(product.productModel).Rating
-            "
-            class="flex items-center gap-1"
-          >
-            <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-3 sm:size-5" />
-            <div
-  v-if="product.productModel && product.marketResultmodel && product.marketResultmodel.url === 'https://uzum.uz'"
-  class="text-xs sm:text-sm font-bold"
->
-              {{ getParsedProductModel(product.productModel).Rating }}
-            </div>
-          </div>
+          v-if="
+            product.productModel &&
+            product.marketResultmodel?.name === 'Uzum' &&
+            getParsedProductModel(product.productModel).Rating
+          "
+          class="flex items-center gap-1"
+        >
+          <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-4" />
+          <span class="text-xs font-bold">
+            {{ getParsedProductModel(product.productModel).Rating }}
+          </span>
+        </div>
+
         <n-tag
-        size="small"
-        type='success'
-          v-if="getParsedProductModel(product.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth && product.marketResultmodel?.url === 'https://uzum.uz'"
+          size="small"
+          type="success"
+          v-if="
+            getParsedProductModel(product.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth &&
+            product.marketResultmodel?.url === 'https://uzum.uz'
+          "
         >
           {{
             getParsedProductModel(product.productModel).SkuList[0].ProductOptionDtos[0].PaymentPerMonth
           }} so'm / oy
         </n-tag>
 
-
-        <n-tag 
-          v-else-if="getParsedProductModel(product.productModel)?.storeProducts?.[0]?.monthly_repayment && product.marketResultmodel?.url === 'https://olcha.uz'"
-        type="success">
-                    {{
+        <n-tag
+          v-else-if="
+            getParsedProductModel(product.productModel)?.storeProducts?.[0]?.monthly_repayment &&
+            product.marketResultmodel?.url === 'https://olcha.uz'
+          "
+          type="success"
+          size="small"
+        >
+          {{
             getParsedProductModel(product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
           }} so'm / 12 oy
         </n-tag>
       </div>
-    </div>
 
-    <!-- Narx + Market -->
-    <div class="flex items-center justify-between mt-auto">
-      <div class="text-sm font-bold text-gray-800">
-        {{ product.price.toLocaleString('uz-UZ') }} so'm
+      <div class="flex justify-between items-center mt-auto">
+        <div class="text-sm font-bold text-gray-800">
+          {{ product.price.toLocaleString('uz-UZ') }} so'm
+        </div>
+        <img
+          v-if="product.marketResultmodel?.url"
+          class="w-12"
+          :src="getMarketLogo(product.marketResultmodel.url)"
+          alt="Market Logo"
+        />
       </div>
-      <img
-        v-if="product.marketResultmodel?.url"
-        class="w-16"
-        :src="getMarketLogo(product.marketResultmodel.url)"
-        alt="Market Logo"
-      />
     </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
@@ -281,6 +297,7 @@ const isFavorite = (productId: number): boolean => {
 
 </script>
 
+
 <style scoped>
 .card {
   transition: box-shadow 0.2s ease;
@@ -295,5 +312,4 @@ const isFavorite = (productId: number): boolean => {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 </style>
