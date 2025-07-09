@@ -23,7 +23,8 @@ export const useProductAllStore = defineStore('productAllStore', () => {
 
   const getAllProducts = async () => {
     try {
-      const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/all`)
+      // const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/all`)
+      const res = await fetch(`https://albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=10&id=4`)
       const json = await res.json()
       if (json?.data) {
         productAll.value = json.data
