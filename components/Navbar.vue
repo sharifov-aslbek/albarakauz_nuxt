@@ -162,7 +162,7 @@
 
 
 </Transition> 
-<CategoryMenu v-if="categoryStore.showCategory" @navigateCategory="navigateCategory" />
+<CategoryMenu class="sm:hidden block"  v-if="categoryStore.showCategory" @navigateCategory="navigateCategory" />
 
     </div>
 

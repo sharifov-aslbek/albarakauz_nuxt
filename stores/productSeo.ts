@@ -38,6 +38,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const description = ref('')
   const image = ref('')
   const oneCategoryProducts = ref<any>([])
+  const searchProductsData = ref<any>([])
   const marketProductLoader = ref(false)
   const marketProductsCount = ref(0)
   const marketProductsData = ref<Product[]>([])
@@ -64,7 +65,8 @@ export const useProductSeoStore = defineStore('productSeo', () => {
 
   const getProductSeo = async (id: string | number) => {
     try {
-      const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve${id}`)
+      // const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve${id}`)
+      const res = await fetch(`${API_HOST_DEFAULT}/uz/product/helloworld-${id}`)
       const json = await res.json()
       if (json?.data) {
         const data = json.data
@@ -184,6 +186,23 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     }
   }
 
+  async function searchProducts(slug: string) {
+    productLoader.value = true
+    try {
+      const res = await fetch(`https://albaraka.uz/api/uz/product/search?key=${slug}`)
+      const json = await res.json()
+      if (json?.data) {
+        searchProductsData.value = json.data
+      } else {
+        console.warn('APIdan data yo‘q')
+      }
+    } catch (err) {
+      console.error('API Error:', err)
+    } finally {
+      productLoader.value = false
+    }
+  }
+
   function stripHtml(html: string): string {
     return html.replace(/<[^>]*>/g, '').trim()
   }
@@ -210,7 +229,9 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     similarsId,
     getOneProductSimilar,
     similarProductData,
-    resetProductCategoryList
+    resetProductCategoryList,
+    searchProductsData,
+    searchProducts,
   }
 }, {
   // persist: process.client
