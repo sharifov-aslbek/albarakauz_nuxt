@@ -14,7 +14,7 @@
     
     <ProductSkeleton v-else />
 
-    <!-- <SimilarProducts :data="seoStore.oneCategoryProducts" /> -->
+    <SimilarProducts :data="seoStore.oneCategoryProducts" />
     <!-- <UCarousel v-slot="{ item }" :items="seoStore.oneCategoryProducts" :ui="{ item: 'basic-1/3' }">
       <Card :data="seoStore.oneCategoryProducts" />
     </UCarousel> -->
@@ -47,6 +47,17 @@ const seoStore = useProductSeoStore()
 
 // SSR oldidan SEO-ni yuklab olish
 await seoStore.getProductSeo(route.params.slugAndId as string)
+
+watch(
+  () => seoStore.product,
+  (newVal) => {
+    if (newVal && newVal.categoryResultModel?.id) {
+      seoStore.getOneCategoryProducts(newVal.categoryResultModel.id as number)
+    }
+  },
+  { immediate: true }
+)
+
 
 // Head ni yuklash
 useHead(() => {
