@@ -72,7 +72,7 @@
     <div class="hidden sm:flex flex-col md:flex-row min-h-screen bg-white">
       <aside class="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto">
         <nav class="space-y-1 p-4">
-          <div v-if="!categoryStore.categoryData">
+          <div v-if="!allCategoryStore.categoryData">
             <div v-for="i in 7" :key="i" class="flex items-center gap-3 animate-pulse py-3">
               <div class="h-10 w-10 rounded-md bg-gray-300"></div>
               <div class="flex-1 h-4 bg-gray-300 rounded-md"></div>
@@ -81,7 +81,7 @@
 
           <div v-else>
             <button
-              v-for="category in categoryStore.categoryData"
+              v-for="category in allCategoryStore.categoryData"
               :key="category.id"
               @mouseenter="activeCategory = category.id"
               class="flex items-center w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition"
@@ -104,8 +104,8 @@
 
       <!-- Main Content -->
       <main class="flex-1 p-4 md:p-8 overflow-y-auto">
-        <template v-if="categoryStore.categoryData">
-          <template v-for="category in categoryStore.categoryData" :key="category.id">
+        <template v-if="allCategoryStore.categoryData">
+          <template v-for="category in allCategoryStore.categoryData" :key="category.id">
             <div v-show="activeCategory === category.id">
               <h2 class="text-xl font-semibold mb-6 flex items-center cursor-pointer hover:text-blue-600">
                 {{ category.name }}
@@ -174,12 +174,14 @@
 <script setup>
 import { NAutoComplete } from '#components';
 import { useAuthStore } from "@/stores/auth"
+import { useCategoryAllStore } from '#imports';
 import { useCategoryStore } from '@/stores/categoryStore'
 import { useRouter } from 'vue-router';
 
 const categoryStore = useCategoryStore();
 const authStore = useAuthStore();
 const router = useRouter();
+const allCategoryStore = useCategoryAllStore();
 // Category div parametrs
 const activeCategory = ref(1);
 const search = ref('')
