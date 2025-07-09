@@ -1,37 +1,71 @@
 <template>
     <div class="container py-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <CategoryPath />
-        
-          <div 
-  v-if="
-    store.product.productModel &&
-    getParsedProductModel(store.product.productModel).Rating
-  " 
-  class="flex items-center gap-4 my-4"
->
-  <n-rate
-    readonly 
-    :default-value="getParsedProductModel(store.product.productModel).Rating" 
-  />
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
+  <div class="flex flex-col">
+    <CategoryPath />
 
-  <a target="_blank" :href="store.product.productUrl" class="text-gray-500 text-sm">
-    {{ getParsedProductModel(store.product.productModel).Rating }} - 
-    <span>({{ getParsedProductModel(store.product.productModel).ReviewsAmount }} sharh)</span> - 
-    <span>{{ getParsedProductModel(store.product.productModel).OrdersAmount }} marta sotilgan</span>
-  </a>
+    <div 
+      v-if="
+        store.product.productModel &&
+        getParsedProductModel(store.product.productModel).Rating
+      " 
+      class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-4"
+    >
+      <n-rate
+        readonly 
+        :default-value="getParsedProductModel(store.product.productModel).Rating" 
+      />
+
+      <a 
+        target="_blank" 
+        :href="store.product.productUrl" 
+        class="text-gray-500 text-sm mt-2 sm:mt-0"
+      >
+        {{ getParsedProductModel(store.product.productModel).Rating }} - 
+        <span>({{ getParsedProductModel(store.product.productModel).ReviewsAmount }} sharh)</span> - 
+        <span>{{ getParsedProductModel(store.product.productModel).OrdersAmount }} marta sotilgan</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+    <UButton 
+      v-if="isFavorite(store.product.id)"  
+      @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)" 
+      icon="material-symbols-light:heart-check" 
+      size="md" 
+      color="error" 
+      variant="soft"
+      class="w-full sm:w-auto"
+    >
+      Added to favorites
+    </UButton>
+
+    <UButton  
+      v-else  
+      @click.stop="handleAddFavorites(store.product)" 
+      icon="material-symbols-light:favorite-outline" 
+      size="md" 
+      color="neutral" 
+      variant="outline"
+      class="w-full sm:w-auto"
+    >
+      Sevimliga qo'shish
+    </UButton>
+
+    <UButton 
+      @click="copyRoute" 
+      icon="material-symbols-light:content-copy-outline-rounded" 
+      size="md" 
+      color="neutral" 
+      variant="outline"
+      class="w-full sm:w-auto"
+    >
+      Nusxalash
+    </UButton>
+  </div>
 </div>
-        </div>
 
-
-        <div class="flex gap-3">
-           <UButton v-if="isFavorite(store.product.id)"  @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
-           <UButton  v-else  @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Sevimliga qo'shish</UButton>
-
-           <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Nusxalash</UButton>
-        </div>
-      </div>
 
       <div class="flex justify-between items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">

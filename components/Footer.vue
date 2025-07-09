@@ -5,12 +5,10 @@
         <!-- Logo and copyright section -->
         <div class="flex flex-col space-y-6">
           <div class="flex gap-3 items-center">
-            <div class="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center">
-              <span class="text-white font-bold text-xl">A</span>
-            </div>
+            <img class="w-14" src="/assets/logo.png" alt="">
             <div class="flex flex-col">
-              <span class="text-xl font-bold text-gray-900">Albaraka.uz</span>
-              <span class="font-medium text-emerald-600">Tovarlarni solishtiring</span>
+              <span class="text-xl font-bold text-[#06D6A0]">Albaraka.uz</span>
+              <span class="font-medium text-[#06D6A0]">Tovarlarni solishtiring</span>
             </div>
           </div>
           

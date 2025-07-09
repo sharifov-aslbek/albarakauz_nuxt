@@ -68,6 +68,7 @@ const navigateMarket = (id) => {
     <div class="container">
         <h2 class="text-3xl font-medium my-6">Markets</h2>
         <UCarousel
+        autoplay
   arrows
   v-slot="{ item }"
   :items="marketplaces"
