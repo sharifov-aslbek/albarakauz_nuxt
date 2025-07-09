@@ -11,7 +11,7 @@
 >
 
           <div
-            @click="navigaItem(item.id)"
+            @click="navigaItem(item.id , item.name)"
             class="bg-gray-100 card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
           >
             <!-- Rasm -->
@@ -118,10 +118,18 @@ const getParsedProductModel = (productModel: string): Record<string, any> | null
 }
 
 
-const navigaItem = (id : Number) => {
-  router.push(`/product/${id}`)
-  seoStore.similarProductData = <any>(null)
- seoStore.getProductSimilars(route.params.id as string)
+const navigaItem = (id: number, slug: string) => {
+  const formattedSlug = slug
+    .toLowerCase()                   // kichik harf
+    .replace(/[^a-z0-9\s-]/g, '')    // barcha belgilarni olib tashlash (faqat lotin harflar, raqamlar, probel va - qoladi)
+    .replace(/\s+/g, '-')            // probel → -
+    .replace(/-+/g, '-')             // ketma-ket - ni bitta - ga tushirish
+    .trim()
+
+    seoStore.linkedProducts = [] // O'xshash mahsulotlarni tozalash
+    // seoStore.similarProductData = <any>(null)
+//  seoStore.getProductSimilars(route.params.id as string)
+  router.push(`/product/${formattedSlug}-${id}`)
 }
 
 /**

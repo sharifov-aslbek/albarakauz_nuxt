@@ -1,6 +1,6 @@
 <template>
   <div
-  @click="navigaItem(product.id)"
+  @click="navigaItem(product.id , product.name)"
   v-for="product in data"
   :key="product.id"
   class="bg-gray-100 relative card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
@@ -260,9 +260,17 @@ const getParsedProductModel = (productModel: string): Record<string, any> | null
 }
 
 
-const navigaItem = (id : Number) => {
-  router.push(`/product/${id}`)
+const navigaItem = (id: number, slug: string) => {
+  const formattedSlug = slug
+    .toLowerCase()                   // kichik harf
+    .replace(/[^a-z0-9\s-]/g, '')    // barcha belgilarni olib tashlash (faqat lotin harflar, raqamlar, probel va - qoladi)
+    .replace(/\s+/g, '-')            // probel → -
+    .replace(/-+/g, '-')             // ketma-ket - ni bitta - ga tushirish
+    .trim()
+
+  router.push(`/product/${formattedSlug}-${id}`)
 }
+
 
 /**
  * Market logotipi URL'ga qarab tanlash

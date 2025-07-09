@@ -158,8 +158,8 @@
 
            </div>  
             <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
-            <h3 v-if="store.similarProductData" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
-            <Card :data="store.similarProductData" />
+                        <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+            <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
             <div   v-if="!store.similarProductData || Object.keys(store.similarProductData).length === 0"
    class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-lg h-full py-6">
@@ -282,6 +282,7 @@ import errorAudio from '@/assets/not-success.m4a'
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 const toast = useToast(); 
 const route = useRoute();
+const linkedProducts = store.linkedProducts?.map(item => item.product) || []
 const authStore = useAuthStore();
 // Product model o'zgaruvchilari
 // const monthlyRepayment = computed(() => {

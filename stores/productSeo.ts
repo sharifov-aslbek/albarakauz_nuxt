@@ -39,6 +39,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const image = ref('')
   const oneCategoryProducts = ref<any>([])
   const searchProductsData = ref<any>([])
+  const linkedProducts = ref<any>([])
   const marketProductLoader = ref(false)
   const marketProductsCount = ref(0)
   const marketProductsData = ref<Product[]>([])
@@ -63,18 +64,24 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     }
   }
 
-  const getProductSeo = async (id: string | number) => {
+  const getProductSeo = async (slug: String) => {
     try {
+      linkedProducts.value = []
       // const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve${id}`)
-      const res = await fetch(`${API_HOST_DEFAULT}/uz/product/helloworld-${id}`)
+      const res = await fetch(`${API_HOST_DEFAULT}/uz/product/${slug}`)
       const json = await res.json()
-      if (json?.data) {
-        const data = json.data
+      // linkedProducts
+      if (json?.data.product) {
+        const data = json.data.product
         product.value = data
         title.value = data.name || ''
         description.value = stripHtml(data.description || '')
         image.value = data.productImages?.[0]?.imageEntity?.externalImagePath || ''
-      } else {
+      }
+      if(json?.data.linkedProducts && json.data.linkedProducts.length > 0) {
+        linkedProducts.value = json.data?.linkedProducts
+      }
+       else {
         console.warn('APIdan data yo‘q')
       }
     } catch (e) {
@@ -232,6 +239,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     resetProductCategoryList,
     searchProductsData,
     searchProducts,
+    linkedProducts
   }
 }, {
   // persist: process.client

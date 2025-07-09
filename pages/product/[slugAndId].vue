@@ -11,9 +11,12 @@
     <TexnomartItem
     v-else-if="seoStore.product.marketResultmodel.url.includes('texnomart.uz')"
     />
-    
-    <ProductSkeleton v-else />
 
+    <!-- {{ seoStore.linkedProducts }} -->
+    
+    <!-- <ProductSkeleton v-else /> -->
+
+    <!-- {{ seoStore.product }} -->
     <SimilarProducts :data="seoStore.oneCategoryProducts" />
     <!-- <UCarousel v-slot="{ item }" :items="seoStore.oneCategoryProducts" :ui="{ item: 'basic-1/3' }">
       <Card :data="seoStore.oneCategoryProducts" />
@@ -111,53 +114,57 @@ const seoStore = useProductSeoStore()
 // await seoStore.getProductSeo(route.params.id as string)
 // await seoStore.getProductSimilars(route.params.id as string)
 
-const loadProductAndSimilars = async (id: string) => {
-  await seoStore.getProductSeo(id)
-  await seoStore.getProductSimilars(id)
+// const loadProductAndSimilars = async (id: string , slug: string) => {
+//   await seoStore.getProductSeo(id , slug)
+//   await seoStore.getProductSimilars(id)
 
-  const similarRelations = seoStore.similarsId || []
-  if (similarRelations.length === 0) {
-    console.log('similarsId bo‘sh yoki undefined')
-    return
-  }
+//   const similarRelations = seoStore.similarsId || []
+//   if (similarRelations.length === 0) {
+//     console.log('similarsId bo‘sh yoki undefined')
+//     return
+//   }
 
-  const currentId = Number(id)
+//   const currentId = Number(id)
 
-  const relatedIds = similarRelations
-    .filter(item =>
-      item.productId1 === currentId || item.productId2 === currentId
-    )
-    .flatMap(item => {
-      const ids: number[] = []
-      if (item.productId1 !== currentId) ids.push(item.productId1)
-      if (item.productId2 !== currentId) ids.push(item.productId2)
-      return ids
-    })
+//   const relatedIds = similarRelations
+//     .filter(item =>
+//       item.productId1 === currentId || item.productId2 === currentId
+//     )
+//     .flatMap(item => {
+//       const ids: number[] = []
+//       if (item.productId1 !== currentId) ids.push(item.productId1)
+//       if (item.productId2 !== currentId) ids.push(item.productId2)
+//       return ids
+//     })
 
-  const uniqueIds = [...new Set(relatedIds)]
+//   const uniqueIds = [...new Set(relatedIds)]
 
-    seoStore.similarProductData = []
+//     seoStore.similarProductData = []
 
 
-  for (const relId of uniqueIds) {
-    await seoStore.getOneProductSimilar(relId)
-  }
+//   for (const relId of uniqueIds) {
+//     await seoStore.getOneProductSimilar(relId)
+//   }
 
-  console.log('Similar product ids:', uniqueIds)
-}
+//   console.log('Similar product ids:', uniqueIds)
+// }
 
-onMounted(async () => {
-  await loadProductAndSimilars(route.params.id as string)
+// onMounted(async () => {
+//   await loadProductAndSimilars(route.params.id as string , route.params.slug as string)
+// })
+
+// watch(
+//   () => route.params.id,
+//   async (newId) => {
+//     if (newId != null) {
+//       await loadProductAndSimilars(newId as string)
+//     }
+//   }
+// )
+
+onMounted(() => {
+  seoStore.getProductSeo(route.params.slugAndId as string)
 })
-
-watch(
-  () => route.params.id,
-  async (newId) => {
-    if (newId != null) {
-      await loadProductAndSimilars(newId as string)
-    }
-  }
-)
 
 
 watch(
@@ -173,7 +180,7 @@ watch(
 
 // Head ni yuklash
 useHead(() => {
-  const url = `https://albaraka.uz/product/${route.params.id}`
+  const url = `https://albaraka.uz/product/${route.params.slugAndId}`
 
   return {
     title: seoStore.title,
