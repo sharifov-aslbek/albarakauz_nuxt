@@ -220,46 +220,46 @@ useHead(() => {
 
 // Router param o'zgarsa
 onBeforeRouteUpdate(async (to, from) => {
-  if (to.params.id !== from.params.id) {
-    await seoStore.getProductSeo(to.params.id as string)
+  if (to.params.slugAndId !== from.params.slugAndId) {
+    await seoStore.getProductSeo(to.params.slugAndId as string)
 
     // route o'zgarganda headni yangilash
     useHead(() => {
-      const url = `https://albaraka.uz/product/${to.params.id}`
+  const url = `https://albaraka.uz/product/${route.params.slugAndId}`
 
-      return {
-        title: seoStore.title,
-        meta: [
-          { name: 'description', content: seoStore.description },
-          { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
-          { name: 'author', content: 'Albaraka.uz' },
-          { name: 'robots', content: 'index, follow' },
+  return {
+    title: seoStore.title,
+    meta: [
+      { name: 'description', content: seoStore.description },
+      { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
+      { name: 'author', content: 'Albaraka.uz' },
+      { name: 'robots', content: 'index, follow' },
 
-          // Open Graph
-          { property: 'og:title', content: seoStore.title },
-          { property: 'og:description', content: seoStore.description },
-          { property: 'og:image', content: seoStore.image },
-          { property: 'og:url', content: url },
-          { property: 'og:type', content: 'product' },
-          { property: 'og:site_name', content: 'Albaraka.uz' },
+      // Open Graph
+      { property: 'og:title', content: seoStore.title },
+      { property: 'og:description', content: seoStore.description },
+      { property: 'og:image', content: seoStore.image },
+      { property: 'og:url', content: url },
+      { property: 'og:type', content: 'product' },
+      { property: 'og:site_name', content: 'Albaraka.uz' },
 
-          // Twitter
-          { name: 'twitter:card', content: 'summary_large_image' },
-          { name: 'twitter:title', content: seoStore.title },
-          { name: 'twitter:description', content: seoStore.description },
-          { name: 'twitter:image', content: seoStore.image },
+      // Twitter
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: seoStore.title },
+      { name: 'twitter:description', content: seoStore.description },
+      { name: 'twitter:image', content: seoStore.image },
 
-          // Viewport
-          { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+      // Viewport
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
 
-          // Charset
-          { charset: 'utf-8' }
-        ],
-        link: [
-          { rel: 'canonical', href: url }
-        ]
-      }
-    }) // ✅ bu — useHead yopilishi
+      // Charset
+      { charset: 'utf-8' }
+    ],
+    link: [
+      { rel: 'canonical', href: url }
+    ]
+  }
+}) // ✅ bu — useHead yopilishi
   } // ✅ bu — if yopilishi
 }) // ✅ bu — onBeforeRouteUpdate yopilishi
 
