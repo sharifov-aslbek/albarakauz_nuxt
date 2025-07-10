@@ -66,13 +66,13 @@
   </div>
 </div>
 
-            <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+            <!-- <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3> -->
 
       <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
       <div class="flex justify-between items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
-          <div class="flex flex-col sm:flex-row gap-5 w-full h-[500px]">
+          <div class="flex flex-col items-center sm:flex-row gap-5 w-full h-[500px]">
              <n-scrollbar
     style="max-height: 500px; width: 80px;"
   >
@@ -100,21 +100,20 @@
     :items="store.product.productImages"
     :prev="{ onClick: onClickPrev }"
     :next="{ onClick: onClickNext }"
-    class="sm:w-[500px] mx-auto"
+    class="sm:w-[500px] w-full mx-auto"
     @select="onSelect"
   >
     <img
       :src="item.imageEntity.externalImagePath"
-      width="500"
       height="500"
-      class="rounded-lg object-cover w-[500px] h-[500px]"
+      class="rounded-lg object-cover w-full sm:w-[500px] h-[500px]"
     >
   </UCarousel>
 
   </div>
            <div class="flex w-full max-w-full flex-col items-start space-y-6">
                                <div class="flex justify-between w-full gap-3 pb-4">
-                           <h1 class="text-3xl mr-4 w-full max-w-[470px] font-bold">{{ store.product.name }}</h1>
+                           <h1 class="text-2xl mt-5 sm:mt-0 sm:text-3xl mr-4 w-full max-w-[470px] font-bold">{{ store.product.name }}</h1>
                        </div>
   
   
