@@ -2,6 +2,16 @@
   <!-- {{ store.productAll }} -->
   <!-- <Card :data="store.productAll" /> -->
   <!-- <Login /> -->
+   <div class="container">
+     <p>update naxuy</p>
+     <p>update naxuy</p>
+     <p>update naxuy</p>
+     <p>update naxuy</p>
+     <p>update naxuy</p>
+     ⚡
+   </div>
+
+
    <Slider />
    <MarketSlider />
   <HomeCategoryProduct />
