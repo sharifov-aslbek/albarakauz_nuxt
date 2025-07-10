@@ -15,7 +15,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
 
   const getAllCategory = async () => {
     try {
-      const res = await fetch(`https://albaraka.uz/api/${locale.value}/category/all`)
+      const res = await fetch(`https://api.albaraka.uz/api/${locale.value}/category/all`)
       const json = await res.json()
 
 
@@ -34,7 +34,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
 
   const getOneCategory = async (id: number) => {
     try {
-      const res = await fetch(`https://albaraka.uz/api/${locale.value}/category/retrieve?id=${id}`)
+      const res = await fetch(`https://api.albaraka.uz/api/${locale.value}/category/retrieve?id=${id}`)
       const json = await res.json()
 
       if (json?.data) {

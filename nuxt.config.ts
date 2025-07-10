@@ -7,6 +7,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({ 
   ssr: true,
+  nitro: {
+    preset: 'iis_node',
+  },
   modules: [
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',

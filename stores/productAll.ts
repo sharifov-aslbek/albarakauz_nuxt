@@ -18,13 +18,13 @@ export const useProductAllStore = defineStore('productAllStore', () => {
 
   const productAll = ref<Product[] | null>(null)
 
-  const API_HOST_DEFAULT = 'https://albaraka.uz/api'
+  const API_HOST_DEFAULT = 'https://api.albaraka.uz/api'
 
 
   const getAllProducts = async () => {
     try {
       // const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/all`)
-      const res = await fetch(`https://albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=10&id=4`)
+      const res = await fetch(`https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=10&id=4`)
       const json = await res.json()
       if (json?.data) {
         productAll.value = json.data

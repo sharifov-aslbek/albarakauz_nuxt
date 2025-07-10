@@ -14,7 +14,7 @@ export const useCategoryAllStore = defineStore('categoryAllStore', () => {
 
   const getAllCategory = async () => {
     try {
-      const res = await fetch(`https://albaraka.uz/api/${locale.value}/category/all`)
+      const res = await fetch(`https://api.albaraka.uz/api/${locale.value}/category/all`)
       const json = await res.json()
 
 

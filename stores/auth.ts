@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('authStore', () => {
     try {
       const token = localStorage.getItem('accessToken')
 
-      const response = await fetch('https://albaraka.uz/api/user/retrieve', {
+      const response = await fetch('https://api.albaraka.uz/api/user/retrieve', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

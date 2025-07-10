@@ -46,7 +46,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const similarsId = ref<any>(null)
   const similarProductData = ref<any[]>([])
 
-  const API_HOST_DEFAULT = 'https://albaraka.uz/api'
+  const API_HOST_DEFAULT = 'https://api.albaraka.uz/api'
 
   async function getProductWithMarketId(id: number, pageindex: number = 1) {
     marketProductLoader.value = true
@@ -196,7 +196,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   async function searchProducts(slug: string) {
     productLoader.value = true
     try {
-      const res = await fetch(`https://albaraka.uz/api/uz/product/search?key=${slug}`)
+      const res = await fetch(`https://api.albaraka.uz/api/uz/product/search?key=${slug}`)
       const json = await res.json()
       if (json?.data) {
         searchProductsData.value = json.data
