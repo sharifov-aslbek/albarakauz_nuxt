@@ -27,7 +27,7 @@
             <div class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center">
               <span class="text-white font-bold">A</span>
             </div>
-            <span class="font-bold text-xl">Albaraka.uz</span>
+            <span class="font-bold text-xl">api.albaraka.uz</span>
           </div>
 
          
@@ -219,7 +219,7 @@ const register = async () => {
   formData.append('Image', selectedFile.value)
 
   try {
-    const response = await fetch('https://albaraka.uz/api/user/register', {
+    const response = await fetch('https://api.albaraka.uz/api/user/register', {
       method: 'POST',
       body: formData
     })
@@ -230,7 +230,7 @@ const register = async () => {
       // ✅ Register muvaffaqiyatli bo‘ldi
       // 🔥 Endi authenticate chaqiramiz
 
-      const authResponse = await fetch('https://albaraka.uz/api/authenticate', {
+      const authResponse = await fetch('https://api.albaraka.uz/api/authenticate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

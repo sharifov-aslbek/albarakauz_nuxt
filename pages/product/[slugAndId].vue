@@ -61,14 +61,14 @@ watch(
 
 // Head ni yuklash
 useHead(() => {
-  const url = `https://albaraka.uz/product/${route.params.slugAndId}`
+  const url = `https://api.albaraka.uz/product/${route.params.slugAndId}`
 
   return {
     title: seoStore.title,
     meta: [
       { name: 'description', content: seoStore.description },
       { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
-      { name: 'author', content: 'Albaraka.uz' },
+      { name: 'author', content: 'albaraka.uz' },
       { name: 'robots', content: 'index, follow' },
 
       // Open Graph
@@ -77,7 +77,7 @@ useHead(() => {
       { property: 'og:image', content: seoStore.image },
       { property: 'og:url', content: url },
       { property: 'og:type', content: 'product' },
-      { property: 'og:site_name', content: 'Albaraka.uz' },
+      { property: 'og:site_name', content: 'albaraka.uz' },
 
       // Twitter
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -103,13 +103,13 @@ onBeforeRouteUpdate(async (to, from) => {
     await seoStore.getProductSeo(to.params.slugAndId as string)
 
     useHead(() => {
-      const url = `https://albaraka.uz/product/${to.params.slugAndId}`
+      const url = `https://api.albaraka.uz/product/${to.params.slugAndId}`
       return {
         title: seoStore.title,
         meta: [
           { name: 'description', content: seoStore.description },
           { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
-          { name: 'author', content: 'Albaraka.uz' },
+          { name: 'author', content: 'albaraka.uz' },
           { name: 'robots', content: 'index, follow' },
 
           // Open Graph
@@ -118,7 +118,7 @@ onBeforeRouteUpdate(async (to, from) => {
           { property: 'og:image', content: seoStore.image },
           { property: 'og:url', content: url },
           { property: 'og:type', content: 'product' },
-          { property: 'og:site_name', content: 'Albaraka.uz' },
+          { property: 'og:site_name', content: 'albaraka.uz' },
 
           // Twitter
           { name: 'twitter:card', content: 'summary_large_image' },

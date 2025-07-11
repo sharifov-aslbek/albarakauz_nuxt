@@ -134,43 +134,66 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     }
   }
 
-  async function getCategoryIdProduct(id: number) {
-    productLoader.value = true
-    try {
-      let category: Category | null = null
-      for (const parentCategory of allCategoryStore.categoryData) {
-        const foundChild = parentCategory.childCategories?.find((child: Category) => child.id === id)
-        if (foundChild) {
-          category = foundChild
-          break
-        }
-      }
-      if (!category) {
-        console.warn(`Child category with id ${id} not found`)
-        return
-      }
+ function findCategoryById(categories: Category[], id: number): Category | null {
+  for (const category of categories) {
+    if (category.id === id) {
+      return category
+    }
 
-      const { data, error } = await useFetch<{ code: number; message: string; data: Product[] }>(
-        () => `${API_HOST_DEFAULT}/uz/product/retrieve-by-categoryId?PageSize=5&id=${id}`,
-        { method: 'GET' }
-      )
-
-      if (error.value) throw new Error(error.value.message)
-
-      if (data.value?.data.length) {
-        productCategoryList.value.push({
-          categoryInfo: category,
-          products: data.value.data
-        })
-      } else {
-        console.warn(`Category id ${id} uchun mahsulot topilmadi.`)
+    if (category.childCategories?.length) {
+      const found = findCategoryById(category.childCategories, id)
+      if (found) {
+        return found
       }
-    } catch (err) {
-      console.error('API Error:', err)
-    } finally {
-      productLoader.value = false
     }
   }
+  return null
+}
+
+async function getCategoryIdProduct(id: number) {
+  productLoader.value = true
+  try {
+    // 1-marta qidirish
+    let category = findCategoryById(allCategoryStore.categoryData, id)
+
+    if (!category) {
+      console.warn(`Category with id ${id} not found in local store, requesting API anyway.`)
+    }
+
+    const { data, error } = await useFetch<{
+      code: number
+      message: string
+      data: Product[]
+    }>(
+      () => `${API_HOST_DEFAULT}/uz/product/retrieve-by-categoryId?PageSize=5&id=${id}`,
+      { method: 'GET' }
+    )
+
+    if (error.value) throw new Error(error.value.message)
+
+    if (data.value?.data.length) {
+      // 2-marta qidirish
+      if (!category) {
+        category = findCategoryById(allCategoryStore.categoryData, id)
+      }
+
+      productCategoryList.value.push({
+        categoryInfo: category, // endi chuqurdan topilgan bo‘lishi mumkin
+        products: data.value.data
+      })
+    } else {
+      console.warn(`Category id ${id} uchun mahsulot topilmadi.`)
+    }
+  } catch (err) {
+    console.error('API Error:', err)
+  } finally {
+    productLoader.value = false
+  }
+}
+
+
+
+
 
   function resetProductCategoryList() {
     productCategoryList.value = []

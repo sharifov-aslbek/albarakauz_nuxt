@@ -6,8 +6,8 @@
     <div v-if="store.profileData" @click="showModal = !showModal" class="relative cursor-pointer w-fit">
                   <!-- Heart icon container -->
     <UAvatar v-if="data.image?.localImagePath"
-                    :src="data.image?.localImagePath ? `https://albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
-      alt="Benjamin Canac"
+                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
+      :alt="data.name"
     />
 
       <UAvatar v-else :alt="data.name" size="md" />
@@ -29,9 +29,16 @@
         <div class="flex flex-col md:flex-row gap-8">
           <!-- Profile Image -->
           <div class="flex flex-col items-center md:items-start">
-            <img class="w-24 h-24 rounded-full object-cover"
-              :src="data.image?.localImagePath ? `https://albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
-              alt="Error">
+            <!-- <img class="w-24 h-24 rounded-full object-cover"
+              :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
+              alt="Error"> -->
+
+              <UAvatar
+              class="w-24 h-24 text-3xl rounded-full object-cover" 
+               v-if="data.image?.localImagePath"
+                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
+      :alt="data.name"
+    />
 
             <n-upload class="mt-4" :on-change="handleFileChange" accept="image/*">
               <n-button> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -175,7 +182,7 @@
                   <div class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center">
                     <span class="font-bold text-white">A</span>
                   </div>
-                  <span class="font-bold text-[#06D6A0] text-xl">Albaraka.uz</span>
+                  <span class="font-bold text-[#06D6A0] text-xl">api.albaraka.uz</span>
                 </div>
   
               </div>
@@ -362,7 +369,7 @@ async function verifyEmailCode(code) {
     const token = localStorage.getItem('accessToken')
 
     const res = await fetch(
-      `https://albaraka.uz/api/user/verify-email-code?code=${code}`,
+      `https://api.albaraka.uz/api/user/verify-email-code?code=${code}`,
       {
         method: 'POST',
         headers: {
@@ -426,7 +433,7 @@ const forgotPassword = async (email) => {
   try {
     const token = localStorage.getItem('accessToken') // Token olish
 
-    const res = await fetch(`https://albaraka.uz/api/user/forgot-password?email=${email}`, {
+    const res = await fetch(`https://api.albaraka.uz/api/user/forgot-password?email=${email}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -474,7 +481,7 @@ async function sendVerificationCode() {
   try {
     const token = localStorage.getItem('accessToken')
 
-    const response = await fetch('https://albaraka.uz/api/user/send-verification', {
+    const response = await fetch('https://api.albaraka.uz/api/user/send-verification', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -574,7 +581,7 @@ async function putProfileData(name, surname, email, phone, password) {
     // formData.append("Password", password)
     formData.append("Image", selectedFile.value)
 
-    const response = await fetch("https://albaraka.uz/api/user/modify", {
+    const response = await fetch("https://api.albaraka.uz/api/user/modify", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`

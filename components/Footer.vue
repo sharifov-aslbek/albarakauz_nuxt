@@ -13,7 +13,7 @@
           </div>
           
           <div class="text-gray-600 space-y-1">
-            <p>Albaraka.uz 2024-2025</p>
+            <p>api.albaraka.uz 2024-2025</p>
             <p>Barcha huquqlar himoyalangan</p>
           </div>
           

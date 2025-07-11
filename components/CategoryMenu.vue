@@ -31,7 +31,7 @@ const menuOptions = computed(() => {
       key: category.id,
       icon: () => h('img', {
         src: category.image && category.image.localImagePath
-          ? `https://albaraka.uz/${category.image.localImagePath}`
+          ? `https://api.albaraka.uz/${category.image.localImagePath}`
           : 'https://cdn-icons-png.flaticon.com/512/8634/8634546.png',
         class: 'w-full h-full object-cover',
         style: 'width: 24px; height: 24px;'  // icon o'lchamini moslashing mumkin

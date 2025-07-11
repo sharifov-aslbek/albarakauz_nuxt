@@ -19,7 +19,7 @@
           >
             <img
               v-if="breadcrumbImages[index]"
-              :src="`https://albaraka.uz/${breadcrumbImages[index]}`"
+              :src="`https://api.albaraka.uz/${breadcrumbImages[index]}`"
               alt="Parent Image"
               class="w-10 h-10 md:w-12 md:h-12 object-cover rounded-xl"
             />
@@ -53,7 +53,7 @@
           >
             <div class="flex items-center justify-center">
               <img
-                :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
+                :src="`https://api.albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
                 :alt="product.name"
                 class="max-h-[200px] sm:max-h-[250px] md:max-h-[420px] object-contain"
               />

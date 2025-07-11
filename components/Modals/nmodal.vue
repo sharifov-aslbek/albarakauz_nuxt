@@ -47,7 +47,7 @@
                 <div class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center">
                   <span class="text-white font-bold">A</span>
                 </div>
-                <span class="font-bold text-xl">Albaraka.uz</span>
+                <span class="font-bold text-xl">api.albaraka.uz</span>
               </div>
 
               <h2 class="text-2xl font-bold text-gray-900 mb-2">Welcome Back</h2>
@@ -155,7 +155,7 @@ const handleSubmit = async () => {
     loader.value = true;
     errorMessage.value = null; // Har yangi submitda xatoni tozalash
 
-    const response = await fetch('https://albaraka.uz/api/authenticate', {
+    const response = await fetch('https://api.albaraka.uz/api/authenticate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -9,7 +9,7 @@
     <div class="flex-shrink-0 w-[100px] h-[100px] flex justify-center items-center overflow-hidden rounded-md">
       <img
         v-if="product.productImages?.length > 0"
-        :src="`https://albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
+        :src="`https://api.albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
         loading="lazy"
         :alt="`${product.name} - Image 1`"
         class="w-full h-full object-cover"
@@ -154,7 +154,7 @@ async function addFavorites(
       return
     }
 
-    const response = await fetch('https://albaraka.uz/api/favorites/add', {
+    const response = await fetch('https://api.albaraka.uz/api/favorites/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -209,7 +209,7 @@ async function deleteFavoritesHandler(
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch('https://albaraka.uz/api/favorites/remove', {
+    const response = await fetch('https://api.albaraka.uz/api/favorites/remove', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -90,7 +90,7 @@
               <div class="w-8 h-8 mr-3 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200">
                 <img
                   :src="category.image && category.image.localImagePath
-                    ? `https://albaraka.uz/${category.image.localImagePath}`
+                    ? `https://api.albaraka.uz/${category.image.localImagePath}`
                     : 'https://cdn-icons-png.flaticon.com/512/8634/8634546.png'"
                   class="w-full h-full object-cover"
                 />

@@ -33,7 +33,7 @@
             <div class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center">
               <span class="text-white font-bold">A</span>
             </div>
-            <span class="font-bold text-xl">Albaraka.uz</span>
+            <span class="font-bold text-xl">api.albaraka.uz</span>
           </div>
 
             <n-space v-if="!store.profileData.data" vertical :size="30">
@@ -299,7 +299,7 @@ const resetPassword = async (sixCode, newPassword, confirmPassword, email) => {
   try {
     const token = localStorage.getItem('accessToken');
 
-    const res = await fetch(`https://albaraka.uz/api/user/reset-password?code=${sixCode}&newPassword=${newPassword}&confirmPassword=${confirmPassword}&email=${email}`, {
+    const res = await fetch(`https://api.albaraka.uz/api/user/reset-password?code=${sixCode}&newPassword=${newPassword}&confirmPassword=${confirmPassword}&email=${email}`, {
       method: 'POST',
       headers: {
         'accept': '*/*',

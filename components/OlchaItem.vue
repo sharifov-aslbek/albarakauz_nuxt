@@ -66,15 +66,14 @@
     :items="store.product.productImages"
     :prev="{ onClick: onClickPrev }"
     :next="{ onClick: onClickNext }"
-    class="w-[500px] mx-auto"
+    class="sm:w-full sm:max-w-[500px] w-full mx-auto"
     @select="onSelect"
   >
-    <img
-      :src="item.imageEntity.externalImagePath"
-      width="500"
-      height="500"
-      class="rounded-lg object-cover w-[500px] h-[500px]"
-    >
+   <n-image
+   width="420"
+   class="rounded-lg object-cover h-[500px]"
+    :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
+  />
   </UCarousel>
 
 </div>
@@ -414,7 +413,7 @@ async function addFavorites(
 
     const token = localStorage.getItem('accessToken')
 
-    const response = await fetch('https://albaraka.uz/api/favorites/add', {
+    const response = await fetch('https://api.albaraka.uz/api/favorites/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -467,7 +466,7 @@ async function deleteFavoritesHandler(
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch('https://albaraka.uz/api/favorites/remove', {
+    const response = await fetch('https://api.albaraka.uz/api/favorites/remove', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

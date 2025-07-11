@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
   ],
   image: {
-  domains: ['albaraka.uz']
+  domains: ['api.albaraka.uz']
 },
       colorMode: {
       preference: 'light',

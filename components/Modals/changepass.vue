@@ -43,7 +43,7 @@
             >
               <span class="text-white font-bold">A</span>
             </div>
-            <span class="font-bold text-xl">Albaraka.uz</span>
+            <span class="font-bold text-xl">api.albaraka.uz</span>
           </div>
 
           <!-- Title -->
@@ -282,7 +282,7 @@ const changePassword = async (oldPassword, newPassword, newPasswordConfirmation)
   try {
     const token = localStorage.getItem('accessToken')
 
-    const res = await fetch('https://albaraka.uz/api/user/change-password', {
+    const res = await fetch('https://api.albaraka.uz/api/user/change-password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

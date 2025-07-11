@@ -18,7 +18,7 @@
             <div class="flex justify-center items-center aspect-square mb-4">
               <img
                 v-if="item.productImages?.length > 0"
-                :src="`https://albaraka.uz/${item.productImages[0].imageEntity.localImagePath}`"
+                :src="`https://api.albaraka.uz/${item.productImages[0].imageEntity.localImagePath}`"
                 :alt="`${item.name} - Image 1`"
                 class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
               />

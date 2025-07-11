@@ -66,15 +66,14 @@
     :items="store.product.productImages"
     :prev="{ onClick: onClickPrev }"
     :next="{ onClick: onClickNext }"
-    class="w-[500px] mx-auto"
+    class="sm:w-full sm:max-w-[500px] w-full mx-auto"
     @select="onSelect"
   >
-    <img
-      :src="item.imageEntity.externalImagePath"
-      width="500"
-      height="500"
-      class="rounded-lg object-cover w-[500px] h-[500px]"
-    >
+   <n-image
+   width="420"
+   class="rounded-lg object-cover h-[500px]"
+    :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
+  />
   </UCarousel>
 
 </div>
@@ -165,7 +164,7 @@
                         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
-            <div   v-if="!store.similarProductData || Object.keys(store.similarProductData).length === 0"
+            <div   v-if="!linkedProducts || Object.keys(linkedProducts).length === 0"
    class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-lg h-full py-6">
         <div class="w-24 h-24 mb-6 text-gray-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -351,7 +350,7 @@ async function addFavorites(
 
     const token = localStorage.getItem('accessToken')
 
-    const response = await fetch('https://albaraka.uz/api/favorites/add', {
+    const response = await fetch('https://api.albaraka.uz/api/favorites/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -404,7 +403,7 @@ async function deleteFavoritesHandler(
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch('https://albaraka.uz/api/favorites/remove', {
+    const response = await fetch('https://api.albaraka.uz/api/favorites/remove', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

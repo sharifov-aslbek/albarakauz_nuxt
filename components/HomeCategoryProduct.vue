@@ -27,8 +27,10 @@
   <div v-if="productStore.productCategoryList" class="container">
     <div
       v-for="category in productStore.productCategoryList"
-      :key="category.categoryInfo.id"
     >
+    <!-- 
+      :key="category.categoryInfo.id" 
+     -->
       <h2
         @click="navigateCategory(category.categoryInfo.id)"
         class="text-2xl text-category cursor-pointer flex items-center gap-3"
@@ -88,6 +90,7 @@ onMounted(async () => {
       await allCategoryStore.getAllCategory()
     }
   }
+
 })
 
 // Navigatsiya
@@ -111,23 +114,18 @@ watch(
   () => allCategoryStore.categoryData,
   (categoryData) => {
     if (!Array.isArray(categoryData) || categoryData.length === 0) return
+    // faqat 4ta aniq id-lar uchun chaqiruv
+    const ids = [9, 4, 1740, 139 , 16, 44 , 346]
+    const ids2 = [2 , 8]
+    ids.forEach(id => {
+      console.log('id:', id)
 
-    limitedCategories.value = categoryData.slice(0, 10)
-    remainingCount.value = categoryData.length - 10
-
-    const usedChildIds = new Set<number>()
-
-    limitedCategories.value.forEach(category => {
-      const childId = category.childCategories?.[3]?.id
-      if (childId && !usedChildIds.has(childId)) {
-        usedChildIds.add(childId)
-        console.log('child idss', childId)
-        productStore.getCategoryIdProduct(childId)
-      }
+      productStore.getCategoryIdProduct(id)
     })
   },
   { immediate: true }
 )
+
 
 
 </script>
