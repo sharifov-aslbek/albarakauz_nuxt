@@ -269,6 +269,7 @@ const getMarketLogo = (url: string): string => {
   if (url.includes('olcha.uz')) return '/olcha.png'
   if (url.includes('texnomart.uz')) return '/texnomart-text.png'
   if(url.includes('idea.uz')) return '/idea-logo.png'
+  if(url.includes('elmakon.uz')) return '/elmakon-logo.png'
   return '/fallback.png'
 }
 

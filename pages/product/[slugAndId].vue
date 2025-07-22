@@ -13,28 +13,12 @@
     />
 
     <IdeaItem v-else-if="seoStore.product.marketResultmodel.url.includes('idea.uz')" />
+
+    <ElmakonItem v-else-if="seoStore.product.marketResultmodel.url.includes('elmakon.uz')" />
     
 
     <SimilarProducts v-if="seoStore.product.marketResultmodel.url.includes('uzum.uz')" :data="seoStore.oneCategoryProducts" />
-    <!-- <UCarousel v-slot="{ item }" :items="seoStore.oneCategoryProducts" :ui="{ item: 'basic-1/3' }">
-      <Card :data="seoStore.oneCategoryProducts" />
-    </UCarousel> -->
-
-    <!-- <div class="" v-for="category in seoStore.productCategoryList" :key="category.categoryInfo.id">
-    
-                <h2 class="text-2xl text-category cursor-pointer flex items-center gap-3">{{ category.categoryInfo.name }} <UIcon name="ic:outline-chevron-right" class="size-10 flex justify-center" />
-</h2>
-                <div class="grid grid-cols-5 gap-3">
-                  <Card :data="category.products" />
-                </div>
-               </div>   -->
-
   </template>
-  <!-- <div v-if="seoStore.product">
-    <h1 class="text-xl font-bold">{{ seoStore.title }}</h1>
-    <img :src="seoStore.image" alt="Product Image" class="max-w-sm my-4" />
-    <p>{{ seoStore.description }}</p>
-  </div> -->
 
 </template>
 
