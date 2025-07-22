@@ -31,4 +31,4 @@ jobs:
           password: ${{ secrets.SSH_PASS }}
           port: 333
           source: "dist"
-          target: "C:/inetpub/wwwroot/Bozor.Frontend/dist"
+          target: "C:/inetpub/wwwroot/Front/dist"
