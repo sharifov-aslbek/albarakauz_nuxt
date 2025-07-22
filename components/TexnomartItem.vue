@@ -54,7 +54,7 @@
           :src="item.imageEntity.externalImagePath"
           width="100"
           height="100"
-          class="rounded-lg"
+          class="rounded-lg object-cover"
         >
       </div>
     </div>
@@ -66,12 +66,12 @@
     :items="store.product.productImages"
     :prev="{ onClick: onClickPrev }"
     :next="{ onClick: onClickNext }"
-    class="sm:w-full sm:max-w-[500px] w-full mx-auto"
+    class="sm:w-full sm:max-w-[400px] w-full mx-auto"
     @select="onSelect"
   >
    <n-image
-   width="420"
-   class="rounded-lg object-cover h-[500px]"
+   width="410"
+   class="rounded-lg object-cover h-[420px]"
     :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
   />
   </UCarousel>

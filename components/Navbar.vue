@@ -1,6 +1,15 @@
 <template>
   <header>
     <div class="container">
+      <div class="flex items-center sm:hidden py-5">
+          <a href="/" class="flex items-center space-x-2">
+                          <img class="w-12" src="/assets/logo.png" alt="">
+                          <div>
+                            <span class="text-xl font-bold block text-brand-green">Albaraka.uz</span>
+                            <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring</span>
+                          </div>
+          </a>
+        </div>
       <div class="flex justify-between gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
           <a href="/" class="flex items-center space-x-2">
@@ -31,10 +40,12 @@
 </button>
 
 
-<n-auto-complete v-model:value="search" :options="filteredOptions" @keydown.enter="navigateSearch"
-                placeholder="Tovar va kategoriyalarni qidiring ..." />
+  <n-auto-complete v-model:value="search" :options="filteredOptions"
+     @keydown.enter="navigateSearch"   placeholder="Tovar va kategoriyalarni qidiring ..." />
 
-           <UButton icon="material-symbols:search" size="md"  variant="solid"
+
+
+           <UButton @click="navigateSearch()"  icon="material-symbols:search" size="md"  variant="solid"
   class="bg-[#06D6A0] text-white rounded-xs hover:bg-[#05c293] py-1.5 px-4 ml-2"></UButton>
 
         </div>
@@ -96,7 +107,7 @@
                 />
               </div>
               <span class="truncate">{{ category.name }}</span>
-              <ChevronRightIcon class="ml-auto h-4 w-4 text-gray-400" />
+              <UIcon name="material-symbols:chevron-right-rounded" class="ml-auto h-6 w-6 text-gray-400" />
             </button>
           </div>
         </nav>
@@ -109,7 +120,8 @@
             <div v-show="activeCategory === category.id">
               <h2 class="text-xl font-semibold mb-6 flex items-center cursor-pointer hover:text-blue-600">
                 {{ category.name }}
-                <ChevronRightIcon class="h-5 w-5 ml-2" />
+                              <UIcon name="material-symbols:chevron-right-rounded" class="ml-auto h-4 w-4 text-gray-400" />
+
               </h2>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -228,6 +240,7 @@ const filteredOptions = computed(() => {
     ...results
   ]
 })
+
 
 // Navigates
 

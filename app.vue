@@ -19,7 +19,7 @@
 
 <script setup>
 import Navbar from './components/Navbar.vue'
-import { defineAsyncComponent, onMounted } from 'vue'
+import { defineAsyncComponent, onMounted , ref } from 'vue'
 import { useAuthStore, useColorMode } from '#imports'
 
 useHead({
@@ -28,9 +28,11 @@ useHead({
   }
 })
 
+
 const store = useAuthStore()
 const colorMode = useColorMode()
 colorMode.value = 'light'
+const text = ref('')
 
 const LazyFooter = defineAsyncComponent(() =>
   import('./components/Footer.vue')

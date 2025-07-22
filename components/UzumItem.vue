@@ -71,7 +71,7 @@
       <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
       <div class="flex justify-between items-center">
-        <div class="flex flex-col md:flex-row pb-5 gap-6 mr-7 py-12">
+        <div class="flex flex-col md:flex-row pb-5 gap-6 sm:mr-7 py-12">
           <div class="flex flex-col items-center sm:flex-row gap-5 w-full h-[500px]">
              <n-scrollbar
     style="max-height: 500px; width: 80px;"
@@ -94,26 +94,26 @@
     </div>
   </n-scrollbar>
   <UCarousel
-    ref="carousel"
-    v-slot="{ item }"
+  ref="carousel"
+  v-slot="{ item }"
     arrows
-    :items="store.product.productImages"
-    :prev="{ onClick: onClickPrev }"
-    :next="{ onClick: onClickNext }"
-    class="sm:w-full sm:max-w-[500px] w-full mx-auto"
-    @select="onSelect"
-  >
-   <n-image
-   width="420"
-   class="rounded-lg object-cover h-[500px]"
+  :items="store.product.productImages"
+  :prev="{ onClick: onClickPrev }"
+  :next="{ onClick: onClickNext }"
+  class="sm:w-full sm:max-w-[400px] w-full"
+  @select="onSelect"
+>
+  <n-image
+    class="w-full sm:w-[420px] rounded-lg object-cover h-[500px]"
     :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
   />
-  </UCarousel>
+</UCarousel>
+
 
   </div>
-           <div class="flex w-full max-w-full flex-col items-start space-y-6">
+           <div class="flex w-full max-w-full md:max-w-[40%] flex-col items-start space-y-6">
                                <div class="flex justify-between w-full gap-3 pb-4">
-                           <h1 class="text-2xl mt-5 sm:mt-0 sm:text-3xl mr-4 w-full max-w-[470px] font-bold">{{ store.product.name }}</h1>
+                           <h1 class="text-xl mt-5 sm:mt-0 sm:text-3xl mr-4 w-full max-w-full sm:max-w-[470px] font-bold">{{ store.product.name }}</h1>
                        </div>
   
   
@@ -131,7 +131,7 @@
                  <span class="text-sm text-gray-500">({{ monthly }} oy)</span>
                </div>
   
-               <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+               <div class="bg-white w-[95%] sm:w-auto p-6 rounded-sm shadow-sm border border-gray-200">
                  <h3 class="text-lg font-semibold mb-4">Sotuvchi</h3>
                  <div class="flex items-center justify-between">
                    <div class="flex items-center gap-3">
@@ -245,16 +245,6 @@
     v-if="store.product.description"
     class="gap-x-12 gap-y-2 max-w-full mt-6"
   >
-    <!-- Chap ustun -->
-    <!-- <ul>
-      <li
-        v-for="(item, index) in getParsedProductModel(store.product.productModel)?.[locale]?.shortDescription"
-        :key="'left-' + index"
-        class="list-disc list-inside"
-      >
-        {{ item }}
-      </li>
-    </ul> -->
 
                <div class="text-gray-700 leading-relaxed" v-html="store.product.description"></div>
   </div>

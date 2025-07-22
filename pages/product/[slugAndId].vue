@@ -1,5 +1,5 @@
 <template>
-  <NotFoundSearch v-if="!seoStore.product" />
+    <ProductSkeleton v-if="!seoStore.product" />
   <template v-else-if="seoStore.product && seoStore.product.marketResultmodel">
     <UzumItem 
       v-if="seoStore.product.marketResultmodel.url.includes('uzum.uz')"
@@ -11,10 +11,11 @@
     <TexnomartItem
     v-else-if="seoStore.product.marketResultmodel.url.includes('texnomart.uz')"
     />
-    
-    <ProductSkeleton v-else />
 
-    <SimilarProducts :data="seoStore.oneCategoryProducts" />
+    <IdeaItem v-else-if="seoStore.product.marketResultmodel.url.includes('idea.uz')" />
+    
+
+    <SimilarProducts v-if="seoStore.product.marketResultmodel.url.includes('uzum.uz')" :data="seoStore.oneCategoryProducts" />
     <!-- <UCarousel v-slot="{ item }" :items="seoStore.oneCategoryProducts" :ui="{ item: 'basic-1/3' }">
       <Card :data="seoStore.oneCategoryProducts" />
     </UCarousel> -->

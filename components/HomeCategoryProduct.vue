@@ -33,7 +33,7 @@
      -->
       <h2
         @click="navigateCategory(category.categoryInfo.id)"
-        class="text-2xl text-category cursor-pointer flex items-center gap-3"
+        class="text-lg sm:text-2xl text-category cursor-pointer flex items-center gap-3"
       >
         {{ category.categoryInfo.name }}
         <UIcon
@@ -114,17 +114,26 @@ watch(
   () => allCategoryStore.categoryData,
   (categoryData) => {
     if (!Array.isArray(categoryData) || categoryData.length === 0) return
-    // faqat 4ta aniq id-lar uchun chaqiruv
-    const ids = [9, 4, 1740, 139 , 16, 44 , 346]
-    const ids2 = [2 , 8]
-    ids.forEach(id => {
-      console.log('id:', id)
 
+    const ids = [4, 1740, 139, 16, 44, 9, 346, 347, 255, 643, 647, 685, 114]
+
+    // massivni aralashtiramiz (Fisher-Yates shuffle)
+    const shuffled = ids
+      .map(value => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(item => item.value)
+
+    // faqat 5 ta ID ni olamiz
+    const randomIds = shuffled.slice(0, 5)
+
+    randomIds.forEach(id => {
+      console.log('id:', id)
       productStore.getCategoryIdProduct(id)
     })
   },
   { immediate: true }
 )
+
 
 
 

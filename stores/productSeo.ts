@@ -216,10 +216,10 @@ async function getCategoryIdProduct(id: number) {
     }
   }
 
-  async function searchProducts(slug: string) {
+  async function searchProducts(slug: string , page: number = 1) {
     productLoader.value = true
     try {
-      const res = await fetch(`https://api.albaraka.uz/api/uz/product/search?key=${slug}`)
+      const res = await fetch(`https://api.albaraka.uz/api/uz/product/search?PageSize=50&PageIndex=${page}&key=${slug}`)
       const json = await res.json()
       if (json?.data) {
         searchProductsData.value = json.data

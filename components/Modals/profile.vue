@@ -127,16 +127,28 @@
 
         <!-- Buttons -->
 
-        <div class="flex flex-col sm:flex-row justify-between gap-2 mt-8">
+        <div class="flex flex-row sm:flex-row justify-between gap-2 mt-8">
           <n-button @click="logoutHandler" type="error" class="w-full sm:w-auto">
            <UIcon name="garden:exit-fill-16" size="16" class="mr-2" />  Logout
           </n-button>
 
-          <div class='flex gap-3'>
-            <n-button @click="showModal = false" class="w-[48%] sm:w-auto">
+          <div class="block sm:hidden">
+            <n-button @click="submitHandler" type="success" class="w-full">
+                Save
+                <div
+                v-if="putProfileLoader"
+                  class="ml-2 w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
+                ></div>
+                <UIcon v-else name="bx:save" class="ml-2" />
+  
+              </n-button>
+          </div>
+
+          <div class='hidden md:flex gap-3'>
+            <n-button @click="showModal = false" class="w-full sm:w-auto">
               Close
             </n-button>
-            <n-button @click="submitHandler" type="success" class="w-[49%] sm:w-auto">
+            <n-button @click="submitHandler" type="success" class="w-full sm:w-auto">
               Save
               <div
               v-if="putProfileLoader"
@@ -182,7 +194,7 @@
                   <div class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center">
                     <span class="font-bold text-white">A</span>
                   </div>
-                  <span class="font-bold text-[#06D6A0] text-xl">api.albaraka.uz</span>
+                  <span class="font-bold text-[#06D6A0] text-xl">Albaraka.uz</span>
                 </div>
   
               </div>

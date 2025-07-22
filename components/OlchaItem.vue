@@ -66,12 +66,12 @@
     :items="store.product.productImages"
     :prev="{ onClick: onClickPrev }"
     :next="{ onClick: onClickNext }"
-    class="sm:w-full sm:max-w-[500px] w-full mx-auto"
+    class="sm:w-full sm:max-w-[400px] w-full mx-auto"
     @select="onSelect"
   >
    <n-image
    width="420"
-   class="rounded-lg object-cover h-[500px]"
+   class="rounded-lg object-cover h-[420px]"
     :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
   />
   </UCarousel>
@@ -191,7 +191,7 @@
             <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
                         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
-            <div   v-if="!store.similarProductData"
+            <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
    class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-lg h-full py-6">
         <div class="w-24 h-24 mb-6 text-gray-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

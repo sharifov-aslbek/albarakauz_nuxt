@@ -1,13 +1,7 @@
 <template>
-  <!-- {{ store.productAll }} -->
-  <!-- <Card :data="store.productAll" /> -->
-  <!-- <Login /> -->
-
-
-   <Slider />
+   <NewSlider />
    <MarketSlider />
   <HomeCategoryProduct />
-  <!-- <NButton>Default</NButton> -->
 </template>
 
 
@@ -15,12 +9,9 @@
 import { NButton } from 'naive-ui'
 import { useProductAllStore } from '../stores/productAll'
 import HomeCategoryProduct from '@/components/HomeCategoryProduct'
-import ColorModeButton from '@/components/ColorModeButton'
-import Card from '@/components/Card.vue'
 import { useProductSeoStore }   from '@/stores/productSeo'
 import { onMounted } from 'vue'
 import MarketSlider from '~/components/MarketSlider.vue'
-import Toast from '~/components/Toast.vue'
 
 const store = useProductSeoStore();
 const allProductStore = useProductAllStore()
@@ -51,7 +42,7 @@ useHead({
 onMounted(() => {
   // localStorage da borligini tekshir
   if (!localStorage.getItem('productAllStore')) {
-    allProductStore.getAllProducts()
+    // allProductStore.getAllProducts()
   } else {
     console.log('localStorage-dan productAll ishlatilmoqda')
   }
