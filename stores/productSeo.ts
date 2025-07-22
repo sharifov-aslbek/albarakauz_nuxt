@@ -5,6 +5,7 @@ import { useCategoryAllStore } from '#imports'
 import { useCategoryStore } from './categoryStore'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRuntimeConfig } from "#app";
 
 interface Product {
   id: number
@@ -45,9 +46,10 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const marketProductsData = ref<Product[]>([])
   const similarsId = ref<any>(null)
   const similarProductData = ref<any[]>([])
+  const config = useRuntimeConfig();
 
-  const API_HOST_DEFAULT = 'https://api.albaraka.uz/api'
-
+  const API_HOST_DEFAULT = config.public.NUXT_PUBLIC_BACKEND_URL
+  
   async function getProductWithMarketId(id: number, pageindex: number = 1) {
     marketProductLoader.value = true
     try {

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useRuntimeConfig } from "#app";
 
 interface Product {
   id: number
@@ -24,12 +25,12 @@ export const useProductAllStore = defineStore('productAllStore', () => {
   }[]
 >([])
 
-
-  const API_HOST_DEFAULT = 'https://api.albaraka.uz/api'
+  const config = useRuntimeConfig();
+  const API_HOST_DEFAULT = config.public.NUXT_PUBLIC_BACKEND_URL
 
   const getAllProducts = async () => {
     try {
-      const res = await fetch(`https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=10&id=4`)
+      const res = await fetch(`${config.public.NUXT_PUBLIC_BACKEND_URL}/uz/product/retrieve-by-categoryId?PageSize=10&id=4`)
       const json = await res.json()
       productAll.value = json?.data || null
     } catch (e) {

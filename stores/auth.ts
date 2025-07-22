@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref } from 'vue' // ⛔️ XATO
+
+import { useRuntimeConfig } from '#app'
 
 export const useAuthStore = defineStore('authStore', () => {
   const profileData = ref(null)
@@ -8,11 +10,15 @@ export const useAuthStore = defineStore('authStore', () => {
   const changePasswordModal = ref(false)
   const resetPasswordModal = ref(false)
   const currentStep = ref(1)
+
   const getProfileData = async () => {
     try {
+      const config = useRuntimeConfig()
+      const apiBase = config.public.NUXT_PUBLIC_BACKEND_URL
+
       const token = localStorage.getItem('accessToken')
 
-      const response = await fetch('https://api.albaraka.uz/api/user/retrieve', {
+      const response = await fetch(`${apiBase}/user/retrieve`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
