@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue' // ⛔️ XATO
-
+import { ref } from 'vue'
 import { useRuntimeConfig } from '#app'
+import axios from 'axios' // ✅ AXIOSNI QO‘SHISH
 
 export const useAuthStore = defineStore('authStore', () => {
   const profileData = ref(null)
@@ -18,24 +18,24 @@ export const useAuthStore = defineStore('authStore', () => {
 
       const token = localStorage.getItem('accessToken')
 
-      const response = await fetch(`${apiBase}/user/retrieve`, {
-        method: 'GET',
+      const response = await axios.get(`${apiBase}/user/retrieve`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
       })
 
-      const data = await response.json()
+      profileData.value = response.data
+      console.log('Profile maʼlumotlari:', response.data)
 
-      if (response.ok) {
-        profileData.value = data
-        console.log('Profile maʼlumotlari:', data)
+    } catch (error: any) {
+      if (error.response) {
+        // Server javob berdi, lekin xatolik holatida
+        console.error('Xatolik:', error.response.data)
       } else {
-        console.error('Xatolik:', data)
+        // So‘rov yuborilmadi yoki boshqa xatolik
+        console.error('So‘rovda xatolik:', error.message)
       }
-    } catch (error) {
-      console.error('So‘rovda xatolik:', error)
     }
   }
 

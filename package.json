@@ -17,6 +17,7 @@
     "@nuxtjs/leaflet": "^1.2.6",
     "@pinia/nuxt": "^0.11.1",
     "@tailwindcss/vite": "^4.1.10",
+    "axios": "^1.10.0",
     "nuxt": "^3.17.5",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.4.1",

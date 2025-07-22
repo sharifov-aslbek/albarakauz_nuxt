@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRuntimeConfig } from "#app";
 import { useI18n } from "vue-i18n";
+import axios from "axios"; // ✅ AXIOS QO‘SHILDI
 
 export const useCategoryStore = defineStore(
   "categoryStore",
@@ -21,15 +22,14 @@ export const useCategoryStore = defineStore(
 
     const getAllCategory = async () => {
       try {
-        const res = await fetch(
+        const response = await axios.get(
           `${apiBase}/${locale.value}/category/all`
         );
-        const json = await res.json();
 
         console.log("locale.value", locale.value);
 
-        if (json?.data) {
-          categoryData.value = json.data;
+        if (response.data?.data) {
+          categoryData.value = response.data.data;
         } else {
           console.warn("APIdan data yo‘q");
         }
@@ -40,13 +40,15 @@ export const useCategoryStore = defineStore(
 
     const getOneCategory = async (id: number) => {
       try {
-        const res = await fetch(
-          `${apiBase}/${locale.value}/category/retrieve?id=${id}`
+        const response = await axios.get(
+          `${apiBase}/${locale.value}/category/retrieve`,
+          {
+            params: { id },
+          }
         );
-        const json = await res.json();
 
-        if (json?.data) {
-          onecategoryData.value = json.data;
+        if (response.data?.data) {
+          onecategoryData.value = response.data.data;
         } else {
           console.warn("APIdan data yo‘q");
         }

@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRuntimeConfig } from "#app";
+import axios from "axios"; // ✅ AXIOSNI QO‘SHDIK
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate' // ⚠️ kerak bo‘lsa import qilish esdan chiqmasin
 
 export const useCategoryAllStore = defineStore(
   "categoryAllStore",
@@ -18,15 +20,14 @@ export const useCategoryAllStore = defineStore(
 
     const getAllCategory = async () => {
       try {
-        const res = await fetch(
+        const response = await axios.get(
           `${apiBase}/${locale.value}/category/all`
         );
-        const json = await res.json();
 
         console.log("locale.value", locale.value);
 
-        if (json?.data) {
-          categoryData.value = json.data;
+        if (response.data?.data) {
+          categoryData.value = response.data.data;
         } else {
           console.warn("APIdan data yo‘q");
         }
@@ -45,10 +46,10 @@ export const useCategoryAllStore = defineStore(
       showCategory,
     };
   },
-  {
-    persist: {
-      storage: piniaPluginPersistedstate.localStorage(),
-      paths: ["categoryData"],
-    },
-  }
+  // {
+    // persist: {
+    //   storage: piniaPluginPersistedstate.localStorage(),
+    //   paths: ["categoryData"],
+    // },
+  // }
 );
