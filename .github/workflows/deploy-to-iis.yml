@@ -23,12 +23,12 @@ jobs:
       - name: Generate Static Site
         run: npm run generate
 
-      - name: Upload via SCP
+      - name: Deploy to IIS via SCP
         uses: appleboy/scp-action@v0.1.6
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASS }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASS }}
           port: 333
           source: "dist"
           target: "C:/inetpub/wwwroot/Front/dist"
