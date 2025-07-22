@@ -6,7 +6,7 @@
                           <img class="w-12" src="/assets/logo.png" alt="">
                           <div>
                             <span class="text-xl font-bold block text-brand-green">Albaraka.uz</span>
-                            <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring dddddddddddddddddddddddd</span>
+                            <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring dfdfdf</span>
                           </div>
           </a>
 
