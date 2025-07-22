@@ -1,10 +1,10 @@
-// stores/productSeo.ts
-
 import { defineStore } from 'pinia'
 import { useCategoryAllStore } from '#imports'
 import { useCategoryStore } from './categoryStore'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRuntimeConfig } from "#app"
+import axios from 'axios'
 
 interface Product {
   id: number
@@ -29,6 +29,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const { locale } = useI18n()
   const categoryStore = useCategoryStore()
   const allCategoryStore = useCategoryAllStore()
+
   const product = ref<any>(null)
   const productLoader = ref(false)
   const similarLoader = ref(false)
@@ -45,18 +46,26 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const marketProductsData = ref<Product[]>([])
   const similarsId = ref<any>(null)
   const similarProductData = ref<any[]>([])
+  const config = useRuntimeConfig()
 
-  const API_HOST_DEFAULT = 'https://api.albaraka.uz/api'
+  const API_HOST_DEFAULT = config.public.NUXT_PUBLIC_BACKEND_URL
 
   async function getProductWithMarketId(id: number, pageindex: number = 1) {
     marketProductLoader.value = true
     try {
-      const url = `${API_HOST_DEFAULT}/${locale.value}/product/retrieve-by-marketId?PageSize=30&PageIndex=${pageindex}&id=${id}`
-      const response = await fetch(url)
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`)
-      const data: RetrieveByMarketIdResponse = await response.json()
-      marketProductsCount.value = data.data.count
-      marketProductsData.value = data.data.data
+      const response = await axios.get<RetrieveByMarketIdResponse>(
+        `${API_HOST_DEFAULT}/${locale.value}/product/retrieve-by-marketId`,
+        {
+          params: {
+            PageSize: 30,
+            PageIndex: pageindex,
+            id
+          }
+        }
+      )
+
+      marketProductsCount.value = response.data.data.count
+      marketProductsData.value = response.data.data.data
     } catch (err) {
       console.error('API Error:', err)
     } finally {
@@ -64,13 +73,13 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     }
   }
 
-  const getProductSeo = async (slug: String) => {
+  const getProductSeo = async (slug: string) => {
     try {
       linkedProducts.value = []
-      // const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve${id}`)
-      const res = await fetch(`${API_HOST_DEFAULT}/uz/product/${slug}`)
-      const json = await res.json()
-      // linkedProducts
+
+      const response = await axios.get(`${API_HOST_DEFAULT}/uz/product/${slug}`)
+      const json = response.data
+
       if (json?.data.product) {
         const data = json.data.product
         product.value = data
@@ -78,10 +87,10 @@ export const useProductSeoStore = defineStore('productSeo', () => {
         description.value = stripHtml(data.description || '')
         image.value = data.productImages?.[0]?.imageEntity?.externalImagePath || ''
       }
-      if(json?.data.linkedProducts && json.data.linkedProducts.length > 0) {
-        linkedProducts.value = json.data?.linkedProducts
-      }
-       else {
+
+      if (json?.data.linkedProducts && json.data.linkedProducts.length > 0) {
+        linkedProducts.value = json.data.linkedProducts
+      } else {
         console.warn('APIdan data yo‘q')
       }
     } catch (e) {
@@ -92,8 +101,8 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const getOneProductSimilar = async (id: string | number) => {
     similarLoader.value = true
     try {
-      const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve${id}`)
-      const json = await res.json()
+      const response = await axios.get(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve${id}`)
+      const json = response.data
       if (json?.data) {
         similarProductData.value.push(json.data)
       } else {
@@ -108,8 +117,10 @@ export const useProductSeoStore = defineStore('productSeo', () => {
 
   const getProductSimilars = async (id: string | number) => {
     try {
-      const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve-similars?id=${id}`)
-      const json = await res.json()
+      const response = await axios.get(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve-similars`, {
+        params: { id }
+      })
+      const json = response.data
       if (json?.data) {
         similarsId.value = json.data
       } else {
@@ -122,8 +133,8 @@ export const useProductSeoStore = defineStore('productSeo', () => {
 
   const getAllProducts = async () => {
     try {
-      const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/all`)
-      const json = await res.json()
+      const response = await axios.get(`${API_HOST_DEFAULT}/${locale.value}/product/all`)
+      const json = response.data
       if (json?.data) {
         productAll.value = json.data
       } else {
@@ -134,66 +145,57 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     }
   }
 
- function findCategoryById(categories: Category[], id: number): Category | null {
-  for (const category of categories) {
-    if (category.id === id) {
-      return category
-    }
-
-    if (category.childCategories?.length) {
-      const found = findCategoryById(category.childCategories, id)
-      if (found) {
-        return found
+  function findCategoryById(categories: Category[], id: number): Category | null {
+    for (const category of categories) {
+      if (category.id === id) {
+        return category
+      }
+      if (category.childCategories?.length) {
+        const found = findCategoryById(category.childCategories, id)
+        if (found) {
+          return found
+        }
       }
     }
+    return null
   }
-  return null
-}
 
-async function getCategoryIdProduct(id: number) {
-  productLoader.value = true
-  try {
-    // 1-marta qidirish
-    let category = findCategoryById(allCategoryStore.categoryData, id)
+  async function getCategoryIdProduct(id: number) {
+    productLoader.value = true
+    try {
+      let category = findCategoryById(allCategoryStore.categoryData, id)
 
-    if (!category) {
-      console.warn(`Category with id ${id} not found in local store, requesting API anyway.`)
-    }
-
-    const { data, error } = await useFetch<{
-      code: number
-      message: string
-      data: Product[]
-    }>(
-      () => `${API_HOST_DEFAULT}/uz/product/retrieve-by-categoryId?PageSize=5&id=${id}`,
-      { method: 'GET' }
-    )
-
-    if (error.value) throw new Error(error.value.message)
-
-    if (data.value?.data.length) {
-      // 2-marta qidirish
       if (!category) {
-        category = findCategoryById(allCategoryStore.categoryData, id)
+        console.warn(`Category with id ${id} not found in local store, requesting API anyway.`)
       }
 
-      productCategoryList.value.push({
-        categoryInfo: category, // endi chuqurdan topilgan bo‘lishi mumkin
-        products: data.value.data
+      const response = await axios.get(`${API_HOST_DEFAULT}/uz/product/retrieve-by-categoryId`, {
+        params: {
+          PageSize: 5,
+          id
+        }
       })
-    } else {
-      console.warn(`Category id ${id} uchun mahsulot topilmadi.`)
+
+      const data = response.data
+
+      if (data?.data?.length) {
+        if (!category) {
+          category = findCategoryById(allCategoryStore.categoryData, id)
+        }
+
+        productCategoryList.value.push({
+          categoryInfo: category,
+          products: data.data
+        })
+      } else {
+        console.warn(`Category id ${id} uchun mahsulot topilmadi.`)
+      }
+    } catch (err) {
+      console.error('API Error:', err)
+    } finally {
+      productLoader.value = false
     }
-  } catch (err) {
-    console.error('API Error:', err)
-  } finally {
-    productLoader.value = false
   }
-}
-
-
-
-
 
   function resetProductCategoryList() {
     productCategoryList.value = []
@@ -202,8 +204,10 @@ async function getCategoryIdProduct(id: number) {
   async function getOneCategoryProducts(id: number) {
     productLoader.value = true
     try {
-      const res = await fetch(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve-by-categoryId?id=${id}`)
-      const json = await res.json()
+      const response = await axios.get(`${API_HOST_DEFAULT}/${locale.value}/product/retrieve-by-categoryId`, {
+        params: { id }
+      })
+      const json = response.data
       if (json?.data) {
         oneCategoryProducts.value = json.data
       } else {
@@ -216,11 +220,17 @@ async function getCategoryIdProduct(id: number) {
     }
   }
 
-  async function searchProducts(slug: string , page: number = 1) {
+  async function searchProducts(slug: string, page: number = 1) {
     productLoader.value = true
     try {
-      const res = await fetch(`https://api.albaraka.uz/api/uz/product/search?PageSize=50&PageIndex=${page}&key=${slug}`)
-      const json = await res.json()
+      const response = await axios.get(`https://api.albaraka.uz/api/uz/product/search`, {
+        params: {
+          PageSize: 50,
+          PageIndex: page,
+          key: slug
+        }
+      })
+      const json = response.data
       if (json?.data) {
         searchProductsData.value = json.data
       } else {
@@ -264,11 +274,4 @@ async function getCategoryIdProduct(id: number) {
     searchProducts,
     linkedProducts
   }
-}, {
-  // persist: process.client
-  //   ? {
-  //       storage: piniaPluginPersistedstate.localStorage(),
-  //       paths: ['productAll']
-  //     }
-  //   : false
 })

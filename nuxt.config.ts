@@ -10,6 +10,11 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'iis_node',
   },
+  runtimeConfig: {
+    public: {
+      NUXT_PUBLIC_BACKEND_URL: process.env.NUXT_PUBLIC_BACKEND_URL || 'http://localhost:3000/api'
+    }
+  },
   modules: [
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
