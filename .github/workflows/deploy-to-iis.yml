@@ -31,4 +31,4 @@ jobs:
           password: ${{ secrets.SERVER_PASS }}
           port: 400
           source: "dist/*"
-          target: "C:/inetpub/wwwroot/nuxt-app"
+          target: "C:/inetpub/wwwroot/Bozor.Frontend"
