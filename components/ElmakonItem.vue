@@ -40,6 +40,7 @@
         <div class="flex flex-col md:flex-row pb-5 justify-between gap-5 w-full max-w-full mr-7 py-12">
           <div class="flex w-full h-[500px]">
                   <n-scrollbar
+                  class="hidden sm:block"
     style="max-height: 500px; width: 80px;"
   >
     <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
@@ -195,7 +196,7 @@
 
 
            </div>  
-            <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
+            <div class="h-[510px] w-full sm:max-w-[305px] overflow-y-auto flex flex-col gap-5" >
                         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
             <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
@@ -233,16 +234,36 @@
                       </div>
                     </div>
                   </template>
+
+                  <n-tab-pane
+                    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.uz?.characteristics"
+                    name="xarakteristika"
+                    tab="Характеристика"
+                  >
+                    <div
+                      v-for="(value , key) in getParsedProductModel(store.product.productModel).uz.characteristics"
+                      :key="key"
+                      class="flex justify-between items-center text-sm md:text-base text-gray-700 w-full gap-3"
+                    >
+                      <span class="text-gray-400 py-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+                        {{ key }}
+                      </span>
+                      <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
+                      <span class="text-black whitespace-nowrap overflow-hidden max-w-full">
+                        {{ value }}
+                      </span>
+                    </div>
+                  </n-tab-pane>
           
                   <n-tab-pane name="oasis" tab="Описание">
-                    <p
+                    <!-- <p
                       v-if="getParsedProductModel(store.product.productModel).description_ru"
                       class="w-full max-w-full text-sm md:text-base"
                       v-html="getParsedProductModel(store.product.productModel).description_ru"
-                    ></p>
+                    ></p> -->
                   
-                    <p v-else class="w-full max-w-full text-sm md:text-base">
-                      {{ getParsedProductModel(store.product.productModel).description_uz }}
+                    <p v-if="store.product.description" class="w-full max-w-full text-sm md:text-base">
+                      {{ store.product.description }}
                     </p>
                     
                     <div v-if="store.product.descriptionUz || store.product.descriptionRu" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 max-w-4xl mt-6">
@@ -254,89 +275,17 @@
                       </p>
                     </div>
           
+                    .
                     <!-- <p
                       v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
                       class="w-full max-w-[900px] mt-6 md:mt-12 text-sm md:text-base"
                       v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
                     ></p> -->
                   </n-tab-pane>
+                  
           
-                  <n-tab-pane
-                    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.main_features?.data"
-                    name="xarakteristika"
-                    tab="Характеристика"
-                  >
-                    <div
-                      v-for="feature in getParsedProductModel(store.product.productModel).features[getParsedProductModel(store.product.productModel).main_features.data[0].group_id].data"
-                      :key="feature.feature_name_uz"
-                      class="flex justify-between text-sm md:text-base text-gray-700 w-full gap-3"
-                    >
-                      <span class="text-gray-400 py-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
-                        {{ feature.feature_name_ru }}
-                      </span>
-                      <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
-                      <span class="text-black whitespace-nowrap overflow-hidden max-w-full">
-                        {{ feature.feature_value_name_ru }}
-                      </span>
-                    </div>
-                  </n-tab-pane>
                 </n-tabs>
 
-                   <div class="mb-7 w-full xl:w-[28%]">
-      <div v-if="store.product.marketResultmodel.name == 'Olcha'" 
-        :class="[
-          'flex flex-col justify-between border-gray-300 border gap-8 md:gap-14 rounded-lg py-4 md:py-10 px-4 md:px-5'
-        ]">
-                  <ItemOlchaMarketMap />
-
-        <!-- <YandexMap
-          v-if="lat !== null && lng !== null"
-          :lat="lat"
-          :lng="lng"
-          class="h-[200px] md:h-[250px]"
-        /> -->
-        
-        <h3 v-if="store.product.marketResultmodel.name === 'Olcha' &&
-          getParsedProductModel(store.product.productModel)?.store
-        ">
-          <span class="flex items-center font-bold text-lg gap-2 mb-2">
-            <UIcon class="size-8" name="material-symbols-light:home-work-rounded" />
-            {{ getParsedProductModel(store.product.productModel).store.name_ru }}
-          </span>
-          <p class="text-sm md:text-base">{{ getParsedProductModel(store.product.productModel).store.address_ru }}</p>
-  
-  
-          <h3 class="flex text-base md:text-lg font-semibold gap-2 mt-7 items-center">
-            <UIcon class="size-8" name="material-symbols:delivery-truck-bolt-outline-rounded" />
-            Стандартная доставка
-          </h3>
-          <p class="text-sm md:text-base">
-            {{ getParsedProductModel(store.product.productModel).store.delivery_info_ru }}
-          </p>
-  
-          <h3 class="flex text-base md:text-lg font-semibold gap-2 items-center mt-6 md:mt-10">
-            <UIcon class="size-8" name="ph:hand-coins-fill" />
-            Рассрочка от:
-          </h3>
-          <h3
-  v-if="
-    getParsedProductModel(store.product.productModel)?.storeProducts?.length > 0 &&
-    getParsedProductModel(store.product.productModel).storeProducts[0].monthly_repayment
-  "
-  class="text-brand-green text-lg md:text-lg mt-5 font-semibold"
->
-  {{
-    getParsedProductModel(store.product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
-  }} so'm / 12 months
-</h3>
-
-
-<!-- {{ getParsedProductModel(store.product.productModel).store.lng }} -->
-
-        </h3>
-      </div>
-    </div>
-  
         </div>
 
         

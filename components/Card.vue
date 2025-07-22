@@ -3,7 +3,7 @@
   @click="navigaItem(product.id , product.name)"
   v-for="product in data"
   :key="product.id"
-  class="bg-gray-100 relative card w-full max-w-[300px] h-[320px] sm:h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
+  class="bg-gray-100 relative card w-full max-w-[300px] h-[400px] sm:h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
 >
 <UIcon  v-if="isFavorite(product.id)"  @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 text-red-500 absolute right-2 z-50" name="material-symbols:favorite" />
 <UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
@@ -25,12 +25,12 @@
       <h3 class="text-sm font-medium mb-3 line-clamp-2">{{ product.name }}</h3>
 
       <!-- To‘lov bo‘lsa -->
-      <div class="mb-3 flex justify-between gap-10 min-h-[32px]">
+      <div class="mb-3 flex justify-between gap-5 sm:gap-10 min-h-[32px]">
         <div
             v-if="
               product.productModel && product.marketResultmodel?.name === 'Uzum' && getParsedProductModel(product.productModel).Rating
             "
-            class="flex items-center gap-1"
+            class="flex items-center sm:gap-1"
           >
             <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-3 sm:size-5" />
             <div

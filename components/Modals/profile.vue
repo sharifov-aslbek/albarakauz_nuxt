@@ -12,6 +12,7 @@
 
       <UAvatar v-else :alt="data.name" size="md" />
                 </div>
+                
      <n-modal v-if="store.profileData" v-model:show="showModal" transform-origin="center">
       <div
         class="bg-white rounded-2xl flex flex-col justify-between shadow-lg w-full max-w-6xl mx-auto p-6 sm:p-10 md:p-12 h-auto md:h-[666px] overflow-y-auto">

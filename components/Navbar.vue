@@ -1,14 +1,19 @@
 <template>
   <header>
     <div class="container">
-      <div class="flex items-center sm:hidden py-5">
+      <div class="flex items-center justify-between sm:hidden py-5">
           <a href="/" class="flex items-center space-x-2">
                           <img class="w-12" src="/assets/logo.png" alt="">
                           <div>
                             <span class="text-xl font-bold block text-brand-green">Albaraka.uz</span>
-                            <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring</span>
+                            <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring dd</span>
                           </div>
           </a>
+
+          <div class="block sm:hidden">
+            <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
+              <ModalsNmodal  v-else />
+          </div>
         </div>
       <div class="flex justify-between gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
@@ -63,8 +68,10 @@
                   </div>
                 </div>
               </RouterLink>
-              <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
-            <ModalsNmodal  v-else />
+              <div class="sm:block hidden"  >
+                <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
+              <ModalsNmodal  v-else />
+              </div>
             <!-- <LanguageSwitcher /> -->
         </div>
       </div>
