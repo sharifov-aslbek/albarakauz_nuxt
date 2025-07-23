@@ -1,6 +1,10 @@
 <template>
-  <Banner />
+  <!-- <Banner /> -->
   <Navbar />
+  <NavbarTagSlide />
+  <br>
+  <NavbarMainSlider />
+  <br>
   <UApp>
     <NuxtPage />
     <n-back-top :right="20" />

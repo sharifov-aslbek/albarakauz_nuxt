@@ -7,6 +7,16 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({ 
   ssr: true,
+    app: {
+    head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&display=swap'
+        }
+      ]
+    }
+  },
   nitro: {
     preset: 'iis_node',
   },
