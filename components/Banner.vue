@@ -20,9 +20,9 @@
   width: 200%;
   transform: rotate(180deg);
   height: 100%;
-  background: linear-gradient(to right, #06D6A0, #06D6A0); /* brand-green colors */
+  background: linear-gradient(to right, #feee00, #feee00); /* brand-green colors */
   clip-path: polygon(0% 50%, 25% 60%, 50% 50%, 75% 60%, 100% 50%, 100% 100%, 0% 100%);
-  animation: wave-motion 4s ease-in-out infinite;
+  animation: wave-motion 2s ease-in-out infinite;
 }
 
 @keyframes wave-motion {

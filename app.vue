@@ -1,5 +1,5 @@
 <template>
-  <!-- <Banner /> -->
+  <Banner />
   <Navbar />
   <br>
   <UApp>

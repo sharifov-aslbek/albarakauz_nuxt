@@ -14,7 +14,12 @@
       container: 'gap-0'           // konteyner ichidagi bo'shliqni yo'q qilish
     }"
   >
-    <NTag @click="navigateToCategory(item.id)" checkable class="mr-0 cursor-pointer">{{ item.name }}</NTag>
+    <img
+  class="rounded-full w-28 cursor-pointer"
+  v-if="item.image"
+  :src="`https://api.albaraka.uz/${item.image.localImagePath}`"
+  alt="Error"
+/>
 
 
   </UCarousel>

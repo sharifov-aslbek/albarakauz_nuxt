@@ -1,20 +1,19 @@
 <template>
-   <!-- <NewSlider /> -->
-    <NavbarTagSlide />
-  <br>
-  <NavbarMainSlider />
+   <NewSlider />
+   <ImageSlide />
    <MarketSlider />
   <HomeCategoryProduct />
 </template>
 
 
 <script setup>
-import { NButton } from 'naive-ui'
+import { NButton } from 'naive-ui'  
 import { useProductAllStore } from '../stores/productAll'
 import HomeCategoryProduct from '@/components/HomeCategoryProduct'
 import { useProductSeoStore }   from '@/stores/productSeo'
 import { onMounted } from 'vue'
 import MarketSlider from '~/components/MarketSlider.vue'
+import ImageSlide from '~/components/Navbar/ImageSlide.vue'
 
 const store = useProductSeoStore();
 const allProductStore = useProductAllStore()
