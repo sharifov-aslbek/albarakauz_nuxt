@@ -1,9 +1,6 @@
 <template>
   <!-- <Banner /> -->
   <Navbar />
-  <NavbarTagSlide />
-  <br>
-  <NavbarMainSlider />
   <br>
   <UApp>
     <NuxtPage />

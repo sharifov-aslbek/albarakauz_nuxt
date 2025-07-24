@@ -1,5 +1,8 @@
 <template>
-   <NewSlider />
+   <!-- <NewSlider /> -->
+    <NavbarTagSlide />
+  <br>
+  <NavbarMainSlider />
    <MarketSlider />
   <HomeCategoryProduct />
 </template>

@@ -16,7 +16,7 @@
             <img src="/assets/logo.png" alt="" width="80" height="69">
             <div>
               <p class="text-[40px]">albaraka.uz</p>
-              <p class="text-[10px]">Tovarlarni solishtiring</p>
+              <p class="text-[10px] font-medium">Tovarlarni solishtiring</p>
             </div>
           </a>
         </div>
