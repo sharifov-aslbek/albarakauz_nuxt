@@ -4,6 +4,9 @@
   <br><br>
    <!-- <NewSlider /> -->
    <ImageSlide />
+   <NavbarSababMegaTaklif />
+   <br> <br>
+   <TavsiyaEtilgan />
    <MarketSlider />
   <HomeCategoryProduct />
 </template>
@@ -17,6 +20,7 @@ import { useProductSeoStore }   from '@/stores/productSeo'
 import { onMounted } from 'vue'
 import MarketSlider from '~/components/MarketSlider.vue'
 import ImageSlide from '~/components/Navbar/ImageSlide.vue'
+import TavsiyaEtilgan from '~/components/Navbar/TavsiyaEtilgan.vue'
 
 const store = useProductSeoStore();
 const allProductStore = useProductAllStore()
