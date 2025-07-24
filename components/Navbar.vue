@@ -14,9 +14,12 @@
         <div class="hidden sm:flex flex items-center justify-center">
           <a href="/" class="flex items-center space-x-2 mr-[8px]">
             <img src="/assets/logo.png" alt="" width="80" height="69">
-            <div>
-              <p class="text-[40px]">albaraka.uz</p>
-              <p class="text-[10px]">Tovarlarni solishtiring</p>
+            <div class="text-center">
+              <span class="text-[#000] text-[40px] m-0 p-0">albaraka.uz</span>
+              <span class="text-[11px] text-[#06D6A0] tracking-[0.30em] font-light -mt-[6px] block">
+                Tovarlarni solishtiring
+              </span>
+
             </div>
           </a>
         </div>
