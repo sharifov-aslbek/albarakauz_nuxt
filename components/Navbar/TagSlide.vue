@@ -1,6 +1,6 @@
   <template>
-      <div class="container" v-if="categoryStore.categoryData">
-          <br>
+    <section class="bg-[#FCFBF4]">
+      <div class="container h-[45.5px]" v-if="categoryStore.categoryData">
     <UCarousel
     v-if="categoryStore.categoryData.length > 0"
     arrows
@@ -22,6 +22,7 @@
 
 
       </div>
+    </section>
   </template>
 
   <script setup>

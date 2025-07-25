@@ -75,9 +75,8 @@ const navigateMarket = (id) => {
   <div class="container">
     <h2 class="text-3xl font-medium my-6">Markets</h2>
     <UCarousel
-      autoplay
+      auto-scroll
       arrows
-      dots
       v-slot="{ item }"
       :items="marketplaces"
       :ui="{ item: 'basis-full sm:basis-1/2 md:basis-1/3' }"

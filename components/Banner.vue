@@ -11,6 +11,7 @@
   height: 40px; /* Adjust height for your needs */
   overflow: hidden;
   transform: rotate(180deg); /* Rotates the wave */
+  background: #FFFDDD;
 }
 
 .wave {

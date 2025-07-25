@@ -8,6 +8,9 @@
    <br> <br>
    <TavsiyaEtilgan />
    <MarketSlider />
+   <NavbarAvtomobilingizUchun />
+   <br><br>
+   <NavbarChillaSezon />
   <HomeCategoryProduct />
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <footer class="py-20 mt-4 px-4 md:px-8 lg:py-12 lg:px-12 bg-white">
+  <footer class="py-20 mt-4 px-4 md:px-8 lg:py-12 lg:px-12 bg-[#FFFDDD]">
     <div class="container mx-auto">
       <div class="flex flex-col lg:flex-row justify-between gap-8">
         <!-- Logo and copyright section -->
