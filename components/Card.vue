@@ -9,13 +9,17 @@
 <UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
   <!-- Rasm -->
   <div class="flex justify-center items-center aspect-square mb-4">
-    <img
-  v-if="product.productImages?.length > 0"
-  :src="`https://api.albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
-   loading="lazy" 
-  :alt="`${product.name} - Image 1`"
-  class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
-/>
+    <n-spin :show="!isImageLoaded(product.id)" size="large">
+  <img
+    v-if="product.productImages?.length > 0"
+    :src="`https://api.albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
+    loading="lazy"
+    :alt="`${product.name} - Image 1`"
+    class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
+    @load="onImageLoad(product.id)"
+  />
+</n-spin>
+  
 
   </div>
 
@@ -85,6 +89,18 @@ import { ref } from 'vue'
 import { useToast } from '#imports'
 import successAudio from '@/assets/audio.mp3'
 import errorAudio from '@/assets/not-success.m4a'
+import { NSpin } from 'naive-ui'
+
+const loadedImages = ref<Record<number, boolean>>({})
+
+function onImageLoad(productId: number) {
+  loadedImages.value[productId] = true
+}
+
+function isImageLoaded(productId: number): boolean {
+  return loadedImages.value[productId] === true
+}
+
 
 const props = defineProps<{
   data: Array<any>

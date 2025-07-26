@@ -220,28 +220,35 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     }
   }
 
-  async function searchProducts(slug: string, page: number = 1) {
-    productLoader.value = true
-    try {
-      const response = await axios.get(`https://api.albaraka.uz/api/uz/product/search`, {
-        params: {
-          PageSize: 50,
-          PageIndex: page,
-          key: slug
-        }
-      })
-      const json = response.data
-      if (json?.data) {
-        searchProductsData.value = json.data
-      } else {
-        console.warn('APIdan data yo‘q')
+  async function searchProducts(slug: string, page: number = 1, append: boolean = false) {
+  productLoader.value = true;
+  try {
+    const response = await axios.get(`https://api.albaraka.uz/api/uz/product/search`, {
+      params: {
+        PageSize: 50,
+        PageIndex: page,
+        key: slug
       }
-    } catch (err) {
-      console.error('API Error:', err)
-    } finally {
-      productLoader.value = false
+    });
+
+    const json = response.data;
+
+    if (json?.data) {
+      if (append) {
+        searchProductsData.value.items.push(...json.data.items);
+      } else {
+        searchProductsData.value = json.data;
+      }
+    } else {
+      console.warn('APIdan data yo‘q');
     }
+  } catch (err) {
+    console.error('API Error:', err);
+  } finally {
+    productLoader.value = false;
   }
+}
+
 
   function stripHtml(html: string): string {
     return html.replace(/<[^>]*>/g, '').trim()

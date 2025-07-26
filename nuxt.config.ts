@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     '@nuxtjs/leaflet',
     '@nuxtjs/i18n',
     '@nuxt/image',
+    '@vueuse/nuxt',
   ],
   image: {
   domains: ['api.albaraka.uz']
