@@ -9,7 +9,7 @@
 <UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
   <!-- Rasm -->
   <div class="flex justify-center items-center aspect-square mb-4">
-    <n-spin :show="!isImageLoaded(product.id)" size="large">
+    <!-- <n-spin :show="!isImageLoaded(product.id)" size="large"> -->
   <img
     v-if="product.productImages?.length > 0"
     :src="`https://api.albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
@@ -18,7 +18,7 @@
     class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
     @load="onImageLoad(product.id)"
   />
-</n-spin>
+<!-- </n-spin> -->
   
 
   </div>
@@ -28,22 +28,10 @@
     <div>
       <h3 class="text-sm font-medium mb-3 line-clamp-2">{{ product.name }}</h3>
 
-      <!-- To‘lov bo‘lsa -->
-      <div class="mb-3 flex justify-between gap-5 sm:gap-10 min-h-[32px]">
-        <div
-            v-if="
-              product.productModel && product.marketResultmodel?.name === 'Uzum' && getParsedProductModel(product.productModel).Rating
-            "
-            class="flex items-center sm:gap-1"
-          >
-            <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-3 sm:size-5" />
-            <div
-  v-if="product.productModel && product.marketResultmodel && product.marketResultmodel.url === 'https://uzum.uz'"
-  class="text-xs sm:text-sm font-bold"
->
-              {{ getParsedProductModel(product.productModel).Rating }}
-            </div>
-          </div>
+        <div class="text-lg mb-3 font-medium text-gray-800">
+        {{ product.price.toLocaleString('uz-UZ') }} so'm
+      </div>  
+
         <n-tag
         size="small"
         type='success'
@@ -62,20 +50,31 @@
             getParsedProductModel(product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
           }} so'm / 12 oy
         </n-tag>
-      </div>
     </div>
 
     <!-- Narx + Market -->
     <div class="flex items-center justify-between mt-auto">
-      <div class="text-sm font-bold text-gray-800">
-        {{ product.price.toLocaleString('uz-UZ') }} so'm
-      </div>
       <img
         v-if="product.marketResultmodel?.url"
         class="w-16"
         :src="getMarketLogo(product.marketResultmodel.url)"
         alt="Market Logo"
       />
+
+      <div
+            v-if="
+              product.productModel && product.marketResultmodel?.name === 'Uzum' && getParsedProductModel(product.productModel).Rating
+            "
+            class="flex items-center sm:gap-1"
+          >
+            <UIcon name="material-symbols:star-rounded" class="text-yellow-400 size-3 sm:size-5" />
+            <div
+  v-if="product.productModel && product.marketResultmodel && product.marketResultmodel.url === 'https://uzum.uz'"
+  class="text-xs sm:text-sm font-bold"
+>
+              {{ getParsedProductModel(product.productModel).Rating }}
+            </div>
+          </div>
     </div>
   </div>
 </div>

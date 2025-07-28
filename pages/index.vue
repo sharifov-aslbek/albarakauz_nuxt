@@ -11,6 +11,8 @@
    <NavbarAvtomobilingizUchun />
    <br><br>
    <NavbarChillaSezon />
+   <br>
+   <NavbarBestSeller />
   <HomeCategoryProduct />
 </template>
 
