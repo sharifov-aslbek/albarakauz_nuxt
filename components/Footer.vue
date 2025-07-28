@@ -8,12 +8,12 @@
             <img class="w-16 h-16 rounded-xl" src="/assets/logo.png" alt="Logo" />
             <div class="flex flex-col justify-center">
               <span class="text-3xl font-black text-black leading-tight">albaraka.uz</span>
-              <span class="text-[#06D6A0] tracking-[.2em] font-extralight text-xs mt-1">
+              <span class="tracking-[.2em] font-extralight text-xs mt-1">
                 Tovarlarni solishtiring
               </span>
             </div>
           </div>
-          <div class="text-gray-600 space-y-1 mt-[21px]">
+          <div class="space-y-1 mt-[21px]">
             <p class="font-extralight text-[10px]">Albaraka.uz 2024-2025 - Barcha huquqlar himoyalangan</p>
           </div>
         </div>
