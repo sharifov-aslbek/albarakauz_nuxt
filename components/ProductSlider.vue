@@ -32,7 +32,7 @@ const products = ref([
     name: 'Redmi Note 13',
     price: 499,
     img: '/products/redmi.jpg',
-    shopImg: '/olcha-icon.png',
+    shopImg: '/olcha.png',
     bgColor: '',
     textColor: ""
   },
