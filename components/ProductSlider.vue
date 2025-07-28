@@ -2,7 +2,6 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import ColorThief from 'colorthief'
-import { NButton, NCarousel, NCarouselItem } from 'naive-ui'
 
 // Router
 const router = useRouter()
@@ -50,14 +49,14 @@ const products = ref([
 const currentIndex = ref(0)
 const gradientStyle = ref('')
 
-// 3 tadan mahsulot guruhlash
 const groupedProducts = computed(() => {
   const chunked: typeof products.value[] = []
   for (let i = 0; i < products.value.length; i += 3) {
-    chunked.push(products.value.slice(i, i + 4))
+    chunked.push(products.value.slice(i, i + 3)) // ❗ i + 4 emas, i + 3 bo'lishi kerak
   }
   return chunked
 })
+
 
 // Mahsulot sahifasiga o'tish
 const goToProduct = (id: number) => {
@@ -151,36 +150,33 @@ onMounted(async () => {
       <!-- Overlay blur -->
       <div class="absolute inset-0 backdrop-blur-[2px] z-0 rounded-xl"></div>
 
+      <!-- Yonma-yon mahsulotlar -->
+      <div class="relative z-10 flex justify-between flex-wrap gap-y-6">
+        <div v-for="product in products" :key="product.id" @click="goToProduct(product.id)"
+          class="relative w-[280px] h-[120px] rounded-xl cursor-pointer overflow-hidden transition hover:scale-[1.03] hover:shadow-xl duration-300 group border border-black border-solid">
+          <!-- Background image + gradient overlay -->
+          <div class="absolute inset-0 z-0 transition-all duration-500" :style="{
+            backgroundImage: `linear-gradient(to right, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}), url(${product.shopImg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }" />
 
-      <!-- Carousel -->
-      <n-carousel :slides-per-view="1" :space-between="10" draggable :show-dots="false"
-        @update:current-index="handleSlideChange" class="relative z-10 rounded-lg overflow-hidden">
-        <n-carousel-item v-for="(group, index) in groupedProducts" :key="index">
-          <div class="flex justify-between gap-4 flex-wrap">
-            <div v-for="product in group" :key="product.id" @click="goToProduct(product.id)"
-              class="relative w-[280px] h-[120px] rounded-xl cursor-pointer overflow-hidden transition hover:scale-[1.03] hover:shadow-xl duration-300 group border border-black border-solid">
-              <!-- Background image + gradient overlay -->
-              <div class="absolute inset-0 z-0 transition-all duration-500" :style="{
-                backgroundImage: `linear-gradient(to right, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}), url(${product.shopImg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }" />
-
-              <!-- Foreground content -->
-              <div class="relative z-10 flex items-center justify-between h-full p-4"
-                :class="product.textColor === 'white' ? 'text-white' : 'text-black'">
-                <img :src="product.img" alt="product"
-                  class="h-[100px] w-[100px] object-contain rounded-lg p-2 bg-white/25 backdrop-blur-sm transition group-hover:scale-105" />
-                <div class="text-right">
-                  <p class="text-4xl font-medium drop-shadow-sm leading-5">
-                    {{ product.price }}$
-                  </p>
-                </div>
-              </div>
+          <!-- Foreground content -->
+          <div class="relative z-10 flex items-center justify-between h-full p-4"
+            :class="product.textColor === 'white' ? 'text-white' : 'text-black'">
+            <img :src="product.img" alt="product"
+              class="h-[100px] w-[100px] object-contain rounded-lg p-2 bg-white/25 backdrop-blur-sm transition group-hover:scale-105" />
+            <div class="text-right">
+              <p class="text-4xl font-medium drop-shadow-sm leading-5">
+                {{ product.price }}$
+              </p>
             </div>
           </div>
-        </n-carousel-item>
-      </n-carousel>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
+
+
