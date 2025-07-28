@@ -135,7 +135,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mx-auto px-4">
+  <div class="container">
     <h2 class="text-4xl font-bold my-8 text-center text-neutral-800 dark:text-white tracking-wide">
       🔥 Trenddagi Mahsulotlar
     </h2>
@@ -177,6 +177,8 @@ onMounted(async () => {
 
     </div>
   </div>
+
+  <br><br>
 </template>
 
 
