@@ -31,7 +31,7 @@ const products = ref([
     id: 3,
     name: 'Redmi Note 13',
     price: 499,
-    img: '/products/redmi.jpg',
+    img: '/testproduct.png',
     shopImg: '/olcha.png',
     bgColor: '',
     textColor: ""
@@ -40,7 +40,7 @@ const products = ref([
     id: 4,
     name: 'Pixel 8',
     price: 799,
-    img: '/products/pixel.jpg',
+    img: '/testproduct.png',
     shopImg: '/yandexmarket.png',
     bgColor: '',
     textColor: ""
