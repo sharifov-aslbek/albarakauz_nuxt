@@ -1,5 +1,5 @@
 <template>
-  <header class="shadow-md bg-[#FFFDDD]">
+  <header class="bg-[#F7F7FA]">
     <div class="container">
       <div class="flex items-center justify-between sm:hidden py-5">
           <a href="/" class="flex items-center space-x-2">
