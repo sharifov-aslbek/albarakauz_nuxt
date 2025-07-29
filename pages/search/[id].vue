@@ -16,14 +16,13 @@
     </div>
 
     <!-- Cardlar -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
       <Card :data="store.searchProductsData.items" />
     </div>
 
     <!-- Trigger div -->
     <div ref="infiniteTrigger" class="h-10"></div>
 
-    <!-- Topilmadi -->
     <not-found-search v-if="store.searchProductsData.totalCount === 0" />
   </div>
 </template>
