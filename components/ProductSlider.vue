@@ -31,7 +31,7 @@ const products = ref([
     name: 'Redmi Note 13',
     price: 499,
     img: '/testproduct.png',
-    shopImg: '/olcha.png',
+    shopImg: '/olcha-icon.png',
     bgColor: '',
     textColor: ""
   },
@@ -85,12 +85,18 @@ const extractColors = async () => {
   }
 }
 
+
 // Gradientni yangilash
 const updateGradient = () => {
   const visibleGroup = groupedProducts.value[currentIndex.value] || []
-  const colors = visibleGroup.map(p => p.bgColor || 'rgb(51, 51, 51)')
-  gradientStyle.value = `linear-gradient(to right, ${colors.join(', ')}`
+  const colors = visibleGroup.map(p => {
+    const rgb = p.bgColor || 'rgb(51, 51, 51)'
+    const rgba = rgb.replace('rgb(', 'rgba(').replace(')', ', 0.5)')
+    return rgba
+  })
+  gradientStyle.value = `linear-gradient(to right, ${colors.join(', ')})`
 }
+
 
 // Slider indeks o'zgarsa
 const handleSlideChange = (val: number) => {
@@ -153,26 +159,37 @@ onMounted(async () => {
       <!-- Yonma-yon mahsulotlar -->
       <div class="relative z-10 flex justify-between flex-wrap gap-y-6">
         <div v-for="product in products" :key="product.id" @click="goToProduct(product.id)"
-          class="relative w-[280px] h-[120px] rounded-xl cursor-pointer overflow-hidden transition hover:scale-[1.03] hover:shadow-xl duration-300 group border border-black border-solid">
-          <!-- Background image + gradient overlay -->
-          <div class="absolute inset-0 z-0 transition-all duration-500" :style="{
-            backgroundImage: `linear-gradient(to right, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}), url(${product.shopImg})`,
+          class="relative w-[280px] h-[120px] rounded-2xl cursor-pointer overflow-hidden group transition-transform duration-500 hover:scale-[1.05] hover:shadow-2xl border border-white/25 bg-white/10 backdrop-blur-md">
+
+          <!-- Card Background (gradient + image) -->
+          <div class="absolute inset-0 z-0" :style="{
+            backgroundImage: `linear-gradient(to right, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.4)')}, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.3)')}), url(${product.shopImg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            filter: 'brightness(1.05)',
           }" />
 
-          <!-- Foreground content -->
-          <div class="relative z-10 flex items-center justify-between h-full p-4"
-            :class="product.textColor === 'white' ? 'text-white' : 'text-black'">
+          <!-- Inner shadow / highlight -->
+          <div class="absolute inset-0 rounded-2xl z-10 bg-black/10" :style="{
+            backdropFilter: 'blur(0px)',
+            WebkitBackdropFilter: 'blur(0px)'
+          }"></div>
+
+
+          <!-- Content -->
+          <div class="relative z-20 flex items-center justify-between h-full p-4 text-white ">
+
             <img :src="product.img" alt="product"
-              class="h-[100px] w-[100px] object-contain rounded-lg p-2 bg-white/25 backdrop-blur-sm transition group-hover:scale-105" />
+              class="h-[100px] w-[100px] object-contain rounded-xl p-2 bg-white/20 backdrop-blur-sm transition-all duration-300 group-hover:scale-110" />
+
             <div class="text-right">
-              <p class="text-4xl font-medium drop-shadow-sm leading-5">
+              <p class="text-3xl font-semibold drop-shadow-md">
                 {{ product.price }}$
               </p>
             </div>
           </div>
         </div>
+
       </div>
 
     </div>
@@ -180,5 +197,3 @@ onMounted(async () => {
 
   <br><br>
 </template>
-
-
