@@ -22,6 +22,9 @@ const items = [
     >
       <img :src="item" width="100%" class="rounded-lg" />
     </UCarousel>
+
+
+    <!-- <n-skeleton class="rounded-lg" width="100%" height="200px" /> -->
   </div>
 </template>
 

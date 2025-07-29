@@ -1,3 +1,75 @@
+<template>
+  <div class="container">
+    <h2 class="text-4xl font-bold my-8 text-center text-neutral-800 dark:text-white tracking-wide">
+      🔥 Trenddagi Mahsulotlar
+    </h2>
+
+    <!-- Gradient Box -->
+    <div
+      class="rounded-xl p-6 shadow-xl relative border border-white/10 backdrop-blur-md"
+      :style="{
+        backgroundImage: gradientStyle,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        opacity: 0.95
+      }"
+    >
+      <!-- Overlay -->
+      <div class="absolute inset-0 backdrop-blur-md bg-white/20 z-0 rounded-xl"></div>
+
+      <!-- Mahsulotlar qatori -->
+      <div class="relative z-10 flex justify-between flex-wrap gap-y-6">
+        <template v-for="(product, index) in products" :key="product.id">
+          <!-- CARD -->
+          <div
+            @click="goToProduct(product.id)"
+            class="relative w-[280px] h-[120px] rounded-2xl cursor-pointer overflow-hidden transition hover:scale-105 hover:shadow-2xl duration-300 group border border-white/10 bg-white/5 backdrop-blur-md"
+          >
+            <!-- Card Background -->
+            <div
+              class="absolute inset-0 z-0 transition-all duration-500"
+              :style="{
+                backgroundImage: `linear-gradient(to right, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.4)')}, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.4)')}), url(${product.shopImg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                filter: 'brightness(1.05)'
+              }"
+            />
+
+            <!-- Card Foreground -->
+            <div
+              class="relative z-10 flex items-center justify-between h-full p-4"
+              :class="product.textColor === 'white' ? 'text-white' : 'text-black'"
+            >
+              <img
+                :src="product.img"
+                alt="product"
+                class="h-[100px] w-[100px] object-contain rounded-xl p-2 bg-white/30 backdrop-blur-sm transition group-hover:scale-105"
+              />
+              <div class="text-right">
+                <p class="text-4xl font-medium drop-shadow-sm leading-5">
+                  {{ product.price }}$
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEPARATOR -->
+          <div
+            v-if="index !== products.length - 1"
+            class="w-[1px] h-[80%] bg-gradient-to-b from-white/20 via-white/50 to-white/20 mx-4 my-auto rounded-full"
+          ></div>
+        </template>
+      </div>
+    </div>
+
+    <br /><br />
+  </div>
+</template>
+
+
+
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
@@ -15,7 +87,7 @@ const products = ref([
     img: '/testproduct.png',
     shopImg: '/uzum.png',
     bgColor: '',
-    textColor: ""
+    textColor: ''
   },
   {
     id: 2,
@@ -24,16 +96,16 @@ const products = ref([
     img: '/testproduct.png',
     shopImg: '/texnomart-icon.png',
     bgColor: '',
-    textColor: ""
+    textColor: ''
   },
   {
     id: 3,
     name: 'Redmi Note 13',
     price: 499,
     img: '/testproduct.png',
-    shopImg: '/olcha.png',
+    shopImg: '/olcha-icon.png',
     bgColor: '',
-    textColor: ""
+    textColor: ''
   },
   {
     id: 4,
@@ -42,28 +114,28 @@ const products = ref([
     img: '/testproduct.png',
     shopImg: '/yandexmarket.png',
     bgColor: '',
-    textColor: ""
+    textColor: ''
   }
 ])
 
 const currentIndex = ref(0)
 const gradientStyle = ref('')
 
+// Guruhlash (3 tadan)
 const groupedProducts = computed(() => {
   const chunked: typeof products.value[] = []
   for (let i = 0; i < products.value.length; i += 3) {
-    chunked.push(products.value.slice(i, i + 3)) // ❗ i + 4 emas, i + 3 bo'lishi kerak
+    chunked.push(products.value.slice(i, i + 3))
   }
   return chunked
 })
 
-
-// Mahsulot sahifasiga o'tish
+// Router orqali mahsulotga o'tish
 const goToProduct = (id: number) => {
   router.push(`/products/${id}`)
 }
 
-// shopImg rasmlaridan rang olish
+// shopImg dan rang olish
 const extractColors = async () => {
   for (const product of products.value) {
     const img = new Image()
@@ -76,8 +148,12 @@ const extractColors = async () => {
           const colorThief = new ColorThief()
           const [r, g, b] = colorThief.getColor(img)
           product.bgColor = `rgb(${r}, ${g}, ${b})`
+
+          const brightness = (r * 299 + g * 587 + b * 114) / 1000
+          product.textColor = brightness > 128 ? 'black' : 'white'
         } catch {
           product.bgColor = 'rgb(51, 51, 51)'
+          product.textColor = 'white'
         }
         resolve()
       }
@@ -89,96 +165,11 @@ const extractColors = async () => {
 const updateGradient = () => {
   const visibleGroup = groupedProducts.value[currentIndex.value] || []
   const colors = visibleGroup.map(p => p.bgColor || 'rgb(51, 51, 51)')
-  gradientStyle.value = `linear-gradient(to right, ${colors.join(', ')}`
+  gradientStyle.value = `linear-gradient(to right, ${colors.join(', ')})`
 }
 
-// Slider indeks o'zgarsa
-const handleSlideChange = (val: number) => {
-  currentIndex.value = val
-  updateGradient()
-}
-
-// shopImg rasmlaridan rang olish
-// const extractColors = async () => {
-//   for (const product of products.value) {
-//     const img = new Image()
-//     img.crossOrigin = 'anonymous'
-//     img.src = product.shopImg
-
-//     await new Promise<void>((resolve) => {
-//       img.onload = () => {
-//         try {
-//           const colorThief = new ColorThief()
-//           const [r, g, b] = colorThief.getColor(img)
-//           product.bgColor = `rgb(${r}, ${g}, ${b})`
-
-//           // Yorqinlikni hisoblash
-//           const brightness = (r * 299 + g * 587 + b * 114) / 1000
-//           product.textColor = brightness > 128 ? 'black' : 'white'
-//         } catch {
-//           product.bgColor = 'rgb(51, 51, 51)'
-//           product.textColor = 'white'
-//         }
-//         resolve()
-//       }
-//     })
-//   }
-// }
-
-
-// Dastlab ishga tushganida
 onMounted(async () => {
   await extractColors()
   updateGradient()
 })
-
 </script>
-
-<template>
-  <div class="container">
-    <h2 class="text-4xl font-bold my-8 text-center text-neutral-800 dark:text-white tracking-wide">
-      🔥 Trenddagi Mahsulotlar
-    </h2>
-
-    <div class="rounded-xl p-6 transition-all duration-700 shadow-xl relative border border-white/20 backdrop-blur-xl"
-      :style="{
-        backgroundImage: gradientStyle,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }">
-      <!-- Overlay blur -->
-      <div class="absolute inset-0 backdrop-blur-[2px] z-0 rounded-xl"></div>
-
-      <!-- Yonma-yon mahsulotlar -->
-      <div class="relative z-10 flex justify-between flex-wrap gap-y-6">
-        <div v-for="product in products" :key="product.id" @click="goToProduct(product.id)"
-          class="relative w-[280px] h-[120px] rounded-xl cursor-pointer overflow-hidden transition hover:scale-[1.03] hover:shadow-xl duration-300 group border border-black border-solid">
-          <!-- Background image + gradient overlay -->
-          <div class="absolute inset-0 z-0 transition-all duration-500" :style="{
-            backgroundImage: `linear-gradient(to right, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}, ${product.bgColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}), url(${product.shopImg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }" />
-
-          <!-- Foreground content -->
-          <div class="relative z-10 flex items-center justify-between h-full p-4"
-            :class="product.textColor === 'white' ? 'text-white' : 'text-black'">
-            <img :src="product.img" alt="product"
-              class="h-[100px] w-[100px] object-contain rounded-lg p-2 bg-white/25 backdrop-blur-sm transition group-hover:scale-105" />
-            <div class="text-right">
-              <p class="text-4xl font-medium drop-shadow-sm leading-5">
-                {{ product.price }}$
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <br><br>
-</template>
-
-
