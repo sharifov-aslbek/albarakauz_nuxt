@@ -12,7 +12,7 @@
 >
   <div
     @click="navigaItem(item.id , item.name)"
-    class="bg-gray-100 card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
+    class="bg-gray-200 card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
   >
     <!-- Rasm -->
     <div class="flex justify-center items-center aspect-square mb-4">
@@ -51,17 +51,17 @@
             </div>
           </div>
 
-          <span
+          <n-tag
+          type="warning"
             v-if="
               getParsedProductModel(item.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth &&
               item.marketResultmodel?.url === 'https://uzum.uz'
             "
-            class="inline-block w-full text-center rounded-lg bg-[#feee00] text-black py-1 text-sm font-medium"
           >
             {{
               getParsedProductModel(item.productModel).SkuList[0].ProductOptionDtos[0].PaymentPerMonth
             }} so'm / oy
-          </span>
+          </n-tag>
 
           <span
             v-else-if="

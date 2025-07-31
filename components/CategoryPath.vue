@@ -1,12 +1,12 @@
   <template>
       <h3
-  class="flex flex-col md:flex-row md:items-center my-4 gap-2 text-sm text-[#06D6A0] font-medium"
+  class="flex flex-col md:flex-row md:items-center my-4 gap-2 text-sm text-[#feee00] font-medium"
 >
   <div class="flex items-center flex-wrap gap-2">
     <!-- Bosh sahifa link -->
     <RouterLink
       to="/"
-      class="flex items-center gap-1 text-gray-600 hover:text-[#06D6A0] transition-colors duration-300"
+      class="flex items-center gap-1 text-gray-600 hover:text-[#feee00] transition-colors duration-300"
     >
       <span>Bosh sahifa</span>
     </RouterLink>
@@ -22,7 +22,7 @@
     >
       <RouterLink
         :to="`/category/${item.id}`"
-        class="flex items-center gap-1 text-gray-600 hover:text-[#06D6A0] hover:underline transition-all duration-300"
+        class="flex items-center gap-1 text-gray-600 hover:text-[#feee00] hover:underline transition-all duration-300"
       >
         <span>{{ item.name }}</span>
       </RouterLink>

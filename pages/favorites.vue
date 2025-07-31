@@ -1,18 +1,22 @@
 <template>
      <div 
   v-if="!favoriteProducts.length" 
-  class="min-h-screen bg-gray-100 flex items-center justify-center p-4"
+  class="flex justify-center"
 >
   <div class="text-center">
-    <div class="bg-white p-6 md:p-10 rounded-lg shadow-md max-w-md mx-auto">
-        <UIcon class="size-12 text-gray-400 mb-4 mx-auto"  name="ic:outline-heart-broken" />
-      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Your favorites is empty</h2>
-      <p class="text-gray-600 mb-6">Looks like you haven't added any items to your favorites yet.</p>
-      <RouterLink to="/" 
-        class="bg-[#06D6A0] hover:bg-brand-green/80 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+    <div class="bg-white p-6 md:p-4 rounded-lg shadow-md max-w-md mx-auto">
+      <img class="mb-10" src="/assets/hearts.png" alt="Error">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Sizning sevimlingiz bo'sh</h2>
+      <p class="text-gray-600 mb-6">
+        Mahsulotdagi
+        <UIcon name="material-symbols:favorite-outline-rounded" /> ni bosing , Akkauntingizga kiring va sevimliga saqlagan barcha mahsulotingiz saqlanib qoladi
+      </p>
+      <button 
+      @click="store.registerModal = !store.registerModal"
+        class="bg-[#feee00] cursor-pointer hover:bg-brand-green/80 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
       >
-        Start liking
-      </RouterLink>
+        Akkountga kirish
+      </button>
     </div>
   </div>
 </div>
@@ -25,7 +29,7 @@
         @click="navigaItem(product.product.id , product.product.name)"
         v-for="product in favoriteProducts"
         :key="product.product.id"
-        class="bg-gray-100 relative card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
+        class="bg-gray-200 relative card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
       >
       <UIcon @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.product.id , product.product.name)" class="w-8 h-8 text-red-500 absolute right-2 z-50" name="mdi:heart" />
       <!-- <UIcon v-else  @click.stop="addFavorites(store.profileData.data.favorites.id, product.product.id , product.product.name)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" /> -->

@@ -81,7 +81,7 @@
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <path d="m9 11 3 3L22 4" />
                       </svg>
-                      Verified
+                      Tasdiqlangan
                     </span>
                   </template>
                   <template v-else>
@@ -92,7 +92,7 @@
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                         <path d="m22 6-10 7L2 6" />
                       </svg>
-                      Verify
+                      Tasdiqlash
                     </n-button>
                   </template>
                 </div>
@@ -130,12 +130,12 @@
 
         <div class="flex flex-row sm:flex-row justify-between gap-2 mt-8">
           <n-button @click="logoutHandler" type="error" class="w-full sm:w-auto">
-           <UIcon name="garden:exit-fill-16" size="16" class="mr-2" />  Logout
+           <UIcon name="garden:exit-fill-16" size="16" class="mr-2" />  Tizimdan chiqish
           </n-button>
 
           <div class="block sm:hidden">
             <n-button @click="submitHandler" type="success" class="w-full">
-                Save
+              Saqlash
                 <div
                 v-if="putProfileLoader"
                   class="ml-2 w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
@@ -147,10 +147,10 @@
 
           <div class='hidden md:flex gap-3'>
             <n-button @click="showModal = false" class="w-full sm:w-auto">
-              Close
+              Yopish
             </n-button>
             <n-button @click="submitHandler" type="success" class="w-full sm:w-auto">
-              Save
+              Saqlash
               <div
               v-if="putProfileLoader"
                 class="ml-2 w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
@@ -170,18 +170,15 @@
           <div @click="store.showLogout = !store.showLogout" class="group absolute right-3 top-5 p-3 cursor-pointer">
             <!-- Background circle with scale animation -->
             <div
-              class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
+              class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
             <X class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" />
           </div>
           <!-- Left Side - Orange Section -->
-          <div class="relative bg-[#06D6A0] p-12">
+          <div class="relative bg-[#feee00] p-12">
             <div class="max-w-md text-white">
               <h1 class="text-4xl font-bold mb-4">
-                Please confirm that you want to log out.
+                Iltimos, tizimdan chiqmoqchi ekanligingizni tasdiqlang.
               </h1>
-              <p class="text-white/90">
-                Simplify your e-commerce management with our user-friendly admin dashboard.
-              </p>
             </div>
             <img src="/assets/logout.png" alt="Dashboard illustration" class="my-6 w-96 hidden md:block" />
           </div>
@@ -192,22 +189,22 @@
               <!-- Logo -->
               <div>
                 <div class="flex items-center gap-2 mb-8">
-                  <div class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center">
-                    <span class="font-bold text-white">A</span>
+                  <div class="w-10 h-10 bg-[#feee00] rounded-full flex items-center justify-center">
+                    <span class="text-black">A</span>
                   </div>
-                  <span class="font-bold text-[#06D6A0] text-xl">Albaraka.uz</span>
+                  <span class="font-bold text-xl">Albaraka.uz</span>
                 </div>
   
               </div>
   
               <div class="flex gap-4">
                 <button @click="store.showLogout = false" type="submit"
-                  class="w-full py-3 px-4 bg-white hover:bg-[#06D6A0]/70 hover:border-white hover:text-white text-[#06D6A0] border border-[#06D6A0] rounded-lg transition-colors">
+                  class="w-full py-3 px-4 bg-white hover:bg-[#feee00]/70 hover:border-white hover:text-white text-[#feee00] border border-[#feee00] rounded-lg transition-colors">
                   Cancel
                 </button>
   
                 <button @click="logout" type="submit"
-                  class="w-full py-3 px-4 bg-[#06D6A0] border border-white hover:bg-white hover:border-[#06D6A0] hover:text-[#06D6A0] text-white rounded-lg transition-colors">
+                  class="w-full py-3 px-4 bg-[#feee00] border border-white hover:bg-white hover:border-[#feee00] hover:text-[#feee00] text-white rounded-lg transition-colors">
                   Confirm
                 </button>
               </div>
@@ -224,7 +221,7 @@
         <div class="group absolute right-3 top-5 p-3 cursor-pointer">
           <!-- Background circle with scale animation -->
           <div
-            class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
+            class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
           <X class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" />
         </div>
         <div class="flex flex-col items-center justify-center w-full gap-4">
@@ -259,7 +256,7 @@
           </div>
           <div>
             <button type="submit" :disabled="!verificationCode"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#06D6A0] hover:bg-[#06D6A0]/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-green disabled:opacity-50 disabled:cursor-not-allowed">
+              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#feee00] hover:bg-[#feee00]/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-green disabled:opacity-50 disabled:cursor-not-allowed">
               Verify
             </button>
 
@@ -269,7 +266,7 @@
               </span>
   
                 <span @click="count <= 10 && resendSubmit()" :class="{'cursor-not-allowed opacity-50': count > 10, 'cursor-pointer': count <= 10}"
-                  class="bg-[#06D6A0] py-1 px-2 rounded-lg text-white">
+                  class="bg-[#feee00] py-1 px-2 rounded-lg text-white">
                   Resend
                 </span>
             </div>
@@ -290,6 +287,7 @@
 import { useAuthStore } from '#imports';
 import changepass from './changepass.vue';
 import reset from './reset.vue';
+import { useMessage } from '#imports';
 import { ref , onMounted , watch } from 'vue';
 import successAudio from '@/assets/audio.mp3'
 import errorAudio from '@/assets/not-success.m4a'
@@ -297,6 +295,7 @@ import errorAudio from '@/assets/not-success.m4a'
 
 const store = useAuthStore();
 const data = ref(null)
+const message = useMessage()
 const password = ref('******')
 const showModal = ref(false)
 const toast = useToast()
@@ -355,11 +354,8 @@ const logout = () => {
   localStorage.removeItem('accessToken')
   store.showLogout = false
   store.profileData = null
-   toast.add({
-          title: 'Success!',
-          description: 'Logout amalga oshirildi.',
-          icon: 'mynaui:check'
-        });
+
+        message.success("Logout amalga oshirildi")
 
         new Audio(successAudio).play();
 
@@ -377,7 +373,6 @@ const handleSubmitVerify = () => {
 }
 
 async function verifyEmailCode(code) {
-
   try {
     const token = localStorage.getItem('accessToken')
 
@@ -389,47 +384,36 @@ async function verifyEmailCode(code) {
           accept: '*/*',
           Authorization: `Bearer ${token}`,
         },
-        body: null // POST bo‘lsa, lekin bo‘sh body bo‘lsa null bo‘lishi mumkin
+        body: null
       }
     )
 
     if (!res.ok) {
       const errorData = await res.json()
-      const message = errorData?.message || 'Nomaʼlum xatolik yuz berdi'
+      const msg = errorData?.message || 'Nomaʼlum xatolik yuz berdi'
 
       if (res.status === 409) {
-        toast.add({
-          title: 'Xatolik!',
-          description: message,
-          color: 'red',
-          timeout: 3000,
-        })
+        message.error(msg)
       } else {
-        toast.add({
-          title: 'Xatolik!',
-          description: 'Serverda xatolik yuz berdi. Iltimos, qayta urinib ko‘ring.',
-          color: 'red',
-          timeout: 3000,
-        })
+        message.error('Serverda xatolik yuz berdi. Iltimos, qayta urinib ko‘ring.')
       }
-      throw new Error(message)
+
+      throw new Error(msg)
     }
 
     const data = await res.json()
 
-    toast.add({
-      title: 'Muvaffaqiyatli!',
-      description: 'Emailingiz muvaffaqiyatli tasdiqlandi',
-      color: 'success',
-    })
+    message.success('Emailingiz muvaffaqiyatli tasdiqlandi!')
 
     store.verifyEmailModal = false
     store.getProfileData()
 
     console.log(data)
     return data
+
   } catch (error) {
-    console.error('Parolni o‘zgartirishda xatolik:', error.message)
+    console.error('Emailni tasdiqlashda xatolik:', error.message)
+    message.error(error.message || 'Tarmoq xatosi yuz berdi.')
     throw error
   }
 }
@@ -489,8 +473,6 @@ const forgotPassword = async (email) => {
 
 
 async function sendVerificationCode() {
-  const toast = useToast()
-
   try {
     const token = localStorage.getItem('accessToken')
 
@@ -504,45 +486,26 @@ async function sendVerificationCode() {
     const responseData = await response.json()
 
     if (response.ok) {
-
-      toast.add({
-        title: 'Kod yuborildi!',
-        description: '6ta raqamli kodingiz email manzilingizga yuborildi.',
-        color: 'success',
-      })
-
-        new Audio(successAudio).play();
+      message.success('6ta raqamli kodingiz email manzilingizga yuborildi.')
+      new Audio(successAudio).play()
 
       resendChecker.value = true
       console.log(responseData)
     } else {
-      const message = responseData?.message || 'Nomaʼlum xatolik yuz berdi.'
+      const msg = responseData?.message || 'Nomaʼlum xatolik yuz berdi.'
 
       if (response.status === 409) {
-        toast.add({
-          title: 'Xatolik!',
-          description: message,
-          color: 'error',
-        })
+        message.error(msg)
       } else {
-        toast.add({
-          title: 'Server xatosi!',
-          description: 'Serverda xatolik yuz berdi. Iltimos, qayta urinib ko‘ring.',
-          color: 'error',
-        })
+        message.error('Serverda xatolik yuz berdi. Iltimos, qayta urinib ko‘ring.')
       }
 
-      console.error('Parolni o‘zgartirishda xatolik:', message)
-      throw new Error(message)
+      console.error('Kod yuborishda xatolik:', msg)
+      throw new Error(msg)
     }
   } catch (error) {
-    toast.add({
-      title: 'Tarmoq xatosi!',
-      description: error.message,
-      color: 'error',
-    })
-
-    console.error('Parolni o‘zgartirishda xatolik:', error.message)
+    message.error(error.message || 'Tarmoq xatosi yuz berdi.')
+    console.error('Kod yuborishda xatolik:', error.message)
     throw error
   }
 }

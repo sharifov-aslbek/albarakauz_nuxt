@@ -1,21 +1,24 @@
 <template>
-  <Banner />
-  <Navbar />
-  <br>
-  <UApp>
-    <NuxtPage />
-    <n-back-top :right="20" />
-    <BottomMenu />
-  </UApp>
-
-  <Suspense>
-    <template #default>
-      <LazyFooter />
-    </template>
-    <template #fallback>
-      <!-- <div class="text-center py-4 text-gray-500">Footer yuklanmoqda...</div> -->
-    </template>
-  </Suspense>
+  <n-message-provider>
+    <Banner />
+    <Navbar />
+    <br>
+    <UApp>
+      <NuxtPage />
+      <SharedLoader />
+      <n-back-top :right="20" />
+      <BottomMenu />
+    </UApp>
+  
+    <Suspense>
+      <template #default>
+        <LazyFooter />
+      </template>
+      <template #fallback>
+        <!-- <div class="text-center py-4 text-gray-500">Footer yuklanmoqda...</div> -->
+      </template>
+    </Suspense>
+  </n-message-provider>
 </template>
 
 <script setup>

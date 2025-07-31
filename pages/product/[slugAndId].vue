@@ -15,7 +15,8 @@
     <IdeaItem v-else-if="seoStore.product.marketResultmodel.url.includes('idea.uz')" />
 
     <ElmakonItem v-else-if="seoStore.product.marketResultmodel.url.includes('elmakon.uz')" />
-    
+
+    <AllGoodItem v-else-if="seoStore.product.marketResultmodel.url.includes('allgood.uz')" />
 
     <SimilarProducts v-if="seoStore.product.marketResultmodel.url.includes('uzum.uz')" :data="seoStore.oneCategoryProducts" />
   </template>

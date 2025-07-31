@@ -20,6 +20,7 @@
       <Card :data="store.searchProductsData.items" />
     </div>
 
+    <LazySharedLoaderSmall />
     <!-- Trigger div -->
     <div ref="infiniteTrigger" class="h-10"></div>
 

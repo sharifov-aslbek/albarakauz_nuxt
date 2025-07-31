@@ -59,6 +59,12 @@ const marketplaces = [
           icon: '/mediapark.webp',
           bgClass: 'bg-gradient-to-tr from-blue-500 to-blue-700',
           imgClass: 'bg-white rounded-lg'
+        },
+        {
+          id: 7,
+          name: 'AllGood',
+          icon: '/allgood.png',
+          bgClass: 'bg-gradient-to-tr from-orange-500 to-yellow-500'
         }
 ]
 
@@ -75,8 +81,9 @@ const navigateMarket = (id) => {
   <div class="container">
     <h2 class="text-3xl font-medium my-6">Markets</h2>
     <UCarousel
-      auto-scroll
+      autoplay
       arrows
+      loop
       v-slot="{ item }"
       :items="marketplaces"
       :ui="{ item: 'basis-full sm:basis-1/2 md:basis-1/3' }"
