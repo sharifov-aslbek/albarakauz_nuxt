@@ -56,7 +56,7 @@
               getParsedProductModel(item.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth &&
               item.marketResultmodel?.url === 'https://uzum.uz'
             "
-            class="inline-block w-full text-center rounded-lg bg-green-100 text-green-800 py-1 text-sm font-medium"
+            class="inline-block w-full text-center rounded-lg bg-[#feee00] text-black py-1 text-sm font-medium"
           >
             {{
               getParsedProductModel(item.productModel).SkuList[0].ProductOptionDtos[0].PaymentPerMonth
@@ -68,7 +68,7 @@
               getParsedProductModel(item.productModel)?.storeProducts?.[0]?.monthly_repayment &&
               item.marketResultmodel?.url === 'https://olcha.uz'
             "
-            class="inline-block w-full text-center rounded-lg bg-green-100 text-green-800 py-1 text-sm font-medium"
+            class="inline-block w-full text-center rounded-lg bg-[#feee00] text-black py-1 text-sm font-medium"
           >
             {{
               getParsedProductModel(item.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')

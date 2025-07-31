@@ -22,7 +22,7 @@
   
 </div>
 <div v-else class="container">
-  <div class="flex justify-between gap-4">
+  <div class="flex justify-between gap-4 pb-4">
      <n-skeleton width="100px" height="25px"  v-for="i in 15" />
   </div>
 </div>

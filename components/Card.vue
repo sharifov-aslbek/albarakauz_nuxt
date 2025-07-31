@@ -44,7 +44,7 @@
 
         <n-tag
         size="small"
-        type='success'
+        type='warning'
           v-if="getParsedProductModel(product.productModel)?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth && product.marketResultmodel?.url === 'https://uzum.uz'"
         >
           {{
@@ -55,7 +55,7 @@
 
         <n-tag 
           v-else-if="getParsedProductModel(product.productModel)?.storeProducts?.[0]?.monthly_repayment && product.marketResultmodel?.url === 'https://olcha.uz'"
-        type="success">
+        type="warning">
                     {{
             getParsedProductModel(product.productModel).storeProducts[0].monthly_repayment.toLocaleString('uz-UZ')
           }} so'm / 12 oy

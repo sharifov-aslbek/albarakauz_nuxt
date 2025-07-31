@@ -1,6 +1,6 @@
 <template>
-    <div class="container flex justify-between">
-        <div class="w-[47%] h-[460px] bg-white py-6 px-2.5">
+    <div class="container flex flex-col gap-20 sm:gap-0 sm:flex-row justify-between">
+        <div class="w-full sm:w-[47%] h-[460px] bg-white py-6 px-2.5">
             <h3 class="text-[30px] mb-5">Xarid qilish uchun ko'proq sabablar</h3>
 
             <div class="flex gap-3">
@@ -9,7 +9,7 @@
         </div>
 
 
-        <div class="w-[47%] h-[460px] bg-white py-6 px-2.5">
+        <div class="w-full sm:w-[47%] h-[460px] bg-white py-6 px-2.5">
             <h3 class="text-[30px] mb-5">Mega Takliflar</h3>
 
             <div class="flex gap-3">

@@ -209,6 +209,7 @@
 
             
                <UButton
+               color="warning"
         label="Do'konga o'tish  "
         icon="solar:shop-linear"
         :to="store.product.productUrl"
@@ -231,7 +232,7 @@
         <p class="text-gray-500 text-center max-w-sm">
           Hozirda o'xshash mahsulotlar mavjud emas. Iltimos, keyinroq qayta tekshiring.
         </p>
-        <button class="mt-6 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors">
+        <button class="mt-6 px-4 py-2 bg-warning text-white rounded-md hover:bg-warning/90 transition-colors">
           Bosh sahifaga qaytish
         </button>
       </div>

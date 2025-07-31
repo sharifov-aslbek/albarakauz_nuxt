@@ -6,12 +6,13 @@
    <ImageSlide />
    <NavbarSababMegaTaklif />
    <br> <br>
-   <TavsiyaEtilgan />
+   <!-- <TavsiyaEtilgan /> -->
    <MarketSlider />
-   <ProductSlider />  
+   <!-- <ProductSlider />   -->
    <NavbarAvtomobilingizUchun />
    <br><br>
-   <NavbarChillaSezon />
+   <LazyHomeProductDesign />
+   <!-- <NavbarChillaSezon /> -->
    <br>
    <NavbarBestSeller />
   <HomeCategoryProduct />
