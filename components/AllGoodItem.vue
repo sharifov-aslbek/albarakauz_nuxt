@@ -160,23 +160,26 @@
 
 
         <div
-          v-if="store.product.marketResultmodel.name === 'Olcha' &&
-          getParsedProductModel(store.product.productModel)?.main_features?.data"
+          v-if="store.product.marketResultmodel.name === 'Allgood' &&
+          getParsedProductModel(store.product.productModel)?.uz?.characteristics"
           class="space-y-2 w-full lg:w-[400px]"
         >
           <div
-            v-for="feature in getParsedProductModel(store.product.productModel).main_features.data.slice(0 , 5)"
-            :key="feature.feature_name_uz"
-            class="flex justify-between text-xs md:text-sm text-gray-700"
-          >
-            <span class="text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] md:max-w-[150px]">
-              {{ feature.feature_name_ru }}
-            </span>
-            <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
-            <span class="text-black whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-[200px]">
-              {{ feature.feature_value_name_ru }}
-            </span>
-          </div>
+   v-for="([key, value], index) in Object.entries(getParsedProductModel(store.product.productModel)?.uz.characteristics).slice(0, 5)"
+  :key="key"
+  class="flex justify-between text-xs md:text-sm text-gray-700"
+>
+  <span class="text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] md:max-w-[150px]">
+    {{ key }}
+  </span>
+  <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
+  <span class="text-black whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-[200px]">
+    {{ value }}
+  </span>
+</div>
+
+
+
         </div>
 
         <div v-if="store.product.marketResultmodel.name === 'Olcha' &&
@@ -241,7 +244,7 @@
         </div>
         
 
-        <div class="flex gap-12 justify-center">
+        <div id="table" class="flex gap-12 justify-center">
           <n-tabs type="line" animated>
                   <template #tabs="{ panes }">
                     <div class="flex w-full">
@@ -282,21 +285,21 @@
                   </n-tab-pane>
           
                   <n-tab-pane
-                    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.main_features?.data"
+                    v-if="getParsedProductModel(store.product.productModel)?.uz?.characteristics"
                     name="xarakteristika"
                     tab="Характеристика"
                   >
                     <div
-                      v-for="feature in getParsedProductModel(store.product.productModel).features[getParsedProductModel(store.product.productModel).main_features.data[0].group_id].data"
-                      :key="feature.feature_name_uz"
+                      v-for="([key, value], index) in Object.entries(getParsedProductModel(store.product.productModel)?.uz.characteristics)"
+                      :key="key"
                       class="flex justify-between text-sm md:text-base text-gray-700 w-full gap-3"
                     >
                       <span class="text-gray-400 py-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
-                        {{ feature.feature_name_ru }}
+                        {{ key }}
                       </span>
                       <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
                       <span class="text-black whitespace-nowrap overflow-hidden max-w-full">
-                        {{ feature.feature_value_name_ru }}
+                        {{ value }}
                       </span>
                     </div>
                   </n-tab-pane>
@@ -618,5 +621,8 @@ const getParsedProductModel = (productModel: string): Record<string, any> | stri
 </script>
 
 <style scoped>
+html {
+  scroll-behavior: smooth;
+}
 
 </style>
