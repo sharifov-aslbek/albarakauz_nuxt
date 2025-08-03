@@ -21,12 +21,20 @@
   :src="item"
   alt="Error"
 />
-
-
   </UCarousel>
+
+
   <br v-if="categoryStore.categoryData.length > 0"><br v-if="categoryStore.categoryData.length > 0">
 
+      </div>
 
+      <div v-else class="container">
+        <div class="flex items-center justify-between">
+          <USkeleton
+          v-for="i in 9"
+            class="rounded-full bg-[#D9D9D9] w-[120px] h-[120px]"
+          />
+        </div>
       </div>
   </template>
 

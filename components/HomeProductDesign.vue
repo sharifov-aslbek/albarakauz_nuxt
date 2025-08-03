@@ -90,7 +90,7 @@
         </div>
         <div class="text-right">
           <div class="text-lg font-bold bg-white/20 px-3 py-2 rounded-lg">
-            BIZDA<br />ARZONROQ
+            ARZONROQ<br />TOPAMIZ
           </div>
         </div>
       </div>

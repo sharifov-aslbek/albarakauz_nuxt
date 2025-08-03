@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-
+import { useCategoryAllStore } from '#imports'
 const items = [
   '/slider-img.png',
   '/slider-img.png',
@@ -11,7 +11,7 @@ const items = [
 ]
 
 const showSkeleton = ref(true)
-
+const categoryStore = useCategoryAllStore();
 // Rasm yuklanishini kuzatish
 function preloadImages(urls: string[]) {
   return Promise.all(
@@ -38,6 +38,7 @@ onMounted(async () => {
 <template>
   <div class="container relative">
     <UCarousel
+    v-if="categoryStore.categoryData"
       v-slot="{ item }"
       arrows
       autoplay
@@ -49,11 +50,11 @@ onMounted(async () => {
       <img :src="item" width="100%" class="rounded-lg" />
     </UCarousel>
 
-    <!-- Skeleton rasmlar yuklanmaguncha ko‘rinadi -->
-    <n-skeleton
-      v-if="showSkeleton"
-      class="rounded-lg absolute top-0 left-0 w-full h-[200px] z-10"
-    />
+
+     <USkeleton
+     v-else
+            class="bg-[#D9D9D9] w-full h-[190px]"
+          />
   </div>
 </template>
 

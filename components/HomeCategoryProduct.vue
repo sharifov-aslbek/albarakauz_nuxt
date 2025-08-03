@@ -126,10 +126,14 @@ watch(
     // faqat 5 ta ID ni olamiz
     const randomIds = shuffled.slice(0, 5)
 
-    randomIds.forEach(id => {
-      console.log('id:', id)
-      productStore.getCategoryIdProduct(id)
-    })
+    if(productStore.productCategoryList.length <= 0) {
+      randomIds.forEach(id => {
+        productStore.getCategoryIdProduct(id)
+      })
+    } else {
+      console.log('productCategoryList da data borligi uchun api chaqirilmadi');
+      
+    }
   },
   { immediate: true }
 )
