@@ -53,16 +53,18 @@
       Sevimliga qo'shish
     </UButton>
 
-    <UButton 
-      @click="copyRoute" 
-      icon="material-symbols-light:content-copy-outline-rounded" 
-      size="md" 
-      color="neutral" 
-      variant="outline"
-      class="w-full sm:w-auto"
-    >
-      Nusxalash
-    </UButton>
+      <!-- <UButton 
+        @click="copyRoute" 
+        icon="material-symbols-light:content-copy-outline-rounded" 
+        size="md" 
+        color="neutral" 
+        variant="outline"
+        class="w-full sm:w-auto"
+      >
+        Nusxalash
+      </UButton> -->
+
+    <ItemDropdownMenu />
   </div>
 </div>
 
@@ -74,6 +76,7 @@
         <div class="flex flex-col md:flex-row pb-5 gap-6 sm:mr-7 py-12">
           <div class="flex flex-col items-center sm:flex-row gap-5 w-full h-[500px]">
              <n-scrollbar
+             v-if="store.product.productImages && store.product.productImages.length > 0"
     style="max-height: 500px; width: 80px;"
   >
     <div class="sm:flex hidden flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
@@ -130,10 +133,8 @@
       v-else
       class="w-full sm:w-[420px] rounded-lg bg-gray-200 h-[500px] flex items-center justify-center text-gray-500"
     >
-      <div class="text-center">
-        <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
+      <div class="flex flex-col gap-5 items-center justify-center text-center"> 
+<div class="loader"></div>
         <p class="text-sm font-medium">Image not found</p>
       </div>
     </div>
@@ -146,62 +147,104 @@
                            <h1 class="text-xl mt-5 sm:mt-0 sm:text-3xl mr-4 w-full max-w-full sm:max-w-[470px] font-bold">{{ store.product.name }}</h1>
                        </div>
   
+                       <div class="w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
+            <div class="flex items-center justify-between">
+              <div class="text-3xl font-medium text-gray-900 mb-5">
+                  {{ store.product.price.toLocaleString('uz-UZ') }} so'm
+                </div>
   
-                       <div class="text-2xl font-bold text-gray-900 mb-2">
+                <span class="line-through">
+                  {{ getParsedProductModel(store.product.productModel).SkuList[0].FullPrice }} so'm
+                </span>
+            </div>
+  
+            <div class="flex flex-col gap-3 sm:flex-row sm:gap-0 items-center justify-between">
+              <UButton
+    @click.stop="handleAddFavorites(store.product)" 
+    icon="material-symbols-light:favorite-outline" 
+    size="md" 
+    color="neutral" 
+    variant="outline"
+    class="w-full sm:w-auto"
+  >
+    Sevimliga qo'shish
+  </UButton>
+  
+  
+  <UButton
+    size="md" 
+    color="warning" 
+    variant="outline"
+    class="w-full sm:w-auto"
+  >
+    {{ monthlyRepayment }}/so'm (12 oy)
+  </UButton>
+            </div>
+  
+  
+         <div class="font-normal items-center rounded-lg flex gap-2 justify-start mt-5" variant="subtle">
+           <UIcon name="hugeicons:delivery-delay-02" class="size-4" />
+           1-kun ichida yetkazamiz</div>
+  
+
+           <UButton
+           class="mt-4 w-full flex items-center justify-center"
+               color="warning"
+               variant="outline"
+        label="Mahsulotga o'tish  "
+        icon="ix:product"
+        :to="store.product.productUrl"
+        target="_blank"
+      />
+          </div>
+
+  
+                       <!-- <div class="text-2xl font-bold text-gray-900 mb-2">
                  {{ store.product.price.toLocaleString('uz-UZ') }} so'm
                </div>
   
   
                <div class="flex items-center gap-2 mt-4">
-                 <!-- <CreditCard class="w-5 h-5" /> -->
                  <img class="w-10 rounded-lg" src="/assets/uzum-nasiya.png" alt="Error">
                  <span class="text-lg font-medium">
                    {{ monthlyRepayment }} so'm/oy dan
                  </span>
                  <span class="text-sm text-gray-500">({{ monthly }} oy)</span>
-               </div>
+               </div> -->
   
-               <div class="bg-white w-[95%] sm:w-auto p-6 rounded-sm shadow-sm border border-gray-200">
-                 <h3 class="text-lg font-semibold mb-4">Sotuvchi</h3>
-                 <div class="flex items-center justify-between">
-                   <div class="flex items-center gap-3">
+  <div class="w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
+            <div class="flex items-center gap-3">
                      <div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
                       <UIcon name="solar:shop-linear" class="size-7 flex justify-center" />
                      </div>
                      <div>
                        <div class="font-semibold text-sm mb-2">{{ sellers }}</div>
                        <div class="flex items-center gap-2 text-sm text-gray-600">
-                      <UIcon name="material-symbols:star-rate-rounded" class="size-7 text-yellow-400 flex justify-center" />
-                         <span class="text-xs">{{ sellersRating }} ({{ sellersReviews }} sharh)</span>
+                        <div class="flex items-center">
+                          <UIcon name="material-symbols:star-rate-rounded" class="size-7 text-yellow-400 flex justify-center" />
+                          <span>{{ sellersRating }}</span>
+                        </div>
+                         <span class="text-xs flex items-center gap-2">({{ sellersReviews }} sharh) <UIcon name="fa6-regular:comments" class="size-4" /></span>
                        </div>
                      </div>
                    </div>
-                 </div>
-               </div>
   
-               <UButton
-               color="warning"
-        label="Do'konga o'tish  "
-        icon="solar:shop-linear"
-        :to="store.product.productUrl"
-        target="_blank"
-      />
+                   <UButton :to="`https://uzum.uz/uz/shop/${getParsedProductModel(store.product.productModel).Seller.Link}`" class="mt-5 w-full flex items-center justify-center" color="warning" variant="outline">Do'konga o'tish</UButton>
+          </div>
   
-  
-           </div>  
-            
+           </div>      
         </div>
+          
         
+
           <div class="h-[510px] w-full max-w-[305px] overflow-y-auto hidden lg:flex flex-col gap-5" >
             <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
             <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
-   class="flex flex-col items-center justify-center border border-gray-200 px-3 rounded-lg h-full py-6">
-        <div class="w-24 h-24 mb-6 text-gray-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+   class="flex flex-col items-center justify-center border border-gray-300 shadow-xl px-3 rounded-lg h-full py-6">
+        <div class="w-24 h-24 mb-6 text-warning">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" fill-rule="evenodd" d="M11.943 1.25h.114c2.309 0 4.118 0 5.53.19c1.444.194 2.584.6 3.479 1.494c.895.895 1.3 2.035 1.494 3.48c.19 1.411.19 3.22.19 5.529v.114c0 2.309 0 4.118-.19 5.53c-.194 1.444-.6 2.584-1.494 3.479c-.895.895-2.035 1.3-3.48 1.494c-1.411.19-3.22.19-5.529.19h-.114c-2.309 0-4.118 0-5.53-.19c-1.444-.194-2.584-.6-3.479-1.494c-.895-.895-1.3-2.035-1.494-3.48c-.19-1.411-.19-3.22-.19-5.529v-.114c0-2.309 0-4.118.19-5.53c.194-1.444.6-2.584 1.494-3.479c.895-.895 2.035-1.3 3.48-1.494c1.411-.19 3.22-.19 5.529-.19m-5.33 1.676c-1.278.172-2.049.5-2.618 1.069c-.57.57-.897 1.34-1.069 2.619c-.174 1.3-.176 3.008-.176 5.386s.002 4.086.176 5.386c.172 1.279.5 2.05 1.069 2.62c.57.569 1.34.896 2.619 1.068c1.3.174 3.008.176 5.386.176s4.086-.002 5.386-.176c1.279-.172 2.05-.5 2.62-1.069c.569-.57.896-1.34 1.068-2.619c.174-1.3.176-3.008.176-5.386s-.002-4.086-.176-5.386c-.172-1.279-.5-2.05-1.069-2.62c-.57-.569-1.34-.896-2.619-1.068c-1.3-.174-3.008-.176-5.386-.176s-4.086.002-5.386.176M7.4 8.55a.75.75 0 0 1 1.05-.15l2 1.5a.75.75 0 0 1 0 1.2l-2 1.5a.75.75 0 1 1-.9-1.2l1.2-.9l-1.2-.9a.75.75 0 0 1-.15-1.05m9.2 0a.75.75 0 0 1-.15 1.05l-1.2.9l1.2.9a.75.75 0 1 1-.9 1.2l-2-1.5a.75.75 0 0 1 0-1.2l2-1.5a.75.75 0 0 1 1.05.15m-8.13 6.92l1-1a.75.75 0 0 1 1.06 0l.47.47l.47-.47a.75.75 0 0 1 1.06 0l.47.47l.47-.47a.75.75 0 0 1 1.06 0l1 1a.75.75 0 1 1-1.06 1.06l-.47-.47l-.47.47a.75.75 0 0 1-1.06 0l-.47-.47l-.47.47a.75.75 0 0 1-1.06 0l-.47-.47l-.47.47a.75.75 0 0 1-1.06-1.06" clip-rule="evenodd"/></svg>
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">Mahsulot topilmadi</h3>
         <p class="text-gray-500 text-center max-w-sm">
@@ -211,8 +254,9 @@
           Bosh sahifaga qaytish
         </button>
       </div>
-          </div>
+                </div>
       </div>
+
 
       <div class="max-w-4xl pt-2 mt-4">
     <div class="flex items-center gap-3 mb-6">
@@ -595,5 +639,69 @@ const getParsedProductModel = (productModel: string): Record<string, any> | stri
 </script>
 
 <style scoped>
+/* From Uiverse.io by Shoh2008 */ 
+.loader {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  background: #FFF;
+  border-radius: 4px;
+  overflow: hidden;
+}
 
+.loader:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  transform: rotate(45deg) translate(30%, 40%);
+  background: #feee00;
+  box-shadow: 32px -34px 0 5px #feee00;
+  animation: slide 2s infinite ease-in-out alternate;
+}
+
+.loader:after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #feee00;
+  transform: rotate(0deg);
+  transform-origin: 35px 145px;
+  animation: rotate 2s infinite ease-in-out;
+}
+
+@keyframes slide {
+  0% , 100% {
+    bottom: -35px
+  }
+
+  25% , 75% {
+    bottom: -2px
+  }
+
+  20% , 80% {
+    bottom: 2px
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-15deg)
+  }
+
+  25% , 75% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(25deg)
+  }
+}
+  
 </style>

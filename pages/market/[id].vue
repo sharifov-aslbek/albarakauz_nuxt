@@ -11,9 +11,9 @@
         </div>
 
 
-        <h2 v-if="store.marketProductsData.length > 0 && store.marketProductsCount > 0" class="text-3xl font-bold">Topilgan barcha mahsulotlar soni: {{ store.marketProductsCount }}</h2>
+        <h2 v-if="store.marketProductsData.length > 0 && store.marketProductsCount > 0" class="text-2xl md:text-3xl font-bold">Topilgan barcha mahsulotlar soni: {{ store.marketProductsCount }}</h2>
 
-        <div v-if="store.marketProductsData.length > 0" class="grid grid-cols-5 gap-3 my-10">
+        <div v-if="store.marketProductsData.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 my-10">
             <Card :data="store.marketProductsData"  />
           </div>
           <div class="flex justify-end w-full">
@@ -22,7 +22,6 @@ class="py-10 flex justify-center md:justify-end"
 v-model:page="page" 
 :page-count="Math.ceil(store.marketProductsCount / 20)"
 :page-slot="5" 
-@update:page="store.getProductSeo(route.params.id , page)" 
 />
 </div>
     </div>

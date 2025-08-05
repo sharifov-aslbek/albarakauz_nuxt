@@ -1,5 +1,5 @@
   <template>
-    <section class="bg-[#F7F7FA]">
+    <section class="bg-[#F7F7FA] hidden sm:block">
       <div class="container h-[45.5px]" v-if="categoryStore.categoryData">
     <UCarousel
     v-if="categoryStore.categoryData.length > 0"

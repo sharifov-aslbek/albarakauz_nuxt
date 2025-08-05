@@ -70,7 +70,7 @@
 
     <div class="grid md:hidden grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       <div v-for="item in props.data" :key="item.id" @click="navigaItem(item.id, item.name)"
-        class="bg-gray-200 card w-full h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
+        class="bg-gray-200 card w-full h-[410px] sm:h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
         <!-- Rasm -->
         <!-- Rasm -->
         <div class="flex justify-center items-center mb-4">

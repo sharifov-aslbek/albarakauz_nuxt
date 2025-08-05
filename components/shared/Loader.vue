@@ -1,20 +1,24 @@
 <template>
-    <div v-if="load" class="h-screen fixed top-0 flex z-50 items-center justify-center w-full bg-black/80">
-        <!-- From Uiverse.io by PriyanshuGupta28 --> 
-<div class="spinner">
-  <div></div>   
-  <div></div>    
-  <div></   div>    
-  <div></div>    
-  <div></div>    
-  <div></div>    
-  <div></div>    
-  <div></div>    
-  <div></div>    
-  <div></div>    
-</div>
+  <div
+    v-if="load"
+    class="overlay h-screen fixed top-0 flex z-50 items-center justify-center w-full"
+  >
+    <!-- From Uiverse.io by PriyanshuGupta28 -->
+    <div class="spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
+  </div>
 </template>
+
 
 
 <script setup>
@@ -45,7 +49,7 @@
   position: absolute;
   width: 50%;
   height: 150%;
-  background: #ffffff;
+  background: #000000;
   transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
   animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
 }
@@ -119,6 +123,19 @@
     transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1.5%));
   }
 }
+
+.overlay {
+  /* Yengil oppoq, 20% shaffof: */
+  background-color: rgba(255, 255, 255, 0.2);
+
+  /* Orqa-fondagi elementlarni blurlash: */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  /* Agar Tailwind ishlatmoqchi bo‘lsangiz, o‘rniga: */
+  /* class="bg-white/20 backdrop-blur-md" */
+}
+
   
 
 </style>

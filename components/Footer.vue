@@ -6,7 +6,7 @@
         <!-- Logo and copyright section -->
         <div class="flex flex-col items-center lg:items-start gap-5 text-center lg:text-left">
           <div class="flex items-center gap-3">
-            <img class="w-16 h-16 rounded-xl" src="/assets/logo.png" alt="Logo" />
+            <img class="w-24 rounded-xl" src="/assets/logo.png" alt="Logo" />
             <div class="flex flex-col justify-center">
               <span class="text-2xl sm:text-3xl font-semibold text-black">albaraka.uz</span>
               <span class="tracking-[.2em] font-medium text-black text-xs mt-1">
