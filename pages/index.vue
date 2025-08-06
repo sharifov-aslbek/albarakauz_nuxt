@@ -14,9 +14,9 @@
    <br><br>
    <LazyHomeProductDesign />
    <br>
-   <NavbarChillaSezon />
-   <br>
    <NavbarBestSeller />
+   <br>
+   <NavbarChillaSezon />
   <HomeCategoryProduct />
 </template>
 

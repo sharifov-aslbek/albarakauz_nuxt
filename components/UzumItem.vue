@@ -147,7 +147,7 @@
                            <h1 class="text-xl mt-5 sm:mt-0 sm:text-3xl mr-4 w-full max-w-full sm:max-w-[470px] font-bold">{{ store.product.name }}</h1>
                        </div>
   
-                       <div class="w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
+                       <div class="w-full max-w-full sm:w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
             <div class="flex items-center justify-between">
               <div class="text-3xl font-medium text-gray-900 mb-5">
                   {{ store.product.price.toLocaleString('uz-UZ') }} so'm
@@ -212,7 +212,7 @@
                  <span class="text-sm text-gray-500">({{ monthly }} oy)</span>
                </div> -->
   
-  <div class="w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
+  <div class="w-full max-w-full sm:w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
             <div class="flex items-center gap-3">
                      <div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
                       <UIcon name="solar:shop-linear" class="size-7 flex justify-center" />
@@ -402,7 +402,8 @@ function handleAddFavorites(product: Product) {
     toast.add({
       title: 'Diqqat!',
       description: 'Avval login qilishingiz kerak.',
-      icon: 'mynaui:x-circle'
+      icon: 'mynaui:x-circle',
+      color: 'warning'
     });
     return;
   }
@@ -411,7 +412,8 @@ function handleAddFavorites(product: Product) {
     toast.add({
       title: 'Xatolik!',
       description: 'Favorites maʼlumotlari topilmadi.',
-      icon: 'mynaui:x-circle'
+      icon: 'mynaui:x-circle',
+      color: 'warning'
     });
     return;
   }

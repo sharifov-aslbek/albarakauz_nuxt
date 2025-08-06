@@ -40,6 +40,7 @@
         <div class="flex flex-col md:flex-row pb-5 justify-between gap-5 w-full max-w-full mr-7 py-12">
           <div class="flex w-full h-[500px]">
                   <n-scrollbar
+                  class="hidden sm:block"
     style="max-height: 500px; width: 80px;"
   >
     <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
@@ -75,7 +76,7 @@
       <!-- Show image if path exists, otherwise show not found -->
       <n-image
         v-if="item.imageEntity && item.imageEntity.localImagePath"
-        class="w-full sm:w-[420px] rounded-lg object-cover h-[500px]"
+        class="w-full sm:w-[420px] rounded-lg object-cover h-[380px] sm:h-[500px]"
         :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
       />
       <div

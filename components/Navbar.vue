@@ -18,14 +18,14 @@
       <div class="flex justify-between gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
           <a href="/" class="flex items-center space-x-2">
-                          <img class="w-12" src="/assets/logo.png" alt="">
+                          <img class="w-20" src="/assets/logo.png" alt="">
                           <div>
                             <span class="text-xl font-bold hidden md:block text-brand-green">Albaraka.uz</span>
                             <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring</span>
                           </div>
           </a>
         </div>
-
+  
 
         <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
           <button @click="categoryStore.showCategory = !categoryStore.showCategory"
