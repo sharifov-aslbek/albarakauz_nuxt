@@ -53,7 +53,12 @@
         <div class="flex items-center justify-between mb-10">
           <USkeleton
           v-for="i in 9"
-            class="rounded-full bg-[#D9D9D9] w-[120px] h-[120px]"
+            class="rounded-full hidden md:block bg-[#D9D9D9] w-[120px] h-[120px]"
+          />
+
+          <USkeleton
+          v-for="i in 5" 
+            class="rounded-full block md:hidden bg-[#D9D9D9] w-[70px] h-[70px]"
           />
         </div>
       </div>

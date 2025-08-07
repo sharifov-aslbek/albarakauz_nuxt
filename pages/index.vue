@@ -16,7 +16,7 @@
    <br>
    <NavbarBestSeller />
    <br>
-   <NavbarChillaSezon />
+   <!-- <NavbarChillaSezon /> -->
   <HomeCategoryProduct />
 </template>
 
