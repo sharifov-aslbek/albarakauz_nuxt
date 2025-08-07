@@ -3,7 +3,7 @@
   @click="navigaItem(product.id , product.name)"
   v-for="product in data"
   :key="product.id"
-  class="bg-gray-200 relative card w-full max-w-[300px] h-[400px] sm:h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
+  class="bg-gray-200 relative card w-full max-w-[300px] h-[400px] sm:h-[500px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
 >
 <UIcon  v-if="isFavorite(product.id)"  @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 text-red-500 absolute right-2 z-50" name="material-symbols:favorite" />
 <UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />
@@ -15,7 +15,7 @@
     :src="`https://api.albaraka.uz/${product.productImages[0].imageEntity.localImagePath}`"
     loading="lazy"
     :alt="`${product.name} - Image 1`"
-    class="w-full max-w-[260px] h-full max-h-[250px] object-contain rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
+    class="w-full max-w-[300px] h-full max-h-[300px] object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-110"
     @load="onImageLoad(product.id)"
   />
   
@@ -38,9 +38,15 @@
     <div>
       <h3 class="text-sm font-medium mb-3 line-clamp-2">{{ product.name }}</h3>
 
-        <div class="text-lg mb-3 font-medium text-gray-800">
+      <div class="flex justify-between items-center gap-2 mb-2">
+        <div class="text-lg font-medium text-gray-800">
         {{ product.price.toLocaleString('uz-UZ') }} so'm
       </div>  
+<!-- 
+      <span class="line-through text-xs">
+                  {{ getParsedProductModel(product.productModel).SkuList[0].FullPrice }} so'm
+                </span> -->
+      </div>
 
         <n-tag
         size="small"

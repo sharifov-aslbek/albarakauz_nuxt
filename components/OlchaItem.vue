@@ -75,12 +75,12 @@
       <!-- Show image if path exists, otherwise show not found -->
       <n-image
         v-if="item.imageEntity && item.imageEntity.localImagePath"
-        class="w-full sm:w-[420px] rounded-lg object-cover h-[500px]"
+        class="w-full rounded-lg object-cover h-[400px]"
         :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
       />
       <div
         v-else
-        class="w-full sm:w-[420px] rounded-lg bg-gray-100 h-[500px] flex items-center justify-center text-gray-500"
+        class="w-full rounded-lg bg-gray-100 h-[400px] flex items-center justify-center text-gray-500"
       >
         <div class="text-center">
           <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -218,7 +218,7 @@
 
 
            </div>  
-            <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
+            <div class="h-[450px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
                         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
             <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"

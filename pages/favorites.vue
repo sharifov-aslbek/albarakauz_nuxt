@@ -15,7 +15,7 @@
         </button>
         <button @click="router.push('/')" v-else 
           class="bg-[#feee00] cursor-pointer hover:bg-brand-green/80 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
-          Bosh saxifaga o'tish
+          Bosh sahifaga o'tish
         </button>
       </div>
     </div>

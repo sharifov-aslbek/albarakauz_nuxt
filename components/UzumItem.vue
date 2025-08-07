@@ -38,7 +38,7 @@
       variant="soft"
       class="w-full sm:w-auto"
     >
-      Added to favorites
+      Sevimlidan o'chirish
     </UButton>
 
     <UButton  
@@ -159,16 +159,29 @@
             </div>
   
             <div class="flex flex-col gap-3 sm:flex-row sm:gap-0 items-center justify-between">
-              <UButton
-    @click.stop="handleAddFavorites(store.product)" 
-    icon="material-symbols-light:favorite-outline" 
-    size="md" 
-    color="neutral" 
-    variant="outline"
-    class="w-full sm:w-auto"
-  >
-    Sevimliga qo'shish
-  </UButton>
+              <UButton 
+      v-if="isFavorite(store.product.id)"  
+      @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)" 
+      icon="material-symbols-light:heart-check" 
+      size="md" 
+      color="error" 
+      variant="soft"
+      class="w-full sm:w-auto"
+    >
+      Sevimlidan o'chirish
+    </UButton>
+
+    <UButton  
+      v-else  
+      @click.stop="handleAddFavorites(store.product)" 
+      icon="material-symbols-light:favorite-outline" 
+      size="md" 
+      color="neutral" 
+      variant="outline"
+      class="w-full sm:w-auto"
+    >
+      Sevimliga qo'shish
+    </UButton>
   
   
   <UButton
