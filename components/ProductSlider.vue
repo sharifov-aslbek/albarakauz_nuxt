@@ -64,6 +64,12 @@
       </div>
     </div>
 
+    <div class="flex" v-for="(item, products) in items" :key="item.id">
+
+    </div>
+
+
+
     <br /><br />
   </div>
 </template>
