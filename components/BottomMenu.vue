@@ -4,7 +4,7 @@
     <RouterLink
     to="/"
       class="flex flex-col items-center"
-      :class="route.path === '/' ? 'text-[#06D6A0]' : 'text-gray-500'"
+      :class="route.path === '/' ? 'text-[#feee00]' : 'text-gray-500'"
     >
       <UIcon name="i-heroicons-power" class="text-2xl" />
       <span class="text-xs mt-1">Bosh sahifa</span>
@@ -20,7 +20,7 @@
     <RouterLink
       to="/favorites"
       class="flex flex-col items-center"
-      :class="route.path === '/favorites' ? 'text-[#06D6A0]' : 'text-gray-500'"
+      :class="route.path === '/favorites' ? 'text-[#feee00]' : 'text-gray-500'"
     >
       <UIcon name="material-symbols-light:favorite-outline-rounded" class="text-2xl" />
       <span class="text-xs mt-1">Sevimlilar</span>

@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:hidden lg:flex container h-[300px] relative flex justify-between items-center rounded-xl p-6 overflow-hidden ">
+  <div class="hidden container h-[300px] relative md:flex justify-between items-center rounded-xl p-6 overflow-hidden ">
     <!-- Background Gradient Layer -->
     <div class="absolute left-0 right-0 top-[-30px] bottom-[-30px] z-0 rounded-xl" style="
         background: linear-gradient(90deg, #a855f7, #eab308, #f97316, #ef4444);
@@ -102,7 +102,7 @@
      prev-icon="i-lucide-chevron-left"
      next-icon="i-lucide-chevron-right" 
      :items="productCards" 
-     class=" container sm:hidden block"> 
+     class=" container md:hidden block"> 
       <template #default=" { item } " class="flex items-center justify-center ">
         <div class="w-full p-12 rounded-t-2xl" :class="item.bgGradient" >
           <div class="w-[120px] bg-white/20 flex items-center justify-cen rounded-2xl">

@@ -290,7 +290,8 @@
 >
   <div class="flex items-start justify-between mb-3">
     <div>
-      <h3 class="font-semibold text-gray-900">
+      <h3 class="font-semibold flex items-center text-gray-900">
+        <UIcon name="material-symbols:account-circle" class="text-gray-900 mr-2" />
         {{ getParsedProductModel(store.product.productModel).TopFeedback.Customer }}
       </h3>
       <p class="text-sm text-gray-500">
@@ -304,8 +305,9 @@
       </span>
     </div>
   </div>
-  <p class="text-gray-700">
-    <span class="font-medium">Izoh:</span>
+  <p class="text-gray-700 flex items-center">
+    <UIcon name="iconamoon:comment-duotone mr-1" />
+    <span class="font-medium mr-2">Izoh:</span>
     {{ getParsedProductModel(store.product.productModel).TopFeedback.Content }}
   </p>
 </div>
