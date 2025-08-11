@@ -1,8 +1,14 @@
 <template>
   <div class="container">
-    <h2 class="text-xl sm:text-3xl font-medium my-8">
+    <h2 class="text-xl sm:text-3xl font-medium sm:my-8 sm:block hidden">
       Topilgan mahsulotlar soni: {{ store.searchProductsData.totalCount }}
     </h2>
+
+    <div class="flex justify-between items-center sm:hidden mb-5">
+      <h3><span class="text-gray-500">"{{ route.params.id }}"</span> uchun natijalar</h3>
+
+      <h3><span class="text-gray-500">"{{ store.searchProductsData.items.length }}"</span> ta topildi</h3>
+    </div>
 
     <!-- Loading Skeleton -->
     <div v-if="store.productLoader" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">

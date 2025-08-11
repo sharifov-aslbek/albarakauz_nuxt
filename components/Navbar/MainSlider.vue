@@ -12,11 +12,11 @@ const items = [
 
 const mobileItem = [
   'mobile-slider-img.png',
+  'slider-img-mobile2.png',
   'mobile-slider-img.png',
+  'slider-img-mobile2.png',
   'mobile-slider-img.png',
-  'mobile-slider-img.png',
-  'mobile-slider-img.png',
-  'mobile-slider-img.png',
+  'slider-img-mobile2.png',
 ]
 
 const showSkeleton = ref(true)

@@ -4,10 +4,6 @@
       <div class="flex items-center justify-between sm:hidden py-5">
         <a href="/" class="flex items-center space-x-2">
           <img class="w-24" src="/assets/logo.png" alt="">
-          <div>
-            <span class="text-xl font-bold block text-brand-green">Albaraka.uz</span>
-            <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring dfdfdf</span>
-          </div>
         </a>
 
         <div class="block sm:hidden">

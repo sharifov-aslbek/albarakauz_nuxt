@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.categoryData" class="container">
-    <div class="flex flex-wrap justify-between gap-5">
+    <div class="flex flex-wrap justify-around gap-4">
       <div @click="navigateCategory(category.id)" v-for="(category, index) in store.categoryData.slice(0, 9)"
         :key="category.id" class="category-card 
          w-full 
