@@ -5,7 +5,7 @@
         @click="navigateCategory(category.id)"
         v-for="(category, index) in store.categoryData.slice(0, 9)"
         :key="category.id"
-        class="category-card relative flex flex-col justify-between items-center h-[200px] rounded-lg p-5 w-[30%] overflow-hidden group hover:scale-105 transition-transform duration-300 cursor-pointer"
+        class="category-card relative flex justify-between items-center h-[200px] rounded-lg p-5 w-[30%] overflow-hidden group hover:scale-105 transition-transform duration-300 cursor-pointer"
         :style="{ animationDelay: `${index * 0.1}s` }"
       >
         <!-- Animated background with floating orbs -->
