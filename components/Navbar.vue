@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex items-center justify-between sm:hidden py-5">
         <a href="/" class="flex items-center space-x-2">
-          <img class="w-12" src="/assets/logo.png" alt="">
+          <img class="w-24" src="/assets/logo.png" alt="">
           <div>
             <span class="text-xl font-bold block text-brand-green">Albaraka.uz</span>
             <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring dfdfdf</span>
@@ -18,7 +18,7 @@
       <div class="flex justify-between gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
           <a href="/" class="flex items-center space-x-2">
-            <img class="w-12" src="/assets/logo.png" alt="">
+            <img class="w-20" src="/assets/logo.png" alt="">
             <div>
               <span class="text-xl font-bold hidden md:block text-brand-green">Albaraka.uz</span>
               <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring</span>
