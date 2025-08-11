@@ -5,7 +5,8 @@
    <!-- <NewSlider /> -->
    <ImageSlide />
    <NavbarSababMegaTaklif />
-   <br> <br>
+   <br>
+   <NavbarCategoryCards />
    <TavsiyaEtilgan />
    <br>
    <MarketSlider />

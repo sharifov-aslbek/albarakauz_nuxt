@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex items-center justify-between sm:hidden py-5">
         <a href="/" class="flex items-center space-x-2">
-          <img class="w-12" src="/assets/logo.png" alt="">
+          <img class="w-24" src="/assets/logo.png" alt="">
           <div>
             <span class="text-xl font-bold block text-brand-green">Albaraka.uz</span>
             <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring dfdfdf</span>
@@ -18,7 +18,7 @@
       <div class="flex justify-between gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
           <a href="/" class="flex items-center space-x-2">
-            <img class="w-12" src="/assets/logo.png" alt="">
+            <img class="w-20" src="/assets/logo.png" alt="">
             <div>
               <span class="text-xl font-bold hidden md:block text-brand-green">Albaraka.uz</span>
               <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring</span>
@@ -28,7 +28,7 @@
   
 
         <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
-          <button @click="categoryStore.showCategory = !categoryStore.showCategory"
+          <button @click="categoryStore.showCategory = !categoryStore.showCategory , testCategory()"
             class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-gray-200 transition-all duration-300 cursor-pointer hover:bg-gray-500/30">
             <div class="relative w-6 h-6">
               <!-- Folder Icon -->
@@ -122,7 +122,7 @@
                 <template v-if="allCategoryStore.categoryData">
                   <template v-for="category in allCategoryStore.categoryData" :key="category.id">
                     <div v-show="activeCategory === category.id">
-                      <h2 class="text-xl font-semibold mb-6 flex items-center cursor-pointer hover:text-blue-600">
+                      <h2 @click="navigateCategory(category.id)" class="text-xl font-semibold mb-6 flex items-center cursor-pointer hover:text-blue-600">
                         {{ category.name }}
                         <UIcon name="material-symbols:chevron-right-rounded" class="ml-auto h-4 w-4 text-gray-400" />
 
@@ -163,6 +163,7 @@
                     </div>
                   </div>
                 </template>
+
               </main>
             </div>
           </div>
@@ -192,6 +193,15 @@ const allCategoryStore = useCategoryAllStore();
 // Category div parametrs
 const activeCategory = ref(1);
 const search = ref('')
+const testCategory = () => {
+  if(!allCategoryStore.categoryData) {
+    allCategoryStore.getAllCategory();
+  } else {
+    console.log('working');
+    
+  }
+}
+
 
 definePageMeta({
   ssr: false
