@@ -57,7 +57,7 @@
           />
 
           <USkeleton
-          v-for="i in 5" 
+          v-for="i in 4" 
             class="rounded-full block md:hidden bg-[#D9D9D9] w-[70px] h-[70px]"
           />
         </div>

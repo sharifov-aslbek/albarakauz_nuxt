@@ -11,7 +11,7 @@
          flex flex-col lg:flex-row  <!-- o'zgarish -->
          justify-between items-center 
          h-auto lg:h-[200px]  <!-- balandlik moslashdi -->
-         rounded-lg p-5 
+         rounded-lg p-3 sm:p-5 
          overflow-hidden group 
          hover:scale-105 
          transition-transform duration-300 
@@ -37,8 +37,11 @@
         </div>
 
         <!-- Title -->
-        <h4 class="category-title 
-             text-2xl 
+        <h4 class="category-title
+        text-md
+        text-center
+        sm:text-start
+             sm:text-2xl 
              relative z-10 
              group-hover:text-yellow-600 
              transition-colors duration-300 
@@ -50,7 +53,7 @@
         <!-- Image -->
         <img :src="category.image && category.image.localImagePath
           ? `https://api.albaraka.uz/${category.image.localImagePath}`
-          : 'https://cdn-icons-png.flaticon.com/512/8634/8634546.png'" class="w-[160px] object-cover relative z-10 
+          : 'https://cdn-icons-png.flaticon.com/512/8634/8634546.png'" class="w-[60px] sm:w-[160px] object-cover relative z-10 
            group-hover:rotate-3 group-hover:scale-110 
            transition-all duration-500 
            animate-gentle-bounce" :alt="category.name" />
@@ -58,6 +61,8 @@
 
     </div>
   </div>
+
+  <br>
 </template>
 
 

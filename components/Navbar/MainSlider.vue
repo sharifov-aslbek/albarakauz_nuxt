@@ -10,6 +10,15 @@ const items = [
   '/slider-img.png'
 ]
 
+const mobileItem = [
+  'mobile-slider-img.png',
+  'mobile-slider-img.png',
+  'mobile-slider-img.png',
+  'mobile-slider-img.png',
+  'mobile-slider-img.png',
+  'mobile-slider-img.png',
+]
+
 const showSkeleton = ref(true)
 const categoryStore = useCategoryAllStore();
 // Rasm yuklanishini kuzatish
@@ -45,11 +54,22 @@ onMounted(async () => {
       prev-icon="i-lucide-chevron-left"
       next-icon="i-lucide-chevron-right"
       :items="items"
-      class="w-full max-w-full mx-auto custom-carousel"
+      class="w-full max-w-full mx-auto custom-carousel sm:block hidden"
     >
       <img :src="item" width="100%" class="rounded-lg" />
     </UCarousel>
 
+    <UCarousel
+    v-if="categoryStore.categoryData"
+      v-slot="{ item }"
+      autoplay
+      prev-icon="i-lucide-chevron-left"
+      next-icon="i-lucide-chevron-right"
+      :items="mobileItem"
+      class="w-full max-w-full mx-auto custom-carousel sm:hidden block"
+    >
+      <img :src="item" width="100%" class="rounded-lg" />
+    </UCarousel>
 
      <USkeleton
      v-else
