@@ -1,10 +1,11 @@
 <template>
     <div class="container">
         <div class="w-full">
-            <h3 class="text-[30px] mb-5">Siz uchun bestsellerlar</h3>
+          <Text :title="'Siz uchun bestsellerlar'" />
 
             <div class="gap-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                   <USkeleton v-if="!data" v-for="i in 5" class="h-[450px] w-[240px] bg-[#D9D9D9]" />
+                   <USkeleton v-if="!data" v-for="i in 2" class="h-[450px] block sm:hidden w-[240px] bg-[#D9D9D9]" />
+                   <USkeleton v-if="!data" v-for="i in 5" class="h-[450px] hidden sm:block w-[240px] bg-[#D9D9D9]" />
                    <Card v-else :data="data" />
             </div>
         </div>
@@ -17,6 +18,7 @@
 <script setup >
 import { ref , onMounted } from 'vue';
 import axios from 'axios';
+import Text from '../shared/Text.vue';
 
 const data = ref(null);
 const err = ref(null);

@@ -33,7 +33,7 @@
      -->
       <h2
         @click="navigateCategory(category.categoryInfo.id)"
-        class="text-lg sm:text-2xl text-category cursor-pointer flex items-center gap-3"
+        class="text-[20px] sm:text-[24px] md:text-[30px] lg:text-[36px] text-category cursor-pointer flex items-center gap-3"
       >
         {{ category.categoryInfo.name }}
         <UIcon

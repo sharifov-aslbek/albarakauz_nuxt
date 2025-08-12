@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="w-full">
-            <h3 class="text-[30px] mb-5">Avtomobilingiz uchun</h3>
+          <Text :title="'Avtomobilingiz uchun'" />
 
             <div class="gap-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                    <USkeleton v-if="!data" v-for="i in 5" class="h-[450px] w-[240px] bg-[#D9D9D9]" />
@@ -17,6 +17,7 @@
 <script setup >
 import { ref , onMounted } from 'vue';
 import axios from 'axios';
+import Text from '../shared/Text.vue';
 
 const data = ref(null);
 const err = ref(null);
