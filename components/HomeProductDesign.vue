@@ -96,7 +96,7 @@
     </div>
 
   </div> 
-  <UCarousel 
+  <!-- <UCarousel 
      arrows 
      autoplay 
      prev-icon="i-lucide-chevron-left"
@@ -116,7 +116,7 @@
           <img :src="item.logoImage" alt="" :class="item.logoStyle" >
         </div>
       </template>
-    </UCarousel>
+    </UCarousel> -->
 
 </template>
 
