@@ -1,6 +1,6 @@
 <template>
   <div class="container py-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row items-center justify-between">
       <div>
         <CategoryPath />
 
@@ -19,7 +19,7 @@
       </div>
 
 
-      <div class="flex gap-3">
+      <div class="flex flex-col sm:flex-row gap-3">
         <UButton v-if="isFavorite(store.product.id)"
           @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)"
           icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
