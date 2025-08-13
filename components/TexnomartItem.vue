@@ -69,13 +69,13 @@
       :items="store.product.productImages"
       :prev="{ onClick: onClickPrev }"
       :next="{ onClick: onClickNext }"
-      class="sm:w-full sm:max-w-[400px] w-full"
+      class="sm:w-full sm:max-w-[450px] w-full"
       @select="onSelect"
     >
       <!-- Show image if path exists, otherwise show not found -->
       <n-image
         v-if="item.imageEntity && item.imageEntity.localImagePath"
-        class="w-full sm:w-[420px] rounded-lg object-cover h-[500px]"
+        class="rounded-lg object-cover h-[500px]"
         :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
       />
       <div

@@ -26,7 +26,6 @@
   <UCarousel
     class="sm:flex items-center justify-between hidden"
     v-if="categoryStore.categoryData.length > 0"
-    arrows
     prev-icon="i-lucide-chevron-left"
       next-icon="i-lucide-chevron-right"
     v-slot="{ item }"
@@ -34,7 +33,7 @@
     :ui="{ 
       item: 'basis-auto shrink-0',  // itemlarni avtomatik o'lchamda va siqilmasdan olish
       wrapper: 'gap-0',            // oraliq bo'shliqni yo'q qilish
-      container: 'sm:gap-8.5'           // konteyner ichidagi bo'shliqni yo'q qilish
+      container: 'sm:gap-9'           // konteyner ichidagi bo'shliqni yo'q qilish
     }"
   >
     <img

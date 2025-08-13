@@ -2,8 +2,9 @@
     <section class="bg-[#F7F7FA] hidden sm:block">
       <div class="container h-[45.5px]" v-if="categoryStore.categoryData">
     <UCarousel
+    class="w-full max-w-[95%] mx-auto"
+    arrows="true"
     v-if="categoryStore.categoryData.length > 0"
-    arrows
     prev-icon="i-lucide-chevron-left"
       next-icon="i-lucide-chevron-right"
     v-slot="{ item }"
@@ -14,16 +15,25 @@
       container: 'gap-0'           // konteyner ichidagi bo'shliqni yo'q qilish
     }"
   >
-    <NTag @click="navigateToCategory(item.id)" checkable class="mr-0 cursor-pointer">{{ item.name }}</NTag>
 
+    <n-tag class="cursor-pointer" round :bordered="false">
+      {{ item.name }}
+      <template #avatar>
+        <n-avatar
+          :src="item.image && item.image.localImagePath
+                          ? `https://api.albaraka.uz/${item.image.localImagePath}`
+                          : 'https://cdn-icons-png.flaticon.com/512/8634/8634546.png'"
+        />
+      </template>
+    </n-tag>
 
-  </UCarousel>
+  </UCarousel>  
   <br v-if="categoryStore.categoryData.length > 0"><br v-if="categoryStore.categoryData.length > 0">
   
 </div>
 <div v-else class="container">
   <div class="flex justify-between gap-4 pb-4">
-     <n-skeleton width="100px" height="25px"  v-for="i in 15" />
+     <n-skeleton round width="100px" height="25px"  v-for="i in 15" />
   </div>
 </div>
     </section>

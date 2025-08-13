@@ -10,7 +10,8 @@ import { NConfigProvider, NBackTop } from 'naive-ui'
 const themeOverrides = {
   BackTop: {
     iconColor: '#000000',    // oddiy holat
-    iconColorHover: '#feee00' // hoverda sariq
+    iconColorHover: '#feee00',
+    iconColorPressed: '#000000'
   }
 }
 </script>

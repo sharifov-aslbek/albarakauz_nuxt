@@ -41,7 +41,7 @@
           <div class="flex w-full h-[500px]">
                   <n-scrollbar
                   class="hidden sm:block"
-    style="max-height: 500px; width: 80px;"
+    style="max-height: 400px; width: 80px;"
   >
     <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
       <div
@@ -76,7 +76,7 @@
       <!-- Show image if path exists, otherwise show not found -->
       <n-image
         v-if="item.imageEntity && item.imageEntity.localImagePath"
-        class="w-full sm:w-[420px] rounded-lg object-cover h-[500px]"
+        class="w-full sm:w-[420px] rounded-lg object-cover max-h-[450px]"
         :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
       />
       <div
@@ -148,7 +148,7 @@
          </div> -->
        
            <div class="flex w-full max-w-[450px] flex-col items-start space-y-6">
-                               <div class="flex justify-between w-full gap-3 py-4">
+                               <div class="flex justify-between w-full gap-3 pt-4">
                            <h1 class="text-3xl mr-4 w-full max-w-[470px] font-bold">{{ store.product.name }}</h1>
                        </div>
 
@@ -160,57 +160,38 @@
 ></p>
 
 
-        <div
-          v-if="store.product.marketResultmodel.name === 'Olcha' &&
-          getParsedProductModel(store.product.productModel)?.main_features?.data"
+
+      
+
+<div
+          v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.uz?.characteristics"
           class="space-y-2 w-full lg:w-[400px]"
         >
-          <div
-            v-for="feature in getParsedProductModel(store.product.productModel).main_features.data.slice(0 , 5)"
-            :key="feature.feature_name_uz"
-            class="flex justify-between text-xs md:text-sm text-gray-700"
-          >
-            <span class="text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] md:max-w-[150px]">
-              {{ feature.feature_name_ru }}
-            </span>
-            <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
-            <span class="text-black whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-[200px]">
-              {{ feature.feature_value_name_ru }}
-            </span>
-          </div>
+                              <div
+                      v-for="([key, value], index) in Object.entries(getParsedProductModel(store.product.productModel).uz.characteristics).slice(0 , 4)"
+                      :key="key"
+                      class="flex justify-between items-center text-sm md:text-base text-gray-700 w-full gap-3"
+                    >
+                      <span class="text-gray-400 py-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+                        {{ key }}
+                      </span>
+                      <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
+                      <span class="text-black whitespace-nowrap overflow-hidden max-w-full">
+                        {{ value }}
+                      </span>
+                    </div>
         </div>
 
-        <div v-if="store.product.marketResultmodel.name === 'Olcha' &&
-          getParsedProductModel(store.product.productModel)?.main_features?.data" 
-          class="flex items-center gap-3">
-          <!-- IMG tag: faqat slug mavjud bo‘lsa va null bo‘lmasa ko‘rsatish -->
-<img
-  v-if="getParsedProductModel(store.product.productModel)?.manufacturer?.slug"
-  class="w-8 md:w-12 rounded-md"
-  :src="getParsedProductModel(store.product.productModel)?.manufacturer?.main_image"
-  :alt="getParsedProductModel(store.product.productModel)?.manufacturer?.name_uz"
-/>
 
-<a
-  v-if="getParsedProductModel(store.product.productModel)?.manufacturer?.name_uz"
-  target="_blank"
-  :href="`https://olcha.uz/ru/manufacturer/${getParsedProductModel(store.product.productModel)?.manufacturer?.slug}`"
-  class="font-bold text-brand-blue cursor-pointer text-sm md:text-base"
->
-  Все товары бренда {{ getParsedProductModel(store.product.productModel)?.manufacturer?.name_uz }}
-</a>
-</div>
-
-
-              <div class="price-div flex items-center gap-4">
-                <div class="text-2xl font-bold text-gray-900 mb-6">
+              <div class="price-div flex items-center gap-4 mb-12">
+                <div class="text-2xl font-bold text-gray-900">
           {{ store.product.price.toLocaleString('uz-UZ') }} so'm
         </div>
+
+          <n-tag :bordered="false" type="warning">
+      {{ getParsedProductModel(store.product.productModel)?.meta?.monthlyPrice }}
+    </n-tag>
   
-  
-        <n-tag type="success" class="text-xl font-bold text-gray-900 mb-6">
-          {{ getParsedProductModel(store.product.productModel)?.meta?.monthlyPrice }}
-        </n-tag>
               </div>
 
 
