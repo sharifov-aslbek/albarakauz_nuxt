@@ -2,11 +2,11 @@
 import { ref, onMounted } from 'vue'
 import { useCategoryAllStore } from '#imports'
 const items = [
+  '/wildberries-slider.webp',
   '/slider-img.png',
+  '/wildberries-slider.webp',
   '/slider-img.png',
-  '/slider-img.png',
-  '/slider-img.png',
-  '/slider-img.png',
+  '/wildberries-slider.webp',
   '/slider-img.png'
 ]
 
@@ -49,7 +49,6 @@ onMounted(async () => {
     <UCarousel
     v-if="categoryStore.categoryData"
       v-slot="{ item }"
-      arrows
       autoplay
       prev-icon="i-lucide-chevron-left"
       next-icon="i-lucide-chevron-right"

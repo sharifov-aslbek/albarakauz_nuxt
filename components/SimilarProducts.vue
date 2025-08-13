@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h3 class="text-3xl font-bold mt-30 mb-10">O'xshash mahsulotlar</h3>
+    <h3 class="text-3xl font-bold mt-30 mb-10 pl-3">O'xshash mahsulotlar</h3>
     <UCarousel arrows v-slot="{ item }" :items="props.data"
-      class="w-full mx-auto max-w-[320px] sm:max-w-none hidden md:block" :ui="{
+      class="w-full mx-auto max-w-[320px] sm:max-w-[98%] hidden md:block" :ui="{
         item: 'basis-1/1 sm:basis-1/3 md:basis-1/4 lg:basis-1/5',
       }">
       <div @click="navigaItem(item.id, item.name)"
