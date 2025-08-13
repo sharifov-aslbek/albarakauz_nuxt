@@ -213,7 +213,7 @@
 
         </div>
         
-<n-tabs type="line" animated>
+<n-tabs type="line" animated :style="tabStyle">
   <template #tabs="{ panes }">
     <div class="flex w-full">
       <div
@@ -311,12 +311,19 @@ import CategoryPath from './CategoryPath.vue'
 import Card from './Card.vue'
 import successAudio from '@/assets/audio.mp3'
 import errorAudio from '@/assets/not-success.m4a'
+import { tabs } from '#build/ui'
 
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 const toast = useToast(); 
 const route = useRoute();
 const linkedProducts = store.linkedProducts?.map(item => item.product) || []
 const authStore = useAuthStore();
+const tabStyle = {
+  '--n-tab-text-color': 'gray',             // Oddiy holatdagi matn rangi
+  '--n-tab-text-color-active': '#feee00',
+  '--n-bar-color': '#feee00',     // Aktiv holatdagi matn rangi
+  '--n-tab-text-color-hover': '#feee00',      // Hover holatdagi matn rangi
+};
 // Product model o'zgaruvchilari
 // const monthlyRepayment = computed(() => {
 //   return parsedModel.value?.SkuList?.[0]?.ProductOptionDtos?.[0]?.PaymentPerMonth ?? null

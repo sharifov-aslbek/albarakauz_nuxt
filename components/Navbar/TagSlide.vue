@@ -16,7 +16,7 @@
     }"
   >
 
-    <n-tag class="cursor-pointer" round :bordered="false">
+    <n-tag @click="navigateToCategory(item.id)" class="cursor-pointer" round :bordered="false">
       {{ item.name }}
       <template #avatar>
         <n-avatar

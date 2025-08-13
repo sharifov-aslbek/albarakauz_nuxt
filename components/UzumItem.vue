@@ -315,7 +315,7 @@
 
   </div>
 
-            <n-tabs type="line" animated>
+            <n-tabs type="line" animated :style="tabStyle">
   <template #tabs="{ panes }">
     <div class="flex w-full">
       <div
@@ -380,7 +380,12 @@ const route = useRoute();
 const toast = useToast();
 const authStore = useAuthStore();
 const linkedProducts = store.linkedProducts?.map(item => item.product) || []
-
+const tabStyle = {
+  '--n-tab-text-color': 'gray',             // Oddiy holatdagi matn rangi
+  '--n-tab-text-color-active': '#feee00',
+  '--n-bar-color': '#feee00',     // Aktiv holatdagi matn rangi
+  '--n-tab-text-color-hover': '#feee00',      // Hover holatdagi matn rangi
+};
 
 
 

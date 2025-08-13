@@ -204,7 +204,7 @@
 
 
     <div id="table" class="flex flex-col xl:flex-row gap-6 justify-center">
-      <n-tabs type="line" animated class="w-full xl:w-[70%]">
+      <n-tabs type="line" animated class="w-full xl:w-[70%]" :style="tabStyle">
         <template #tabs="{ panes }">
           <div class="flex w-full flex-wrap">
             <div v-for="pane in panes" :key="pane.name"
@@ -304,6 +304,12 @@ definePageMeta({
   ssr: false
 })
 
+const tabStyle = {
+  '--n-tab-text-color': 'gray',             // Oddiy holatdagi matn rangi
+  '--n-tab-text-color-active': '#feee00',
+  '--n-bar-color': '#feee00',     // Aktiv holatdagi matn rangi
+  '--n-tab-text-color-hover': '#feee00',      // Hover holatdagi matn rangi
+};
 const authStore = useAuthStore() // <- o'zingiz ishlatayotgan store
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 const toast = useToast();
