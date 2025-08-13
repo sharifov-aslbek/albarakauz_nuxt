@@ -49,8 +49,12 @@
           </button>
 
 
-          <n-auto-complete v-model:value="search" :options="filteredOptions" @keydown.enter="navigateSearch"
+          <n-config-provider  :theme-overrides="themeOverrides" class="w-full">
+
+            <n-auto-complete v-model:value="search" :options="filteredOptions" @keydown.enter="navigateSearch"
             placeholder="Tovar va kategoriyalarni qidiring ..." />
+
+          </n-config-provider>  
 
 
 
@@ -181,6 +185,7 @@ import { useAuthStore } from "@/stores/auth"
 import { useCategoryAllStore } from '#imports';
 import { useCategoryStore } from '@/stores/categoryStore'
 import { useRouter } from 'vue-router';
+// import { NAutoComplete, useThemeVars } from 'naive-ui'
 
 const categoryStore = useCategoryStore();
 const authStore = useAuthStore();
@@ -197,6 +202,20 @@ const testCategory = () => {
     
   }
 }
+
+const themeOverrides = {
+  AutoComplete: {
+    peers: {
+      Input: {
+        borderFocus: '1px solid #ffcc00', // Fokusda border rangi
+        border: '1px solid #ffcc00',          // Oddiy border rangi
+        color: '#fff',                  // Text rangi
+        placeholderColor: '#999',          // Placeholder rangi
+      }
+    }
+  }
+}
+
 
 
 definePageMeta({
