@@ -6,7 +6,8 @@
     <UApp>
       <NuxtPage />
       <SharedLoader />
-      <n-back-top :right="20" />
+      <SharedBackTop />
+
       <BottomMenu />
     </UApp>
   
@@ -25,6 +26,7 @@
 import Navbar from './components/Navbar.vue'
 import { defineAsyncComponent, onMounted , ref } from 'vue'
 import { useAuthStore, useColorMode } from '#imports'
+import { SharedBackTop } from '#components'
 
 useHead({
   htmlAttrs: {

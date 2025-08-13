@@ -4,7 +4,7 @@
       Topilgan mahsulotlar soni: {{ store.searchProductsData.totalCount }}
     </h2>
 
-    <div v-if="store.searchProductsData.items.length > 0" class="flex justify-between items-center sm:hidden mb-5">
+    <div v-if="store.searchProductsData.items" class="flex justify-between items-center sm:hidden mb-5">
       <h3><span class="text-gray-500">"{{ route.params.id }}"</span> uchun natijalar</h3>
 
       <h3><span class="text-gray-500">"{{ store.searchProductsData.items.length }}"</span> ta topildi</h3>

@@ -84,7 +84,7 @@
   <template>
     <div class="container mx-auto px-4">
       <div class="text-center mb-8">
-        <h2 class="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
+        <h2 class="text-4xl bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
           Bizda mavjud marketlar
         </h2>
         <p class="text-gray-600 text-lg">Kuzating solishtiring va sotib oling</p>
