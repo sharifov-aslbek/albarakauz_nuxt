@@ -6,7 +6,7 @@
         item: 'basis-1/1 sm:basis-1/3 md:basis-1/4 lg:basis-1/5',
       }">
       <div @click="navigaItem(item.id, item.name)"
-        class="bg-gray-200 card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
+        class="bg-white card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
         <!-- Rasm -->
         <div class="flex justify-center items-center aspect-square mb-4">
           <img v-if="item.productImages?.length > 0 && item.productImages[0].imageEntity?.localImagePath"
@@ -83,7 +83,7 @@
 
     <div class="grid md:hidden grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       <div v-for="item in props.data" :key="item.id" @click="navigaItem(item.id, item.name)"
-        class="bg-gray-200 card w-full h-[410px] sm:h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
+        class="bg-white card w-full h-[410px] sm:h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
         <!-- Rasm -->
         <div class="flex justify-center items-center mb-4">
           <img v-if="item.productImages?.length > 0 && item.productImages[0].imageEntity?.localImagePath"

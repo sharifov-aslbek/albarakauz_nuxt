@@ -37,7 +37,7 @@ await seoStore.getProductSeo(route.params.slugAndId as string)
 watch(
   () => seoStore.product,
   (newVal) => {
-    if (newVal && newVal.categoryResultModel?.id) {
+    if (newVal && newVal.categoryResultModel?.id && newVal.categoryResultModel.id !== 1788) {
       seoStore.getOneCategoryProducts(newVal.categoryResultModel.id as number)
     }
   },

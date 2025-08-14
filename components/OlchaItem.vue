@@ -1,6 +1,6 @@
 <template>
   <div class="container py-6">
-    <div class="flex items-center justify-between">
+    <div class="sm:flex items-center justify-between">
       <div>
         <CategoryPath />
 
@@ -37,13 +37,13 @@
     <MiniCard v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
 
     <div class="flex flex-col md:flex-row pb-5 justify-between gap-5 w-full max-w-full mr-7 py-12">
-      <div class="flex w-full h-[500px]">
-        <n-scrollbar style="max-height: 500px; width: 80px;">
-          <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
+      <div class="flex flex-col w-full h-[500px]">
+        <n-scrollbar class="max-h-[500px] hidden sm:block w-full sm:w-[80px]">
+          <div class="flex sm:flex-col gap-5 justify-around pt-4 max-w-full sm:max-w-xs mx-auto">
             <div v-for="(item, index) in store.product.productImages" :key="index"
               class="size-11 opacity-40 hover:opacity-100 transition-opacity"
               :class="{ 'opacity-100': activeIndex === index }" @click="select(index)">
-              <img :src="item.imageEntity.externalImagePath" width="100" height="100" class="rounded-lg">
+              <img :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" width="100" height="100" class="rounded-lg">
             </div>
           </div>
         </n-scrollbar>
@@ -80,6 +80,15 @@
           </div>
         </div>
 
+        <n-scrollbar x-scrollable class="max-h-[500px] w-full sm:w-[80px]">
+          <div class="flex sm:flex-col gap-5 justify-around pt-4 max-w-full sm:max-w-xs mx-auto">
+            <div v-for="(item, index) in store.product.productImages" :key="index"
+              class="size-11 opacity-40 hover:opacity-100 transition-opacity"
+              :class="{ 'opacity-100': activeIndex === index }" @click="select(index)">
+              <img :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" width="100" height="100" class="rounded-lg">
+            </div>
+          </div>
+        </n-scrollbar>
       </div>
 
       <!-- <div class="flex md:justify-center gap-4 w-full">
@@ -174,7 +183,7 @@
 
 
       </div>
-      <div class="h-[450px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5">
+      <div class="h-[450px] w-full max-w-[305px] overflow-y-auto hidden sm:flex flex-col gap-5">
         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
         <Card v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
         <div v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
@@ -198,7 +207,7 @@
     </div>
 
 
-    <div class="flex gap-12 justify-center">
+    <div class="flex flex-col sm:flex-row gap-12 justify-center">
       <n-tabs type="line" animated :style="tabStyle">
         <template #tabs="{ panes }">
           <div class="flex w-full">
