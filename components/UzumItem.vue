@@ -195,23 +195,23 @@
   <UButton
     size="md" 
     color="warning" 
-    variant="outline"
-    class="w-full sm:w-auto"
+    variant="soft"
+    class="w-full sm:w-auto text-black font-normal"
   >
     {{ monthlyRepayment }}/so'm (12 oy)
   </UButton>
             </div>
   
   
-         <div class="font-normal items-center rounded-lg flex gap-2 justify-start mt-5" variant="subtle">
+         <div class="font-normal text-black items-center rounded-lg flex gap-2 justify-start mt-5" variant="subtle">
            <UIcon name="hugeicons:delivery-delay-02" class="size-4" />
            1-kun ichida yetkazamiz</div>
   
 
            <UButton
-           class="mt-4 w-full flex items-center justify-center"
+           class="mt-4 w-full flex items-center font-normal justify-center text-black"
                color="warning"
-               variant="outline"
+               variant="soft"
         label="Mahsulotga o'tish  "
         icon="ix:product"
         :to="store.product.productUrl"
@@ -233,7 +233,7 @@
                  <span class="text-sm text-gray-500">({{ monthly }} oy)</span>
                </div> -->
   
-  <div class="w-full max-w-full sm:w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
+  <!-- <div class="w-full max-w-full sm:w-[400px] border border-gray-300 rounded-xl shadow-lg p-5">
             <div class="flex items-center gap-3">
                      <div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
                       <UIcon name="solar:shop-linear" class="size-7 flex justify-center" />
@@ -251,7 +251,7 @@
                    </div>
   
                    <UButton :to="`https://uzum.uz/uz/shop/${getParsedProductModel(store.product.productModel).Seller.Link}`" class="mt-5 w-full flex items-center justify-center" color="warning" variant="outline">Do'konga o'tish</UButton>
-          </div>
+          </div> -->
   
            </div>      
         </div>
@@ -264,14 +264,14 @@
 
             <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
    class="flex flex-col items-center justify-center border border-gray-300 shadow-xl px-3 rounded-lg h-full py-6">
-        <div class="w-24 h-24 mb-6 text-warning">
+        <div class="w-24 h-24 mb-6 text-[#feee00]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" fill-rule="evenodd" d="M11.943 1.25h.114c2.309 0 4.118 0 5.53.19c1.444.194 2.584.6 3.479 1.494c.895.895 1.3 2.035 1.494 3.48c.19 1.411.19 3.22.19 5.529v.114c0 2.309 0 4.118-.19 5.53c-.194 1.444-.6 2.584-1.494 3.479c-.895.895-2.035 1.3-3.48 1.494c-1.411.19-3.22.19-5.529.19h-.114c-2.309 0-4.118 0-5.53-.19c-1.444-.194-2.584-.6-3.479-1.494c-.895-.895-1.3-2.035-1.494-3.48c-.19-1.411-.19-3.22-.19-5.529v-.114c0-2.309 0-4.118.19-5.53c.194-1.444.6-2.584 1.494-3.479c.895-.895 2.035-1.3 3.48-1.494c1.411-.19 3.22-.19 5.529-.19m-5.33 1.676c-1.278.172-2.049.5-2.618 1.069c-.57.57-.897 1.34-1.069 2.619c-.174 1.3-.176 3.008-.176 5.386s.002 4.086.176 5.386c.172 1.279.5 2.05 1.069 2.62c.57.569 1.34.896 2.619 1.068c1.3.174 3.008.176 5.386.176s4.086-.002 5.386-.176c1.279-.172 2.05-.5 2.62-1.069c.569-.57.896-1.34 1.068-2.619c.174-1.3.176-3.008.176-5.386s-.002-4.086-.176-5.386c-.172-1.279-.5-2.05-1.069-2.62c-.57-.569-1.34-.896-2.619-1.068c-1.3-.174-3.008-.176-5.386-.176s-4.086.002-5.386.176M7.4 8.55a.75.75 0 0 1 1.05-.15l2 1.5a.75.75 0 0 1 0 1.2l-2 1.5a.75.75 0 1 1-.9-1.2l1.2-.9l-1.2-.9a.75.75 0 0 1-.15-1.05m9.2 0a.75.75 0 0 1-.15 1.05l-1.2.9l1.2.9a.75.75 0 1 1-.9 1.2l-2-1.5a.75.75 0 0 1 0-1.2l2-1.5a.75.75 0 0 1 1.05.15m-8.13 6.92l1-1a.75.75 0 0 1 1.06 0l.47.47l.47-.47a.75.75 0 0 1 1.06 0l.47.47l.47-.47a.75.75 0 0 1 1.06 0l1 1a.75.75 0 1 1-1.06 1.06l-.47-.47l-.47.47a.75.75 0 0 1-1.06 0l-.47-.47l-.47.47a.75.75 0 0 1-1.06 0l-.47-.47l-.47.47a.75.75 0 0 1-1.06-1.06" clip-rule="evenodd"/></svg>
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">Mahsulot topilmadi</h3>
         <p class="text-gray-500 text-center max-w-sm">
           Hozirda o'xshash mahsulotlar mavjud emas. Iltimos, keyinroq qayta tekshiring.
         </p>
-        <RouterLink to="/" class="mt-6 px-4 py-2 bg-warning text-white rounded-md hover:bg-warning/90 transition-colors">
+        <RouterLink to="/" class="mt-6 px-4 py-2 bg-[#feee00] text-black rounded-md hover:bg-[#e6d900] transition-colors">
           Bosh sahifaga qaytish
         </RouterLink>
       </div>

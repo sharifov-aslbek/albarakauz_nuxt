@@ -4,14 +4,13 @@
   <br><br>
    <!-- <NewSlider /> -->
    <ImageSlide />
-   <NavbarSababMegaTaklif />
-   <SharedInfiniteScroll />
+   <!-- <NavbarSababMegaTaklif /> -->
    <br>
    <!-- <NavbarCategoryCards /> -->
    <TavsiyaEtilgan />
    <br>
-   <!-- <MarketSlider /> -->
-   <MarketSliderV0 />
+   <MarketSlider />
+   <!-- <MarketSliderV0 /> -->
    <!-- <ProductSlider />   -->
    <NavbarAvtomobilingizUchun />
    <br><br>
