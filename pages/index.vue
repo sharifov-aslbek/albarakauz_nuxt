@@ -5,6 +5,7 @@
    <!-- <NewSlider /> -->
    <ImageSlide />
    <NavbarSababMegaTaklif />
+   <SharedInfiniteScroll />
    <br>
    <!-- <NavbarCategoryCards /> -->
    <TavsiyaEtilgan />

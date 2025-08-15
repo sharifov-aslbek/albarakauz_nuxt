@@ -1,21 +1,42 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 import { useRoute } from 'vue-router'
+import { ref, computed } from 'vue'
 
 const route = useRoute()
+const copied = ref(false)
 
-const fullUrl = `${window.location.origin}${route.fullPath}`
+// Faqat clientda to‘liq URL yaratamiz
+const fullUrl = computed(() => {
+  if (process.client) {
+    return `${window.location.origin}${route.fullPath}`
+  }
+  return ''
+})
 
-const items = ref<DropdownMenuItem[]>([
+// Linkni clipboardga nusxalash funksiyasi
+const copyLink = async () => {
+  if (!fullUrl.value) return
+  try {
+    await navigator.clipboard.writeText(fullUrl.value)
+    copied.value = true
+    setTimeout(() => (copied.value = false), 1500) // 1.5s dan keyin xabar yo‘qoladi
+  } catch (err) {
+    console.error('Failed to copy link:', err)
+  }
+}
+
+const items = computed<DropdownMenuItem[]>(() => [
   {
     label: 'Telegram',
     icon: 'stash:telegram',
-    to: `https://t.me/share/url?url=${encodeURIComponent(fullUrl)}`,
+    to: `https://t.me/share/url?url=${encodeURIComponent(fullUrl.value)}`,
     target: '_blank'
   },
   {
-    label: 'Copy link',
-    icon: 'solar:copy-bold'
+    label: copied.value ? 'Copied!' : 'Copy link',
+    icon: copied.value ? 'mdi:check' : 'solar:copy-bold',
+    click: copyLink // Bu joyda click event ishlaydi
   },
   {
     label: 'Instagram',
@@ -36,6 +57,11 @@ const items = ref<DropdownMenuItem[]>([
       content: 'w-48'
     }"
   >
-    <UButton label="Ulashish" icon="mingcute:share-forward-line" color="neutral" variant="outline" />
+    <UButton
+      label="Ulashish"
+      icon="mingcute:share-forward-line"
+      color="neutral"
+      variant="outline"
+    />
   </UDropdownMenu>
 </template>
