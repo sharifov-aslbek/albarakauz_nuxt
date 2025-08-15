@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const fullUrl = `${window.location.origin}${route.fullPath}`
 
 const items = ref<DropdownMenuItem[]>([
   {
-    label: 'Profile',
-    icon: 'i-lucide-user'
+    label: 'Telegram',
+    icon: 'stash:telegram',
+    to: `https://t.me/share/url?url=${encodeURIComponent(fullUrl)}`,
+    target: '_blank'
   },
   {
-    label: 'Billing',
-    icon: 'i-lucide-credit-card'
+    label: 'Copy link',
+    icon: 'solar:copy-bold'
   },
   {
-    label: 'Settings',
-    icon: 'i-lucide-cog'
+    label: 'Instagram',
+    icon: 'tdesign:logo-instagram'
   }
 ])
 </script>
@@ -29,6 +36,6 @@ const items = ref<DropdownMenuItem[]>([
       content: 'w-48'
     }"
   >
-    <UButton label="Open" icon="mingcute:share-forward-line" color="neutral" variant="outline" />
+    <UButton label="Ulashish" icon="mingcute:share-forward-line" color="neutral" variant="outline" />
   </UDropdownMenu>
 </template>

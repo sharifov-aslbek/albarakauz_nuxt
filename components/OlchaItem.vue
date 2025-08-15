@@ -37,8 +37,8 @@
     <MiniCard v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
 
     <div class="flex flex-col md:flex-row pb-5 justify-between gap-5 w-full max-w-full mr-7 py-12">
-      <div class="flex flex-col w-full h-[500px]">
-        <n-scrollbar class="max-h-[500px] hidden sm:block w-full sm:w-[80px]">
+      <div class="flex flex-col sm:flex-row w-full h-[500px]">
+        <n-scrollbar style="width: 80px;" class="max-h-[500px] hidden sm:block w-full sm:w-[80px]">
           <div class="flex sm:flex-col gap-5 justify-around pt-4 max-w-full sm:max-w-xs mx-auto">
             <div v-for="(item, index) in store.product.productImages" :key="index"
               class="size-11 opacity-40 hover:opacity-100 transition-opacity"
@@ -51,7 +51,7 @@
           <!-- Show carousel when images exist -->
           <UCarousel v-if="store.product.productImages && store.product.productImages.length > 0" ref="carousel"
             v-slot="{ item }" arrows :items="store.product.productImages" :prev="{ onClick: onClickPrev }"
-            :next="{ onClick: onClickNext }" class="sm:w-full sm:max-w-[400px] w-full" @select="onSelect">
+            :next="{ onClick: onClickNext }" class="sm:w-full sm:max-w-[400px] max-w-full w-full" @select="onSelect">
             <!-- Show image if path exists, otherwise show not found -->
             <n-image v-if="item.imageEntity && item.imageEntity.localImagePath"
               class="w-full rounded-lg object-cover h-[400px]"
@@ -80,7 +80,7 @@
           </div>
         </div>
 
-        <n-scrollbar x-scrollable class="max-h-[500px] w-full sm:w-[80px]">
+        <n-scrollbar x-scrollable class="max-h-[500px] block sm:hidden w-full sm:w-[80px]">
           <div class="flex sm:flex-col gap-5 justify-around pt-4 max-w-full sm:max-w-xs mx-auto">
             <div v-for="(item, index) in store.product.productImages" :key="index"
               class="size-11 opacity-40 hover:opacity-100 transition-opacity"

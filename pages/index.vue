@@ -9,7 +9,8 @@
    <!-- <NavbarCategoryCards /> -->
    <TavsiyaEtilgan />
    <br>
-   <MarketSlider />
+   <!-- <MarketSlider /> -->
+   <MarketSliderV0 />
    <!-- <ProductSlider />   -->
    <NavbarAvtomobilingizUchun />
    <br><br>
