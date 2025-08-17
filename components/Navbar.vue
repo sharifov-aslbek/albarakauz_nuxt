@@ -21,8 +21,8 @@
             </div>
           </a>
         </div>
-  
 
+        <!-- Qidiruv bo‘limi -->
         <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
           <button @click="categoryStore.showCategory = !categoryStore.showCategory , testCategory()"
             class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-gray-200 transition-all duration-300 cursor-pointer hover:bg-gray-500/30">
@@ -32,15 +32,15 @@
                 'absolute top-0 left-0 w-6 h-6 text-gray-500 transition-all duration-300',
                 categoryStore.showCategory ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
               ]" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                viewBox="0 0 24 24"><!-- Icon from BoxIcons by Atisa - https://creativecommons.org/licenses/by/4.0/ -->
+                viewBox="0 0 24 24">
                 <path fill="currentColor"
-                  d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1M9 9H5V5h4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1m-1 6h-4v-4h4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4m0 6c-1.103 0-2-.897-2-2s.897-2 2-2s2 .897 2 2s-.897 2-2 2M7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4m0 6c-1.103 0-2-.897-2-2s.897-2 2-2s2 .897 2 2s-.897 2-2 2" />
+                  d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1M9 9H5V5h4zm11 4h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1m-1 6h-4v-4h4zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4m0 6c-1.103 0-2-.897-2-2s.897-2 2-2s2 .897 2 2s-.897 2-2 2M7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4m0 6c-1.103 0-2-.897-2-2s.897-2 2-2s.897 2-2 2" />
               </svg>
               <svg :class="[
                 'absolute top-0 left-0 w-6 h-6 text-gray-500 transition-all duration-300',
                 categoryStore.showCategory ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
               ]" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                viewBox="0 0 24 24"><!-- Icon from HeroIcons by Refactoring UI Inc - https://github.com/tailwindlabs/heroicons/blob/master/LICENSE -->
+                viewBox="0 0 24 24">
                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                   stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -48,30 +48,39 @@
             <span class="text-gray-500 hidden md:block font-medium">Katalog</span>
           </button>
 
-
-          <n-config-provider  :theme-overrides="themeOverrides" class="w-full">
-
-            <n-auto-complete v-model:value="search" :options="filteredOptions" @keydown.enter="navigateSearch"
-            placeholder="Tovar va kategoriyalarni qidiring ..." />
-
-          </n-config-provider>  
-
-
+          <!-- Qidiruv input + mikrofon -->
+          <n-config-provider :theme-overrides="themeOverrides" class="w-full flex items-center">
+            <n-auto-complete 
+              v-model:value="search" 
+              :options="filteredOptions" 
+              @keydown.enter="navigateSearch"
+              placeholder="Tovar va kategoriyalarni qidiring ..." 
+              class="flex-1"
+            />
+            <!-- Mikrofon tugmasi -->
+            <button 
+              @click="startVoiceSearch" 
+              class="ml-2 p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+              title="Ovozli qidiruv"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3m5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0h-2m-5 9a7 7 0 0 0 7-7h-2a5 5 0 0 1-10 0H5a7 7 0 0 0 7 7z"/>
+              </svg>
+            </button>
+          </n-config-provider>
 
           <UButton @click="navigateSearch()" icon="material-symbols:search" size="md" variant="solid"
             class="bg-gray-200 text-gray-500 rounded-xs cursor-pointer hover:bg-gray-500/30 py-1.5 px-4 ml-2"></UButton>
-
         </div>
 
+        <!-- O'ng tarafdagi tugmalar -->
         <div class="actions flex items-center gap-3">
           <RouterLink to="/favorites" class="relative hidden sm:block w-fit">
             <div class="relative w-fit">
-              <!-- Heart icon container -->
               <div class="group relative p-2 flex justify-center items-center cursor-pointer">
-                <!-- Background circle with scale animation -->
                 <div
                   class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                <svg class="size-7 relative z-10 group-hover:text-white transition" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Design Icons by Pictogrammers - https://github.com/Templarian/MaterialDesign/blob/master/LICENSE --><path fill="currentColor" d="M9 20c0 1.1-.9 2-2 2s-2-.9-2-2s.9-2 2-2s2 .9 2 2m8-2c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m-9.8-3.2v-.1l.9-1.7h7.4c.7 0 1.4-.4 1.7-1l3.9-7l-1.7-1l-3.9 7h-7L4.3 2H1v2h2l3.6 7.6L5.2 14c-.1.3-.2.6-.2 1c0 1.1.9 2 2 2h12v-2H7.4c-.1 0-.2-.1-.2-.2M12 9.3l-.6-.5C9.4 6.9 8 5.7 8 4.2C8 3 9 2 10.2 2c.7 0 1.4.3 1.8.8c.4-.5 1.1-.8 1.8-.8C15 2 16 2.9 16 4.2c0 1.5-1.4 2.7-3.4 4.6z"/></svg>
+                <svg class="size-7 relative z-10 group-hover:text-white transition" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M9 20c0 1.1-.9 2-2 2s-2-.9-2-2s.9-2 2-2s2 .9 2 2m8-2c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m-9.8-3.2v-.1l.9-1.7h7.4c.7 0 1.4-.4 1.7-1l3.9-7l-1.7-1l-3.9 7h-7L4.3 2H1v2h2l3.6 7.6L5.2 14c-.1.3-.2.6-.2 1c0 1.1.9 2 2 2h12v-2H7.4c-.1 0-.2-.1-.2-.2M12 9.3l-.6-.5C9.4 6.9 8 5.7 8 4.2C8 3 9 2 10.2 2c.7 0 1.4.3 1.8.8c.4-.5 1.1-.8 1.8-.8C15 2 16 2.9 16 4.2c0 1.5-1.4 2.7-3.4 4.6z"/></svg>
               </div>
             </div>
           </RouterLink>
@@ -79,10 +88,11 @@
             <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
             <ModalsNmodal v-else />
           </div>
-          <!-- <LanguageSwitcher /> -->
         </div>
       </div>
 
+      <!-- Kategoriya menyusi -->
+     
       <div class="container">
         <Transition enter-active-class="transition-all duration-500 ease-out"
           enter-from-class="opacity-0 -translate-y-8 scale-95" enter-to-class="opacity-100 translate-y-0 scale-100"
@@ -173,11 +183,9 @@
         <CategoryMenu class="sm:hidden block" v-if="categoryStore.showCategory" @navigateCategory="navigateCategory" />
 
       </div>
-
     </div>
   </header>
 </template>
-
 
 <script setup>
 import { NAutoComplete } from '#components';
@@ -185,21 +193,17 @@ import { useAuthStore } from "@/stores/auth"
 import { useCategoryAllStore } from '#imports';
 import { useCategoryStore } from '@/stores/categoryStore'
 import { useRouter } from 'vue-router';
-// import { NAutoComplete, useThemeVars } from 'naive-ui'
 
 const categoryStore = useCategoryStore();
 const authStore = useAuthStore();
 const router = useRouter();
 const allCategoryStore = useCategoryAllStore();
-// Category div parametrs
 const activeCategory = ref(1);
-const search = ref('')
+const search = ref('');
+
 const testCategory = () => {
   if(!allCategoryStore.categoryData) {
     allCategoryStore.getAllCategory();
-  } else {
-    console.log('working');
-    
   }
 }
 
@@ -207,63 +211,39 @@ const themeOverrides = {
   AutoComplete: {
     peers: {
       Input: {
-        borderFocus: '1px solid #ffcc00', // Fokusda border rangi
+        borderFocus: '1px solid #ffcc00',
         borderHover: '1px solid #ffcc00',  
         boxShadowFocus: '',
-        color: '#fff',                  // Text rangi
-        placeholderColor: '#999',          // Placeholder rangi
+        color: '#fff',
+        placeholderColor: '#999',
       }
     }
   }
 }
 
-
-
 definePageMeta({
   ssr: false
 })
 
-
-
+// Qidiruv funksiyasi
 function searchCategories(categories, searchText) {
   const result = []
-
   for (const category of categories) {
-    if (
-      category.name &&
-      category.name.toLowerCase().includes(searchText.toLowerCase())
-    ) {
-      result.push({
-        label: category.name,
-        value: category.name
-      })
+    if (category.name && category.name.toLowerCase().includes(searchText.toLowerCase())) {
+      result.push({ label: category.name, value: category.name })
     }
-
     if (category.childCategories?.length) {
       result.push(...searchCategories(category.childCategories, searchText))
     }
   }
-
   return result
 }
 
 const filteredOptions = computed(() => {
   if (!search.value) return []
-
   const results = searchCategories(allCategoryStore.categoryData, search.value)
-
-  // search.value ni birinchi option sifatida qo‘shish
-  return [
-    {
-      label: search.value,
-      value: search.value
-    },
-    ...results
-  ]
+  return [{ label: search.value, value: search.value }, ...results]
 })
-
-
-// Navigates
 
 const navigateCategory = (id) => {
   categoryStore.showCategory = false;
@@ -272,12 +252,27 @@ const navigateCategory = (id) => {
 
 const navigateSearch = () => {
   const encodedQuery = encodeURIComponent(search.value.trim());
-  if (!encodedQuery) {
-    return
-  }
+  if (!encodedQuery) return;
   router.push(`/search/${encodedQuery}`);
 }
 
-</script>
+// Ovozli qidiruv
+const startVoiceSearch = () => {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Sizning brauzeringiz ovozli qidiruvni qo‘llab-quvvatlamaydi!");
+    return;
+  }
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = 'uz-UZ';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
 
-<style scoped></style>
+  recognition.start();
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    search.value = transcript;
+    navigateSearch();
+  };
+}
+</script>

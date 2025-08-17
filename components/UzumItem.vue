@@ -151,6 +151,20 @@
 
       </div>
            <div class="flex w-full max-w-full md:max-w-[40%] flex-col items-start space-y-6">
+            <a 
+  :href="`https://uzum.uz/uz/shop/${getParsedProductModel(store.product.productModel).Seller.Link}`" 
+  target="_blank"
+  class="font-semibold cursor-pointer hover:border-b hover:border-b-blue-500 text-blue-500 flex items-center gap-1 text-md mb-2"
+>
+  <UIcon name="material-symbols:verified" />
+  {{ sellers }}
+  <UIcon 
+    class="size-5 animate-chevron" 
+    name="material-symbols:chevron-right" 
+  />
+</a>
+
+
                                <div class="flex justify-between w-full gap-3 pb-4">
                            <h1 class="text-xl mt-5 sm:mt-0 sm:text-2xl mr-4 w-full max-w-full sm:max-w-[470px] font-medium">{{ store.product.name }}</h1>
                        </div>
@@ -167,36 +181,12 @@
             </div>
   
             <div class="flex flex-col gap-3 sm:flex-row sm:gap-0 items-center justify-between">
-              <UButton 
-      v-if="isFavorite(store.product.id)"  
-      @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)" 
-      icon="material-symbols-light:heart-check" 
-      size="md" 
-      color="error" 
-      variant="soft"
-      class="w-full sm:w-auto"
-    >
-      Sevimlidan o'chirish
-    </UButton>
-
-    <UButton  
-      v-else  
-      @click.stop="handleAddFavorites(store.product)" 
-      icon="material-symbols-light:favorite-outline" 
-      size="md" 
-      color="neutral" 
-      variant="outline"
-      class="w-full sm:w-auto"
-    >
-      Sevimliga qo'shish
-    </UButton>
-  
   
   <UButton
     size="md" 
     color="warning" 
     variant="soft"
-    class="w-full sm:w-auto text-black font-normal"
+    class="w-full sm:w-full flex items-center justify-center text-black font-normal"
   >
     {{ monthlyRepayment }}/so'm (12 oy)
   </UButton>
@@ -281,11 +271,12 @@
 
       <div class="max-w-4xl pt-2 mt-4">
     <div class="flex items-center gap-3 mb-6">
-      <span class="text-3xl font-bold text-gray-900">{{ getParsedProductModel(store.product.productModel).ReviewsAmount }}</span>
+      <span class="text-3xl font-bold text-gray-900">{{ getParsedProductModel(store.product.productModel).Rating }}</span>
       <div class="flex items-center gap-1">
-        <svg v-for="star in 5" :key="star" class="w-5 h-5" :class="star <= 3 ? 'text-yellow-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
+              <n-rate
+        readonly 
+        :default-value="getParsedProductModel(store.product.productModel).Rating" 
+      />
       </div>
       <span class="text-gray-500">{{ getParsedProductModel(store.product.productModel).ReviewsAmount }} sharh</span>
     </div>
@@ -733,5 +724,20 @@ const getParsedProductModel = (productModel: string): Record<string, any> | stri
     transform: rotate(25deg)
   }
 }
+
+
+@keyframes chevron {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(1px); /* ozro o‘ngga yuradi */
+  }
+}
+
+.animate-chevron {
+  animation: chevron 1s infinite ease-in-out;
+}
+
   
 </style>

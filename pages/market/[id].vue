@@ -40,16 +40,26 @@ const route = useRoute()
 const store = useProductSeoStore();
 const page = ref(1)
 const paginationTheme = {
-  itemTextColor: '#000000', // oddiy holatdagi text
-  itemTextColorHover: '#feee00', // hover holat
-  itemTextColorActive: '#feee00', // active holat
-  itemBorderColor: '#feee00', // border
+  itemTextColor: '#000000',
+  itemTextColorHover: '#feee00',
+  itemTextColorActive: '#feee00',
+  itemBorderColor: '#feee00', 
   itemBorderActive: '1px solid #feee00',
   itemBorderColorHover: '#feee00',
   itemBorderColorActive: '#feee00',
   itemTextColorPressed: '#feee00',
   itemBorderColorPressed: '#feee00',
-  itemBoxShadowFocus: '0 0 0 2px #feee00' // focus shadow
+  itemBoxShadowFocus: '0 0 0 2px #feee00',
+ select: {
+    peers: {
+      InternalSelectMenu: {
+        optionTextColorFocus: '#feee00',
+        optionTextColorPressed: '#feee00',
+        optionTextColorActive: '#feee00',
+        optionTextColorHover: '#feee00'
+      }
+    }
+  }
 }
 
 definePageMeta({
