@@ -114,7 +114,7 @@
 
               <p class="flex items-center gap-3 mt-8 text-center text-gray-500">
                 Akkauntingiz yo'qmi?
-                <h3 @click="authStore.registerModal = !authStore.registerModal" class="cursor-pointer text-brand-green hover:text-brand-green/70">Ro'yxatdan o'tish</h3>
+                <h3 @click="authStore.registerModal = !authStore.registerModal" class="cursor-pointer text-blue-500 border-b border-b-blue-500 hover:text-brand-green/70">Ro'yxatdan o'tish</h3>
               </p>
             </div>
           </div>

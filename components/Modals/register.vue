@@ -114,11 +114,6 @@
   </n-upload>
             </div>
 
-            <div class="text-right">
-              <a href="#" class="text-sm text-gray-500 hover:text-brand-green">
-                Parolingiz esdan chiqdimi?
-              </a>
-            </div>
 
             <button type="submit"
               class="w-full h-[50px] py-3 px-4 bg-[#feee00] hover:bg-[#feee00]/70 text-white rounded-lg transition-colors">
