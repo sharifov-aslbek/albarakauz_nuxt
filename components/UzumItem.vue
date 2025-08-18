@@ -2,7 +2,7 @@
     <div class="container py-6">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
   <div class="flex flex-col">
-    <CategoryPath />
+    <CategoryPath class="sm:block hidden" />
 
     <div 
       v-if="
@@ -28,33 +28,43 @@
     </div>
   </div>
 
-  <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-    <ItemDropdownMenu />
+  <div class="flex justify-between items-center sm:justify-start gap-3 w-full md:w-auto">
 
-    
-    <UButton 
-      v-if="isFavorite(store.product.id)"  
-      @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)" 
-      icon="material-symbols-light:heart-check" 
-      size="md" 
-      color="error" 
-      variant="soft"
-      class="w-full sm:w-auto"
-    >
-      Sevimlidan o'chirish
-    </UButton>
+    <CategoryPath class="sm:hidden block" />
 
-    <UButton  
-      v-else  
-      @click.stop="handleAddFavorites(store.product)" 
-      icon="material-symbols-light:favorite-outline" 
-      size="md" 
-      color="neutral" 
-      variant="outline"
-      class="w-full sm:w-auto"
-    >
-      Sevimliga qo'shish
-    </UButton>
+    <div class="w-[50%] sm:w-auto flex justify-end gap-3">
+      <ItemDropdownMenu />
+  
+      
+      <UButton 
+        v-if="isFavorite(store.product.id)"  
+        @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)" 
+        icon="material-symbols-light:heart-check" 
+        size="md" 
+        color="error" 
+        variant="soft"
+        class="w-full sm:w-auto"
+      >
+      <span class="hidden sm:block">
+        Sevimlidan o'chirish
+      </span>
+      </UButton>
+  
+      <UButton  
+        v-else  
+        @click.stop="handleAddFavorites(store.product)" 
+        icon="material-symbols-light:favorite-outline" 
+        size="md" 
+        color="neutral" 
+        variant="outline"
+        class="w-[20%] sm:w-auto"
+      >
+      <span class="hidden sm:block">
+        Sevimliga qo'shish
+      </span>
+      </UButton>
+
+    </div>
 
       <!-- <UButton 
         @click="copyRoute" 
@@ -74,7 +84,7 @@
 
       <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between w-full items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 sm:mr-7 py-12">
         <div class="flex flex-col sm:flex-row w-full sm:h-[500px]">
         <n-scrollbar style="width: 80px;" class="max-h-[400px] hidden sm:block w-full sm:w-[80px]">
@@ -105,6 +115,7 @@
   class="rounded-lg object-cover sm:h-[400px]"
   style="width: 100%;"
   :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" alt="Error">
+
 <!-- 
   <n-image
   v-if="item.imageEntity && item.imageEntity.localImagePath"
@@ -112,9 +123,10 @@
   style="width: 100%;"
   :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
 /> -->
-  <div
+  <!-- <div
     v-else
-    class="w-full rounded-lg bg-gray-100 h-[400px] flex items-center justify-center text-gray-500"
+    style="width: 100%;"
+    class="rounded-lg bg-gray-100 h-[400px] flex items-center justify-center text-gray-500"
   >
     <div class="text-center">
       <svg
@@ -132,12 +144,17 @@
       </svg>
       <p class="text-sm font-medium">Image not found</p>
     </div>
-  </div>
+  </div> -->
 </UCarousel>
 
 
+  <img v-else
+  class="rounded-lg object-cover sm:h-[400px]"
+  style="width: 100%;"
+  src="/public/not-found-image.jpg" alt="Error">
+  
           <!-- Show not found when no images array -->
-          <div v-else
+          <!-- <div v-else
             class="w-full sm:w-[420px] rounded-lg bg-gray-200 h-[500px] flex items-center justify-center text-gray-500">
             <div class="text-center">
               <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -146,7 +163,7 @@
               </svg>
               <p class="text-sm font-medium">Image not found</p>
             </div>
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -266,6 +283,7 @@
         </RouterLink>
       </div>
                 </div>
+
       </div>
 
 

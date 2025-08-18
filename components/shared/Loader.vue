@@ -22,20 +22,28 @@
 
 
 <script setup>
-    import { useRouter } from 'vue-router';
-    import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
-    const load = ref(false);
-    const router = useRouter();
+const load = ref(false);
+const router = useRouter();
 
-    router.beforeEach(() => {
-        load.value = !load.value
-    })
+router.beforeEach((to, from, next) => {
+  // Faqat boshqa sahifaga o'tilganda loader yoqiladi
+  if (to.fullPath !== from.fullPath) {
+    load.value = true;
+  }
+  next();
+});
 
-    router.afterEach(() => {
-        load.value = !load.value
-    })
+router.afterEach((to, from) => {
+  // Faqat boshqa sahifaga o'tilganda loader o'chadi
+  if (to.fullPath !== from.fullPath) {
+    load.value = false;
+  }
+});
 </script>
+
 
 <style scoped>
 /* From Uiverse.io by PriyanshuGupta28 */ 

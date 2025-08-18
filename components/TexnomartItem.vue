@@ -26,11 +26,24 @@
 
 
         <div class="flex gap-3">
-           <UButton v-if="isFavorite(store.product.id)"  @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
-           <UButton  v-else  @click.stop="addFavorites(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Add to favorites</UButton>
+        <UButton v-if="isFavorite(store.product.id)"
+          @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)"
+          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added
+        </UButton>
+        <UButton v-else @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline"
+          size="md" color="neutral" variant="outline">
+          <span class="sm:block hidden">
+            Sevimliga qo'shish
+          </span>
+        </UButton>
 
-           <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
-        </div>
+        <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral"
+          variant="outline">
+          <span class="sm:block hidden">
+            Copy Product
+          </span>
+        </UButton>
+      </div>
       </div>
 
       <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
@@ -38,74 +51,51 @@
       <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
         <div class="flex flex-col md:flex-row pb-5 justify-between w-full max-w-full gap-6 mr-7 py-12">
-          <div class="flex w-[500px] h-[500px]">
-                  <n-scrollbar
-    style="max-height: 500px; width: 80px;"
-  >
-    <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
-      <div
-        v-for="(item, index) in store.product.productImages"
-        :key="index"
-        class="size-11 opacity-40 hover:opacity-100 transition-opacity"
-        :class="{ 'opacity-100': activeIndex === index }"
-        @click="select(index)"
-      >
-        <img
-          :src="item.imageEntity.externalImagePath"
-          width="100"
-          height="100"
-          class="rounded-lg object-cover"
-        >
-      </div>
-    </div>
-  </n-scrollbar>
-  <div class="sm:w-full sm:max-w-[400px] w-full">
-    <!-- Show carousel when images exist -->
-    <UCarousel
-      v-if="store.product.productImages && store.product.productImages.length > 0"
-      ref="carousel"
-      v-slot="{ item }"
-      arrows
-      :items="store.product.productImages"
-      :prev="{ onClick: onClickPrev }"
-      :next="{ onClick: onClickNext }"
-      class="sm:w-full sm:max-w-[450px] w-full"
-      @select="onSelect"
-    >
-      <!-- Show image if path exists, otherwise show not found -->
-      <n-image
-        v-if="item.imageEntity && item.imageEntity.localImagePath"
-        class="rounded-lg object-cover h-[500px]"
-        :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
-      />
-      <div
-        v-else
-        class="w-full sm:w-[420px] rounded-lg bg-gray-100 h-[500px] flex items-center justify-center text-gray-500"
-      >
-        <div class="text-center">
-          <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <p class="text-sm font-medium">Image not found</p>
+          <div class="flex w-full h-[500px]">
+        <n-scrollbar class="hidden sm:block" style="max-height: 500px; width: 80px;">
+          <div class="flex flex-col gap-5 justify-around pt-4 max-w-xs mx-auto">
+            <div v-for="(item, index) in store.product.productImages" :key="index"
+              class="size-11 opacity-40 hover:opacity-100 transition-opacity"
+              :class="{ 'opacity-100': activeIndex === index }" @click="select(index)">
+              <img :src="item.imageEntity.externalImagePath" width="100" height="100" class="rounded-lg">
+            </div>
+          </div>
+        </n-scrollbar>
+        <div class="sm:w-full sm:max-w-[400px] w-full">
+          <!-- Show carousel when images exist -->
+          <UCarousel v-if="store.product.productImages && store.product.productImages.length > 0" ref="carousel"
+            v-slot="{ item }" arrows :items="store.product.productImages" :prev="{ onClick: onClickPrev }"
+            :next="{ onClick: onClickNext }" class="sm:w-full sm:max-w-[400px] w-full" @select="onSelect">
+            <!-- Show image if path exists, otherwise show not found -->
+            <n-image v-if="item.imageEntity && item.imageEntity.localImagePath"
+              class="w-full sm:w-[420px] rounded-lg object-cover h-[380px] sm:h-[500px]"
+              :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" />
+            <div v-else
+              class="w-full sm:w-[420px] rounded-lg bg-gray-100 h-[500px] flex items-center justify-center text-gray-500">
+              <div class="text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p class="text-sm font-medium">Image not found</p>
+              </div>
+            </div>
+          </UCarousel>
+
+          <!-- Show not found when no images array -->
+          <div v-else
+            class="w-full sm:w-[420px] rounded-lg bg-gray-200 h-[500px] flex items-center justify-center text-gray-500">
+            <div class="text-center">
+              <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <p class="text-sm font-medium">Image not found</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </UCarousel>
 
-    <!-- Show not found when no images array -->
-    <div
-      v-else
-      class="w-full sm:w-[420px] rounded-lg bg-gray-200 h-[500px] flex items-center justify-center text-gray-500"
-    >
-      <div class="text-center">
-        <svg class="mx-auto h-12 w-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        <p class="text-sm font-medium">Image not found</p>
       </div>
-    </div>
-  </div>
-
-</div>
 
               <!-- <div class="flex md:justify-center gap-4 w-full">
            <div class="md:flex flex-col gap-5 h-[500px] hidden overflow-y-scroll">
@@ -190,7 +180,7 @@
 
 
            </div>  
-            <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5" >
+            <div class="sm:flex hidden h-[510px] w-full max-w-[305px] overflow-y-auto flex-col gap-5" >
                         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 

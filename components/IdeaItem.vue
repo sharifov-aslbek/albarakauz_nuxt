@@ -22,12 +22,21 @@
       <div class="flex gap-3">
         <UButton v-if="isFavorite(store.product.id)"
           @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)"
-          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
+          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added
+        </UButton>
         <UButton v-else @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline"
-          size="md" color="neutral" variant="outline">Sevimliga qo'shish</UButton>
+          size="md" color="neutral" variant="outline">
+          <span class="sm:block hidden">
+            Sevimliga qo'shish
+          </span>
+        </UButton>
 
         <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral"
-          variant="outline">Copy Product</UButton>
+          variant="outline">
+          <span class="sm:block hidden">
+            Copy Product
+          </span>
+        </UButton>
       </div>
     </div>
 
@@ -175,7 +184,7 @@
 
 
       </div>
-      <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5">
+      <div class="sm:flex hidden h-[510px] w-full max-w-[305px] overflow-y-auto flex-col gap-5">
         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
         <Card v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
         <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"

@@ -22,12 +22,21 @@
       <div class="flex gap-3">
         <UButton v-if="isFavorite(store.product.id)"
           @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)"
-          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
+          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added
+        </UButton>
         <UButton v-else @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline"
-          size="md" color="neutral" variant="outline">Sevimliga qo'shish</UButton>
+          size="md" color="neutral" variant="outline">
+          <span class="sm:block hidden">
+            Sevimliga qo'shish
+          </span>
+        </UButton>
 
         <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral"
-          variant="outline">Copy Product</UButton>
+          variant="outline">
+          <span class="sm:block hidden">
+            Copy Product
+          </span>
+        </UButton>
       </div>
     </div>
 
@@ -151,20 +160,6 @@
 
         </div>
 
-        <div v-if="store.product.marketResultmodel.name === 'Olcha' &&
-          getParsedProductModel(store.product.productModel)?.main_features?.data" class="flex items-center gap-3">
-          <!-- IMG tag: faqat slug mavjud bo‘lsa va null bo‘lmasa ko‘rsatish -->
-          <img v-if="getParsedProductModel(store.product.productModel)?.manufacturer?.slug"
-            class="w-8 md:w-12 rounded-md"
-            :src="getParsedProductModel(store.product.productModel)?.manufacturer?.main_image"
-            :alt="getParsedProductModel(store.product.productModel)?.manufacturer?.name_uz" />
-
-          <a v-if="getParsedProductModel(store.product.productModel)?.manufacturer?.name_uz" target="_blank"
-            :href="`https://olcha.uz/ru/manufacturer/${getParsedProductModel(store.product.productModel)?.manufacturer?.slug}`"
-            class="font-bold text-brand-blue cursor-pointer text-sm md:text-base">
-            Все товары бренда {{ getParsedProductModel(store.product.productModel)?.manufacturer?.name_uz }}
-          </a>
-        </div>
 
 
         <div class="text-2xl font-bold text-gray-900 mb-6">
@@ -179,11 +174,11 @@
 
 
       </div>
-      <div class="h-[510px] w-full max-w-[305px] overflow-y-auto flex flex-col gap-5">
+      <div class="sm:flex hidden h-[510px] w-full max-w-[305px] overflow-y-auto flex-col gap-5">
         <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
         <Card v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
         <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
-   class="flex flex-col items-center justify-center border border-gray-300 shadow-xl px-3 rounded-lg h-full py-6">
+   class="flex-col flex items-center justify-center border border-gray-300 shadow-xl px-3 rounded-lg h-full py-6">
         <div class="w-24 h-24 mb-6 text-[#feee00]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" fill-rule="evenodd" d="M11.943 1.25h.114c2.309 0 4.118 0 5.53.19c1.444.194 2.584.6 3.479 1.494c.895.895 1.3 2.035 1.494 3.48c.19 1.411.19 3.22.19 5.529v.114c0 2.309 0 4.118-.19 5.53c-.194 1.444-.6 2.584-1.494 3.479c-.895.895-2.035 1.3-3.48 1.494c-1.411.19-3.22.19-5.529.19h-.114c-2.309 0-4.118 0-5.53-.19c-1.444-.194-2.584-.6-3.479-1.494c-.895-.895-1.3-2.035-1.494-3.48c-.19-1.411-.19-3.22-.19-5.529v-.114c0-2.309 0-4.118.19-5.53c.194-1.444.6-2.584 1.494-3.479c.895-.895 2.035-1.3 3.48-1.494c1.411-.19 3.22-.19 5.529-.19m-5.33 1.676c-1.278.172-2.049.5-2.618 1.069c-.57.57-.897 1.34-1.069 2.619c-.174 1.3-.176 3.008-.176 5.386s.002 4.086.176 5.386c.172 1.279.5 2.05 1.069 2.62c.57.569 1.34.896 2.619 1.068c1.3.174 3.008.176 5.386.176s4.086-.002 5.386-.176c1.279-.172 2.05-.5 2.62-1.069c.569-.57.896-1.34 1.068-2.619c.174-1.3.176-3.008.176-5.386s-.002-4.086-.176-5.386c-.172-1.279-.5-2.05-1.069-2.62c-.57-.569-1.34-.896-2.619-1.068c-1.3-.174-3.008-.176-5.386-.176s-4.086.002-5.386.176M7.4 8.55a.75.75 0 0 1 1.05-.15l2 1.5a.75.75 0 0 1 0 1.2l-2 1.5a.75.75 0 1 1-.9-1.2l1.2-.9l-1.2-.9a.75.75 0 0 1-.15-1.05m9.2 0a.75.75 0 0 1-.15 1.05l-1.2.9l1.2.9a.75.75 0 1 1-.9 1.2l-2-1.5a.75.75 0 0 1 0-1.2l2-1.5a.75.75 0 0 1 1.05.15m-8.13 6.92l1-1a.75.75 0 0 1 1.06 0l.47.47l.47-.47a.75.75 0 0 1 1.06 0l.47.47l.47-.47a.75.75 0 0 1 1.06 0l1 1a.75.75 0 1 1-1.06 1.06l-.47-.47l-.47.47a.75.75 0 0 1-1.06 0l-.47-.47l-.47.47a.75.75 0 0 1-1.06 0l-.47-.47l-.47.47a.75.75 0 0 1-1.06-1.06" clip-rule="evenodd"/></svg>
         </div>
@@ -389,6 +384,7 @@ async function addFavorites(
         title: 'Muvaffaqiyatli',
         description: `${productName} sevimliga qo'shildi`,
         icon: 'mynaui:check',
+        color: 'warning'
       })
 
       // store.getProfileData() // Agar kerak bo‘lsa, import qilib ishlat
@@ -398,6 +394,7 @@ async function addFavorites(
         title: 'Xatolik!',
         description: data?.message || 'Xatolik yuz berdi.',
         icon: 'mynaui:x-circle',
+        color: 'error'
       })
     }
   } catch (error: any) {
@@ -407,6 +404,7 @@ async function addFavorites(
       title: 'Xatolik!',
       description: error?.message || 'Internetni tekshiring.',
       icon: 'mynaui:x-circle',
+      color: 'error'
     })
   }
 }
@@ -440,6 +438,7 @@ async function deleteFavoritesHandler(
         title: "O'chirildi",
         description: `${productName} sevimlidan o'chirildi`,
         icon: 'gravity-ui:xmark',
+        color: 'warning'
       })
       new Audio(errorAudio).play();
 
@@ -450,6 +449,7 @@ async function deleteFavoritesHandler(
         title: 'Xatolik!',
         description: data?.message || 'Nomaʼlum xatolik yuz berdi.',
         icon: 'mynaui:x-circle',
+        color: 'error'
       })
       new Audio(errorAudio).play();
 
@@ -484,8 +484,8 @@ const copyRoute = async () => {
     new Audio(successAudio).play();
     toast.add({
       title: 'Mahsulot muvaffaqiyatli copy qilindi',
-      color: 'success',
-      icon: 'lucide:copy'
+      icon: 'lucide:copy',
+      color: 'warning',
     })
   } catch (error) {
     new Audio(errorAudio).play();

@@ -79,8 +79,8 @@ onBeforeRouteUpdate(async (to) => {
   const id = Array.isArray(to.params.id) ? to.params.id[0] : to.params.id
   const newCategoryId = Number(id)
 
-  await store.getOneCategoryProducts(newCategoryId, 'uz')
-  await categoryStore.getOneCategory(newCategoryId)
+  // await store.getOneCategoryProducts(newCategoryId, 'uz')
+  // await categoryStore.getOneCategory(newCategoryId)
 
   const url = `https://api.albaraka.uz/category/${newCategoryId}`
   const data = categoryStore.onecategoryData
