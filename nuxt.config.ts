@@ -5,63 +5,66 @@ import tailwindcss from "@tailwindcss/vite";
 // import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 // import Components from 'unplugin-vue-components/vite'
 
-export default defineNuxtConfig({ 
+export default defineNuxtConfig({
   ssr: true,
-    app: {
+  app: {
     head: {
       link: [
         {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&display=swap'
-        }
-      ]
-    }
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&display=swap",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.png",
+          sizes: "16x16"
+        },
+      ],
+    },
   },
   nitro: {
-    preset: 'iis_node',
+    preset: "iis_node",
   },
   runtimeConfig: {
     public: {
-      NUXT_PUBLIC_BACKEND_URL: process.env.NUXT_PUBLIC_BACKEND_URL || 'http://localhost:3000/api'
-    }
+      NUXT_PUBLIC_BACKEND_URL:
+        process.env.NUXT_PUBLIC_BACKEND_URL || "http://localhost:3000/api",
+    },
   },
   modules: [
-    '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt',
-    '@nuxt/ui',
+    "@pinia/nuxt",
+    "pinia-plugin-persistedstate/nuxt",
+    "@nuxt/ui",
     "@bg-dev/nuxt-naiveui",
-    '@nuxtjs/leaflet',
-    '@nuxtjs/i18n',
-    '@nuxt/image',
-    '@vueuse/nuxt',
+    "@nuxtjs/leaflet",
+    "@nuxtjs/i18n",
+    "@nuxt/image",
+    "@vueuse/nuxt",
   ],
   image: {
-  domains: ['api.albaraka.uz']
-},
-      colorMode: {
-      preference: 'light',
-      fallback: 'light',
-      classSuffix: '',
-      storageKey: 'color-mode' // bu default key, o‘zgartirish shart emas
-    },
-    i18n: {
+    domains: ["api.albaraka.uz"],
+  },
+  colorMode: {
+    preference: "light",
+    fallback: "light",
+    classSuffix: "",
+    storageKey: "color-mode", // bu default key, o‘zgartirish shart emas
+  },
+  i18n: {
     locales: [
-      { code: 'uz', name: 'Oʻzbekcha', file: 'uz.js' },
-      { code: 'ru', name: 'Русский', file: 'ru.js' }
+      { code: "uz", name: "Oʻzbekcha", file: "uz.js" },
+      { code: "ru", name: "Русский", file: "ru.js" },
     ],
-    defaultLocale: 'uz',
+    defaultLocale: "uz",
     lazy: true,
-    langDir: 'locales/'
+    langDir: "locales/",
   },
-   plugins: [
-    '~/plugins/i18n.js'
-  ],
-  compatibilityDate: '2025-05-15',
+  plugins: ["~/plugins/i18n.js"],
+  compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
   vite: {
-    plugins: [
-      tailwindcss()
-    ],
+    plugins: [tailwindcss()],
   },
-})
+});
