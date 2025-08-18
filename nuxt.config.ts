@@ -49,7 +49,7 @@ export default defineNuxtConfig({
     preference: "light",
     fallback: "light",
     classSuffix: "",
-    storageKey: "color-mode", // bu default key, o‘zgartirish shart emas
+    storageKey: "color-mode", 
   },
   i18n: {
     locales: [

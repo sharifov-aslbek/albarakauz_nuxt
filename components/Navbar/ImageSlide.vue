@@ -31,12 +31,13 @@
     v-slot="{ item }"
     :items="images"
     :ui="{ 
-      item: 'basis-auto shrink-0',  // itemlarni avtomatik o'lchamda va siqilmasdan olish
-      wrapper: 'gap-0',            // oraliq bo'shliqni yo'q qilish
-      container: 'sm:gap-9'           // konteyner ichidagi bo'shliqni yo'q qilish
+      item: 'basis-auto shrink-0', 
+      wrapper: 'gap-0',           
+      container: 'sm:gap-9'           
     }"
   >
     <img
+    @click="onClickFunction"
   class="rounded-full w-[70px] h-[70px] sm:w-[112px] sm:h-[112px] cursor-pointer"
   v-if="item"
   :src="item"
@@ -49,7 +50,7 @@
       </div>
 
       <div v-else class="container">
-        <div class="flex items-center justify-between mb-10">
+        <div class="flex items-center justify-between mb-10" >
           <USkeleton
           v-for="i in 9"
             class="rounded-full hidden md:block bg-[#D9D9D9] w-[120px] h-[120px]"
@@ -90,6 +91,31 @@
   definePageMeta({
     ssr: false
   })
+
+  const onClickFunction = (e) => {
+    const targetSrc = e.target.src
+    console.log(e.target.src);
+    if (targetSrc == "http://localhost:3000/Ellipse1.png") {
+      router.push("/category/1")
+    }else if (targetSrc == "http://localhost:3000/Ellipse2.png") {
+      router.push("/category/409")
+    }else if (targetSrc == "http://localhost:3000/Ellipse3.png") {
+      router.push("/category/177")
+    }else if (targetSrc == "http://localhost:3000/Ellipse4.png") {
+      router.push("/category/147")
+    }else if (targetSrc == "http://localhost:3000/Ellipse5.png") {
+      router.push("/category/101")
+    }else if (targetSrc == "http://localhost:3000/Ellipse6.png") {
+      router.push("/category/329")
+    }else if (targetSrc == "http://localhost:3000/Ellipse7.png") {
+      router.push("/category/241")
+    }else if (targetSrc == "http://localhost:3000/Ellipse8.png") {
+      router.push("/category/1")
+    }else if (targetSrc == "http://localhost:3000/Ellipse9.png") {
+      router.push("/category/999")
+    }
+    
+  }
   </script>
 
   <style scoped>
