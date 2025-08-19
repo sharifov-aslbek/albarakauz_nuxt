@@ -287,7 +287,7 @@
       </div>
 
 
-      <div class="max-w-4xl pt-2 mt-4">
+      <div class="max-w-6xl pt-2 mt-4">
     <div class="flex items-center gap-3 mb-6">
       <span class="text-3xl font-bold text-gray-900">{{ getParsedProductModel(store.product.productModel).Rating }}</span>
       <div class="flex items-center gap-1">
@@ -322,9 +322,12 @@
       </span>
     </div>
   </div>
-  <p class="text-gray-700 flex items-center">
-    <UIcon name="iconamoon:comment-duotone mr-1" />
-    <span class="font-medium mr-2">Izoh:</span>
+  <p class="text-gray-700 flex flex-col">
+    <div class="flex items-center">
+      <UIcon name="iconamoon:comment-duotone" class="mr-1" />
+      <span class="font-medium mr-2">Izoh:
+      </span>
+    </div>
     {{ getParsedProductModel(store.product.productModel).TopFeedback.Content }}
   </p>
 </div>
@@ -347,7 +350,7 @@
     </div>
   </template>
 
-  <n-tab-pane name="oasis" tab="Описание">
+  <n-tab-pane name="oasis" tab="Tavsifi">
      <div
     v-if="store.product.description"
     class="gap-x-12 gap-y-2 max-w-full mt-6"
@@ -366,7 +369,7 @@
   <n-tab-pane
     v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.composition"
     name="sostav"
-    tab="Состав"
+    tab="Sostavi"
   >
     <p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].composition"></p>
   </n-tab-pane>
@@ -374,7 +377,7 @@
   <n-tab-pane
     v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.sizes"
     name="the beatles"
-    tab="Размеры"
+    tab="O'lchovlar"
   >
     <p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].sizes"></p>
   </n-tab-pane>

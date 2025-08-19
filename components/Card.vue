@@ -68,6 +68,8 @@
         </n-tag>
     </div>
 
+    <br>
+
     <!-- Narx + Market -->
     <div class="flex items-center justify-between mt-auto">
       <img
@@ -131,10 +133,12 @@ function handleAddFavorites(product: Product) {
   if (!accessToken) {
     new Audio(errorAudio).play()
     toast.add({
-      title: 'Diqqat!',
-      description: 'Avval login qilishingiz kerak.',
-      icon: 'mynaui:x-circle'
-    })
+  title: 'Diqqat!',
+  description: 'Avval login qilishingiz kerak.',
+  icon: 'mynaui:x-circle',
+  duration: 3000,
+  color: 'warning'
+})
     return
   }
 

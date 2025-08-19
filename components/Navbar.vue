@@ -258,21 +258,31 @@ const navigateSearch = () => {
 
 // Ovozli qidiruv
 const startVoiceSearch = () => {
-  if (!('webkitSpeechRecognition' in window)) {
+  if (!("webkitSpeechRecognition" in window)) {
     alert("Sizning brauzeringiz ovozli qidiruvni qo‘llab-quvvatlamaydi!");
     return;
   }
+
   const recognition = new webkitSpeechRecognition();
-  recognition.lang = 'uz-UZ';
+  recognition.lang = "uz-UZ";
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
   recognition.start();
+
+  recognition.onstart = () => {
+    isRecording.value = true; // yozishni boshlaganda sariq bo'ladi
+  };
+
+  recognition.onend = () => {
+    isRecording.value = false; // yozish tugaganda normal holatga qaytadi
+  };
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
     search.value = transcript;
     navigateSearch();
   };
-}
+};
+  
 </script>

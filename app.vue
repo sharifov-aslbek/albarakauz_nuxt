@@ -4,6 +4,7 @@
     <Navbar />
     <br>
     <UApp>
+      <SharedOfflineAlert />
       <NuxtPage />
       <SharedLoader />
       <SharedBackTop />

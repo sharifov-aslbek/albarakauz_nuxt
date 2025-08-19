@@ -125,8 +125,9 @@
                 ]" :src="item.icon" :alt="item.name" />
               </div>
               <h3
-                class="text-xl font-bold tracking-wide drop-shadow-lg group-hover:scale-105 transition-transform duration-300">
+                class="text-xl flex items-center gap-3 font-bold tracking-wide drop-shadow-lg group-hover:scale-105 transition-transform duration-300">
                 {{ item.name }}
+                <UIcon name="material-symbols:verified" />
               </h3>
 
               <!-- Subtle shine effect -->
@@ -170,8 +171,9 @@
                 ]" :src="item.icon" :alt="item.name" />
               </div>
               <h3
-                class="text-xl font-bold tracking-wide drop-shadow-lg group-hover:scale-105 transition-transform duration-300">
+                class="text-xl flex items-center gap-2 font-bold tracking-wide drop-shadow-lg group-hover:scale-105 transition-transform duration-300">
                 {{ item.name }}
+                <UIcon name="material-symbols:verified" />
               </h3>
 
               <div

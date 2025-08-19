@@ -26,11 +26,24 @@
 
 
         <div class="flex gap-3">
-           <UButton v-if="isFavorite(store.product.id)"  @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id , store.product.name)" icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
-           <UButton  v-else  @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline" size="md" color="neutral" variant="outline">Sevimliga qo'shish</UButton>
+        <UButton v-if="isFavorite(store.product.id)"
+          @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)"
+          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added
+        </UButton>
+        <UButton v-else @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline"
+          size="md" color="neutral" variant="outline">
+          <span class="sm:block hidden">
+            Sevimliga qo'shish
+          </span>
+        </UButton>
 
-           <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral" variant="outline">Copy Product</UButton>
-        </div>
+        <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral"
+          variant="outline">
+          <span class="sm:block hidden">
+            Copy Product
+          </span>
+        </UButton>
+      </div>
       </div>
 
       <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
@@ -73,12 +86,9 @@
       class="sm:w-full sm:max-w-[400px] w-full"
       @select="onSelect"
     >
-      <!-- Show image if path exists, otherwise show not found -->
-      <n-image
-        v-if="item.imageEntity && item.imageEntity.localImagePath"
-        class="w-full sm:w-[420px] rounded-lg object-cover max-h-[450px]"
-        :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`"
-      />
+
+      <img v-if="item.imageEntity && item.imageEntity.localImagePath" class="w-full sm:w-[420px] rounded-lg object-cover max-h-[450px]"
+        :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" alt="Error">
       <div
         v-else
         class="w-full sm:w-[420px] rounded-lg bg-gray-100 h-[500px] flex items-center justify-center text-gray-500"
@@ -247,7 +257,7 @@
                   <n-tab-pane
                     v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.uz?.characteristics"
                     name="xarakteristika"
-                    tab="Характеристика"
+                    tab="Xarakteristikasi"
                   >
                     <div
                       v-for="(value , key) in getParsedProductModel(store.product.productModel).uz.characteristics"
@@ -264,7 +274,7 @@
                     </div>
                   </n-tab-pane>
           
-                  <n-tab-pane name="oasis" tab="Описание">
+                  <n-tab-pane name="oasis" tab="Tavsifi">
                     <!-- <p
                       v-if="getParsedProductModel(store.product.productModel).description_ru"
                       class="w-full max-w-full text-sm md:text-base"
