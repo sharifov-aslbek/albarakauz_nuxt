@@ -207,6 +207,7 @@
 
 
             
+              <br>
                <UButton
                color="warning"
         label="Do'konga o'tish  "

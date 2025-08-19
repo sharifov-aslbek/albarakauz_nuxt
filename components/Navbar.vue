@@ -1,7 +1,7 @@
 <template>
   <header class="bg-[#F7F7FA]">
     <div class="container">
-      <div class="flex items-center justify-between sm:hidden py-5">
+      <div class="hidden items-center justify-between sm:hidden py-5">
         <a href="/" class="flex items-center space-x-2">
           <img class="w-24" src="/assets/logo.png" alt="">
         </a>
@@ -11,7 +11,7 @@
           <ModalsNmodal v-else />
         </div>
       </div>
-      <div class="flex justify-between gap-4 sm:gap-0 my-8 sm:my-0">
+      <div class="flex justify-between gap-1 sm:gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
           <a href="/" class="flex items-center space-x-2">
             <img class="w-20" src="/assets/logo.png" alt="">
@@ -25,7 +25,7 @@
         <!-- Qidiruv bo‘limi -->
         <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
           <button @click="categoryStore.showCategory = !categoryStore.showCategory , testCategory()"
-            class="flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-gray-200 transition-all duration-300 cursor-pointer hover:bg-gray-500/30">
+            class="hidden sm:flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-gray-200 transition-all duration-300 cursor-pointer hover:bg-gray-500/30">
             <div class="relative w-6 h-6">
               <!-- Folder Icon -->
               <svg :class="[
@@ -60,7 +60,7 @@
             <!-- Mikrofon tugmasi -->
             <button 
               @click="startVoiceSearch" 
-              class="ml-2 p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+              class="hidden sm:block ml-2 p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition"
               title="Ovozli qidiruv"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
@@ -284,5 +284,5 @@ const startVoiceSearch = () => {
     navigateSearch();
   };
 };
-  
+
 </script>

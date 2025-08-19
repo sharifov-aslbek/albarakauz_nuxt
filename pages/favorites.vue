@@ -28,7 +28,7 @@
   <div v-if="favoriteProducts.length" class="container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
     <div @click="navigaItem(product.product.id, product.product.name)" v-for="product in favoriteProducts"
       :key="product.product.id"
-      class="bg-gray-200 relative card w-full max-w-[300px] h-[450px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
+      class="bg-gray-200 relative card w-full max-w-[300px] h-[390px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
       <UIcon
         @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.product.id, product.product.name)"
         class="w-8 h-8 text-red-500 absolute right-2 z-50" name="mdi:heart" />

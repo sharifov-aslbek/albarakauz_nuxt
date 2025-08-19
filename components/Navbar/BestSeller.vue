@@ -4,7 +4,7 @@
           <Text :title="'Siz uchun bestsellerlar'" />
 
             <div class="gap-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                   <USkeleton v-if="!data" v-for="i in 2" class="md:hidden block   h-[400px] w-[186px] bg-[#D9D9D9]" />
+                   <USkeleton v-if="!data" v-for="i in 2" class="md:hidden block   h-[370px] w-[170px] bg-[#D9D9D9]" />
                    <USkeleton v-if="!data" v-for="i in 5" class="hidden lg:block h-[450px] w-[240px] bg-[#D9D9D9]" />
                    <Card v-else :data="data" />
             </div>
@@ -22,6 +22,7 @@ import Text from '../shared/Text.vue';
 
 const data = ref(null);
 const err = ref(null);
+
     const fetchData = async () => {
   try {
     const res = await axios.get('https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=5&PageIndex=1&id=4');

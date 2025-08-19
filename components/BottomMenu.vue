@@ -12,7 +12,7 @@
 
     <!-- Katalog (doim gray, hali route qilinmagan shekilli) -->
     <div class="flex flex-col items-center text-gray-500">
-      <UIcon name="i-heroicons-magnifying-glass" class="text-2xl" />
+      <UIcon name="material-symbols:category-outline-rounded" class="text-2xl" />
       <span class="text-xs mt-1">Katalog</span>
     </div>
 
@@ -22,14 +22,21 @@
       class="flex flex-col items-center"
       :class="route.path === '/favorites' ? 'text-[#feee00]' : 'text-gray-500'"
     >
-      <UIcon name="material-symbols-light:favorite-outline-rounded" class="text-2xl" />
+      <UIcon name="material-symbols:favorite-outline-rounded" class="text-2xl" />
       <span class="text-xs mt-1">Sevimlilar</span>
     </RouterLink>
+
+    <button @click="store.profileModal = !store.profileModal" class="flex flex-col items-center text-gray-500">
+      <UIcon name="ic:round-person-outline" class="text-2xl" />
+      <span class="text-xs mt-1">Profil</span>
+    </button>
   </div>
 </template>
 
 <script setup>
+import { useAuthStore } from '#imports';
 import { useRoute } from 'vue-router'
 
+const store = useAuthStore()
 const route = useRoute()
 </script>

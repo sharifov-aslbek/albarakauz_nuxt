@@ -169,8 +169,13 @@
 
 
 
-        <UButton color="warning" label="Do'konga o'tish  " icon="solar:shop-linear" :to="store.product.productUrl"
-          target="_blank" />
+         <UButton
+  label="Do'konga o'tish"
+  icon="solar:shop-linear"
+  :to="store.product.productUrl"
+  target="_blank"
+  class="bg-[#feee00] text-black hover:bg-[#e6d900]"
+/>
 
 
       </div>

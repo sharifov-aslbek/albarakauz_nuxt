@@ -6,6 +6,7 @@ import axios from 'axios' // ✅ AXIOSNI QO‘SHISH
 export const useAuthStore = defineStore('authStore', () => {
   const profileData = ref(null)
   const registerModal = ref(false)
+  const profileModal = ref(false)
   const verifyEmailModal = ref(false)
   const changePasswordModal = ref(false)
   const resetPasswordModal = ref(false)
@@ -46,6 +47,7 @@ export const useAuthStore = defineStore('authStore', () => {
     verifyEmailModal,
     changePasswordModal,
     resetPasswordModal,
-    currentStep
+    currentStep,
+    profileModal
   }
 })

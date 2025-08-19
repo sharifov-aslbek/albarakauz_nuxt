@@ -1,9 +1,9 @@
 <template>
 
-    <div v-if="store.showLogout || showModal" class="glass-overlay"></div>
+    <div v-if="store.showLogout || store.profileModal" class="glass-overlay"></div>
 
 
-    <div v-if="store.profileData" @click="showModal = !showModal" class="relative cursor-pointer w-fit">
+    <div v-if="store.profileData" @click="store.profileModal = !store.profileModal" class="relative cursor-pointer w-fit">
                   <!-- Heart icon container -->
     <UAvatar v-if="data.image?.localImagePath"
                     :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
@@ -13,12 +13,12 @@
       <UAvatar v-else :alt="data.name" size="md" />
                 </div>
                 
-     <n-modal v-if="store.profileData" v-model:show="showModal" transform-origin="center">
+     <n-modal v-if="store.profileData" v-model:show="store.profileModal" transform-origin="center">
       <div
         class="bg-white rounded-2xl flex flex-col justify-between shadow-lg w-full max-w-6xl mx-auto p-6 sm:p-10 md:p-12 h-auto md:h-[666px] overflow-y-auto">
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-xl sm:text-2xl font-bold">Mening profilim</h2>
-          <button @click="showModal = false" class="text-gray-500 hover:text-gray-700">
+          <button @click="store.profileModal = false" class="text-gray-500 hover:text-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 6 6 18" />
@@ -118,7 +118,7 @@
                 Parolni tiklamoqchimisiz?
               </h3>
               yoki
-              <h3 @click="store.changePasswordModal = !store.changePasswordModal , showModal = !showModal" class="text-blue-600 cursor-pointer hover:underline">
+              <h3 @click="store.changePasswordModal = !store.changePasswordModal , store.profileModal = !store.profileModal" class="text-blue-600 cursor-pointer hover:underline">
                 o‘zgartirmoqchimisiz?
               </h3>
             </div>
@@ -146,7 +146,7 @@
           </div>
 
           <div class='hidden md:flex gap-3'>
-            <n-button @click="showModal = false" class="w-full sm:w-auto">
+            <n-button @click="store.profileModal = false" class="w-full sm:w-auto">
               Yopish
             </n-button>
             <n-button @click="submitHandler" type="success" class="w-full sm:w-auto">
@@ -329,7 +329,7 @@ function resetHandler() {
   if(store.resetPasswordModal && store.profileData.data) {
     forgotPassword(store.profileData.data?.email);
   }
-  showModal.value = !showModal.value;
+  store.profileModal.value = !store.profileModal.value;
   // store.profileData = !store.profileData;
   console.log(store.resetPasswordModal, 'status');
 
@@ -420,7 +420,7 @@ async function verifyEmailCode(code) {
 
 const openVerifyModal = () => {
   store.verifyEmailModal = true;
-  showModal.value = !showModal.value;
+  store.profileModal.value = !store.profileModal.value;
   sendVerificationCode();
   startCountdown(300);
 }
@@ -578,7 +578,7 @@ async function putProfileData(name, surname, email, phone, password) {
           color: 'warning',
           timeout: 4000
         })
-        showModal.value = false
+        store.profileModal.value = false
       } else {
         toast.add({
           title: 'Server xatosi!',
@@ -586,14 +586,14 @@ async function putProfileData(name, surname, email, phone, password) {
           color: 'error',
           timeout: 4000
         })
-        showModal.value = false
+        store.profileModal.value = false
       }
       return
     }
 
     // Muvaffaqiyatli bo‘lsa
     store.getProfileData()
-    showModal.value = false
+    store.profileModal.value = false
     toast.add({
       title: 'Muvaffaqiyatli!',
       description: 'Profil maʼlumotlari muvaffaqiyatli yangilandi.',
