@@ -111,10 +111,10 @@
   class="w-full mx-auto"
 >
 
-<img v-if="item.imageEntity && item.imageEntity.localImagePath"
+<n-image v-if="item.imageEntity && item.imageEntity.localImagePath"
   class="rounded-lg object-cover sm:h-[400px]"
   style="width: 100%;"
-  :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" alt="Error">
+  :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" alt="Error"/>
 
 <!-- 
   <n-image

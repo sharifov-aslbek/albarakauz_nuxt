@@ -87,8 +87,8 @@
       @select="onSelect"
     >
 
-      <img v-if="item.imageEntity && item.imageEntity.localImagePath" class="w-full sm:w-[420px] rounded-lg object-cover max-h-[450px]"
-        :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" alt="Error">
+      <n-image v-if="item.imageEntity && item.imageEntity.localImagePath" class="w-full sm:w-[420px] rounded-lg object-cover max-h-[450px]"
+        :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" alt="Error"/>
       <div
         v-else
         class="w-full sm:w-[420px] rounded-lg bg-gray-100 h-[500px] flex items-center justify-center text-gray-500"

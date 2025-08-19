@@ -70,6 +70,7 @@
             <n-image v-if="item.imageEntity && item.imageEntity.localImagePath"
               class="w-full sm:w-[420px] rounded-lg object-cover h-[380px] sm:h-[500px]"
               :src="`https://api.albaraka.uz/${item.imageEntity.localImagePath}`" />
+              
             <div v-else
               class="w-full sm:w-[420px] rounded-lg bg-gray-100 h-[500px] flex items-center justify-center text-gray-500">
               <div class="text-center">
