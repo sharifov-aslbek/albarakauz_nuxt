@@ -38,6 +38,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
   const title = ref('')
   const description = ref('')
   const image = ref('')
+  const checkError = ref(false);
   const oneCategoryProducts = ref<any>([])
   const searchProductsData = ref<any>([])
   const linkedProducts = ref<any>([])
@@ -95,6 +96,10 @@ export const useProductSeoStore = defineStore('productSeo', () => {
       }
     } catch (e) {
       console.error('API error:', e)
+      if(e.status === 404) {
+        checkError.value = true;
+      }
+      
     }
   }
 
@@ -279,6 +284,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
     resetProductCategoryList,
     searchProductsData,
     searchProducts,
-    linkedProducts
+    linkedProducts,
+    checkError
   }
 })
