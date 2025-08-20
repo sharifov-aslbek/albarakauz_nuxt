@@ -13,7 +13,7 @@
     <!-- Katalog (doim gray, hali route qilinmagan shekilli) -->
     <div class="flex flex-col items-center text-gray-500">
       <UIcon name="material-symbols:category-outline-rounded" class="text-2xl" />
-      <span class="text-xs mt-1">Katalog</span>
+      <span class="text-xs mt-1">Kataloglar</span>
     </div>
 
     <!-- Sevimlilar -->
