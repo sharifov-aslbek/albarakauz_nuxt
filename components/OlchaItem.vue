@@ -201,59 +201,65 @@
 
 
     <div class="flex flex-col sm:flex-row gap-12 justify-center">
-      <n-tabs type="line" animated :style="tabStyle">
-        <template #tabs="{ panes }">
-          <div class="flex w-full">
-            <div v-for="pane in panes" :key="pane.name"
-              class="flex-1 text-center border border-gray-300 py-2 cursor-pointer text-sm md:text-base"
-              :class="{ 'bg-gray-200 font-bold': pane.name === store.activeTab }" @click="store.activeTab = pane.name">
-              {{ pane.tab }}
+      <div class="sm:hidden block mt-5">
+        <SharedDrawer />
+      </div>
+
+      <div class="sm:block hidden">
+        <n-tabs type="line" animated :style="tabStyle">
+          <template #tabs="{ panes }">
+            <div class="flex w-full">
+              <div v-for="pane in panes" :key="pane.name"
+                class="flex-1 text-center border border-gray-300 py-2 cursor-pointer text-sm md:text-base"
+                :class="{ 'bg-gray-200 font-bold': pane.name === store.activeTab }" @click="store.activeTab = pane.name">
+                {{ pane.tab }}
+              </div>
             </div>
-          </div>
-        </template>
-
-        <n-tab-pane name="oasis" tab="Описание">
-          <p v-if="getParsedProductModel(store.product.productModel).description_ru"
-            class="w-full max-w-full text-sm md:text-base"
-            v-html="getParsedProductModel(store.product.productModel).description_ru"></p>
-
-          <p v-else class="w-full max-w-full text-sm md:text-base">
-            {{ getParsedProductModel(store.product.productModel).description_uz }}
-          </p>
-
-          <div v-if="store.product.descriptionUz || store.product.descriptionRu"
-            class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 max-w-4xl mt-6">
-            <p v-if="store.product.descriptionUz" class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
-              {{ store.product.descriptionUz }}
+          </template>
+  
+          <n-tab-pane name="oasis" tab="Описание">
+            <p v-if="getParsedProductModel(store.product.productModel).description_ru"
+              class="w-full max-w-full text-sm md:text-base"
+              v-html="getParsedProductModel(store.product.productModel).description_ru"></p>
+  
+            <p v-else class="w-full max-w-full text-sm md:text-base">
+              {{ getParsedProductModel(store.product.productModel).description_uz }}
             </p>
-            <p v-else class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
-              {{ store.product.descriptionRu }}
-            </p>
-          </div>
-
-          <!-- <p
-                      v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
-                      class="w-full max-w-[900px] mt-6 md:mt-12 text-sm md:text-base"
-                      v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
-                    ></p> -->
-        </n-tab-pane>
-
-        <n-tab-pane
-          v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.main_features?.data"
-          name="xarakteristika" tab="Характеристика">
-          <div
-            v-for="feature in getParsedProductModel(store.product.productModel).features[getParsedProductModel(store.product.productModel).main_features.data[0].group_id].data"
-            :key="feature.feature_name_uz" class="flex justify-between text-sm md:text-base text-gray-700 w-full gap-3">
-            <span class="text-gray-400 py-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
-              {{ feature.feature_name_ru }}
-            </span>
-            <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
-            <span class="text-black whitespace-nowrap overflow-hidden max-w-full">
-              {{ feature.feature_value_name_ru }}
-            </span>
-          </div>
-        </n-tab-pane>
-      </n-tabs>
+  
+            <div v-if="store.product.descriptionUz || store.product.descriptionRu"
+              class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 max-w-4xl mt-6">
+              <p v-if="store.product.descriptionUz" class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
+                {{ store.product.descriptionUz }}
+              </p>
+              <p v-else class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
+                {{ store.product.descriptionRu }}
+              </p>
+            </div>
+  
+            <!-- <p
+                        v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
+                        class="w-full max-w-[900px] mt-6 md:mt-12 text-sm md:text-base"
+                        v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
+                      ></p> -->
+          </n-tab-pane>
+  
+          <n-tab-pane
+            v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.main_features?.data"
+            name="xarakteristika" tab="Характеристика">
+            <div
+              v-for="feature in getParsedProductModel(store.product.productModel).features[getParsedProductModel(store.product.productModel).main_features.data[0].group_id].data"
+              :key="feature.feature_name_uz" class="flex justify-between text-sm md:text-base text-gray-700 w-full gap-3">
+              <span class="text-gray-400 py-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+                {{ feature.feature_name_ru }}
+              </span>
+              <span class="flex-1 border-b border-dotted border-gray-300 mx-2"></span>
+              <span class="text-black whitespace-nowrap overflow-hidden max-w-full">
+                {{ feature.feature_value_name_ru }}
+              </span>
+            </div>
+          </n-tab-pane>
+        </n-tabs>
+      </div>
 
       <div class="mb-7 w-full xl:w-[28%]">
         <div v-if="store.product.marketResultmodel.name == 'Olcha'" :class="[

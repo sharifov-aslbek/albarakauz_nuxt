@@ -95,12 +95,12 @@ const navigateMarket = (id) => {
         Ulangan marketlar
       </h2>
 
-      <div class="flex items-center justify-center w-[20%] mx-auto my-4 text-black px-3 md:px-4 py-2 rounded-full border border-yellow-200">
+      <div class="flex items-center justify-center sm:w-[20%] mx-auto my-4 text-black px-3 md:px-4 py-2 rounded-full border border-yellow-200">
         <div class="w-2 h-2 bg-[#feee00] rounded-full mr-2 animate-pulse"></div>
         <span class="text-xs md:text-sm font-medium">Bizda 7 ta market mavjud</span>
       </div>
 
-      <p class="text-gray-600 w-[50%] mx-auto text-lg">
+      <p class="text-gray-600 sm:w-[50%] mx-auto text-sm sm:text-lg">
         Mahsulotlaringizni Oʻzbekistonning eng yirik onlayn savdo platformalarida bir vaqtning oʻzida kuzatish, solishtirish va sotib olish
       </p>
     </div>
@@ -154,7 +154,7 @@ const navigateMarket = (id) => {
             item.imgClass
           ]" :src="item.icon" :alt="item.name" />
 
-          <h3 class="text-xl flex items-center gap-2 font-bold tracking-wide drop-shadow-lg">
+          <h3 class="text-xl text-white flex items-center gap-2 font-bold tracking-wide drop-shadow-lg">
             {{ item.name }}
             <UIcon name="material-symbols:verified" />
           </h3>
