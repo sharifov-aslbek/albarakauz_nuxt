@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       NUXT_PUBLIC_BACKEND_URL:
-        process.env.NUXT_PUBLIC_BACKEND_URL || "http://localhost:3000/api",
+        process.env.NUXT_PUBLIC_BACKEND_URL || "https://api.albaraka.uz/api",
     },
   },
   modules: [

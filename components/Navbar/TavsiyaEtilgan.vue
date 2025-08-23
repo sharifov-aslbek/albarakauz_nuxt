@@ -27,7 +27,6 @@ const err = ref(null);
   try {
     const res = await axios.get('https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=5&PageIndex=10&id=30');
     data.value = res.data.data;
-    console.log('avtomobil response', res.data);
   } catch (error) {
     err.value = error;
     console.error('Xatolik:', error);

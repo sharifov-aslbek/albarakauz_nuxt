@@ -175,7 +175,7 @@
   icon="solar:shop-linear"
   :to="store.product.productUrl"
   target="_blank"
-  class="bg-[#feee00] text-black hover:bg-[#e6d900]"
+  class="bg-[#feee00] text-black hover:bg-[#e6d900] w-full sm:w-auto"
 />
 
 
@@ -297,8 +297,8 @@ import { useAuthStore } from '#imports'
 import { ref, computed } from 'vue'
 import CategoryPath from './CategoryPath.vue'
 import Card from './Card.vue'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 import { tabs } from '#build/ui'
 
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store

@@ -6,7 +6,7 @@
     <div v-if="store.profileData" @click="store.profileModal = !store.profileModal" class="relative cursor-pointer w-fit">
                   <!-- Heart icon container -->
     <UAvatar v-if="data.image?.localImagePath"
-                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
+                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '///user-avatar.jpg'"
       :alt="data.name"
     />
 
@@ -31,13 +31,13 @@
           <!-- Profile Image -->
           <div class="flex flex-col items-center md:items-start">
             <!-- <img class="w-24 h-24 rounded-full object-cover"
-              :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
+              :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '///user-avatar.jpg'"
               alt="Error"> -->
 
               <UAvatar
               class="w-24 h-24 text-3xl rounded-full object-cover" 
                v-if="data.image?.localImagePath"
-                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/assets/user-avatar.jpg'"
+                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '///user-avatar.jpg'"
       :alt="data.name"
     />
 
@@ -180,7 +180,7 @@
                 Iltimos, tizimdan chiqmoqchi ekanligingizni tasdiqlang.
               </h1>
             </div>
-            <img src="/assets/logout.png" alt="Dashboard illustration" class="my-6 w-96 hidden md:block" />
+            <img src="///logout.png" alt="Dashboard illustration" class="my-6 w-96 hidden md:block" />
           </div>
   
           <!-- Right Side - Login Form -->
@@ -234,7 +234,7 @@
 
           <n-button class="mt-3">
             <a class="flex items-center justify-center" target="_blank" href="https://mail.google.com/">
-              Open gmail <img class="w-8 ml-1" src="/assets/gmail.webp" alt="Error">
+              Open gmail <img class="w-8 ml-1" src="///gmail.webp" alt="Error">
             </a>
           </n-button>
         </div>
@@ -289,8 +289,8 @@ import changepass from './changepass.vue';
 import reset from './reset.vue';
 import { useMessage } from '#imports';
 import { ref , onMounted , watch } from 'vue';
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 
 const store = useAuthStore();

@@ -82,7 +82,6 @@
 
             <!-- <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3> -->
 
-      <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
       <div class="flex justify-between w-full items-center">
         <div class="flex flex-col md:flex-row pb-5 gap-6 sm:mr-7 py-12">
@@ -151,7 +150,7 @@
   <img v-else
   class="rounded-lg object-cover sm:h-[400px]"
   style="width: 100%;"
-  src="/public/not-found-image.jpg" alt="Error">
+  src="/public/notfoundimg.png" alt="Error">
   
           <!-- Show not found when no images array -->
           <!-- <div v-else
@@ -233,7 +232,7 @@
   
   
                <div class="flex items-center gap-2 mt-4">
-                 <img class="w-10 rounded-lg" src="/assets/uzum-nasiya.png" alt="Error">
+                 <img class="w-10 rounded-lg" src="///uzum-nasiya.png" alt="Error">
                  <span class="text-lg font-medium">
                    {{ monthlyRepayment }} so'm/oy dan
                  </span>
@@ -266,7 +265,7 @@
         
 
           <div class="h-[510px] w-full max-w-[305px] overflow-y-auto hidden lg:flex flex-col gap-5" >
-            <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+            <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">Boshqa do'konlarda</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
             <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
@@ -337,7 +336,10 @@
 
   <div class="sm:hidden block">
     <SharedDrawer />
+
+      <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
   </div>
+
 
 
   <div class="sm:block hidden">
@@ -399,8 +401,8 @@ import { useProductSeoStore } from '@/stores/productSeo'
 import { useAuthStore } from '#imports'
 import { ref, computed , watch , onMounted } from 'vue'
 import CategoryPath from './CategoryPath.vue'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 const route = useRoute();

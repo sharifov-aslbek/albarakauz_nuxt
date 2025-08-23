@@ -10,7 +10,7 @@
         <SharedLoader />
         <SharedBackTop />
   
-        <!-- <BottomMenu /> -->
+        <BottomMenu />
       </UApp>
     
       <Suspense>

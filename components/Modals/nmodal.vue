@@ -25,7 +25,7 @@
                 Simplify your e-commerce management with our user-friendly admin dashboard.
               </p> -->
             </div>
-            <img src="/assets/login.png" alt="Dashboard illustration" class="mt-2 w-96" />
+            <img src="///login.png" alt="Dashboard illustration" class="mt-2 w-96" />
           </div>
 
           <!-- O'ng tomon -->
@@ -134,8 +134,8 @@ import { ref } from "vue";
 import { useToast } from "#imports";
 import { useAuthStore } from "#imports";
 import { useMessage } from "#imports";
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 const loginModal = ref(false);
 const email = ref(null);

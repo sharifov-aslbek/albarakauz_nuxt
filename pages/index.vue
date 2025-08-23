@@ -44,7 +44,7 @@ useHead({
     // Open Graph (Facebook, LinkedIn va boshqalar uchun)
     { property: 'og:title', content: 'Albaraka.uz - Biz bilan oson qidiring' },
     { property: 'og:description', content: "O'zbekistondagi online marketlardan mahsulotlarni oson qidirish" },
-    { property: 'og:image', content: 'https://api.albaraka.uz/assets/logo.png' },
+    { property: 'og:image', content: 'https://api.albaraka.uz/logo.png' },
     { property: 'og:url', content: 'https://albaraka.uz' },
     { property: 'og:type', content: 'website' },
 
@@ -52,10 +52,10 @@ useHead({
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: 'Albaraka.uz - Biz bilan oson qidiring' },
     { name: 'twitter:description', content: "O'zbekistondagi online marketlardan mahsulotlarni oson qidirish" },
-    { name: 'twitter:image', content: 'https://api.albaraka.uz/assets/logo.png' }
+    { name: 'twitter:image', content: 'https://api.albaraka.uz/logo.png' }
   ],
   link: [
-    { rel: 'icon', type: 'image/png', href: 'https://albaraka.uz/assets/logo.png' }
+    { rel: 'icon', type: 'image/png', href: 'https://albaraka.uz/logo.png' }
   ]
 })
 

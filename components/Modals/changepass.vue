@@ -27,7 +27,7 @@
           </p>
         </div>
         <img
-          src="/assets/shop-icon.png"
+          src="///shop-icon.png"
           alt="Dashboard illustration"
           class="my-6 w-96"
         />
@@ -196,8 +196,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useToast, useAuthStore } from '#imports'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 const store = useAuthStore()
 const toast = useToast()

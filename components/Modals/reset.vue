@@ -19,7 +19,7 @@
           </p>
         </div>
         <img 
-          src="/assets/shop-icon.png" 
+          src="///shop-icon.png" 
           alt="Dashboard illustration" 
           class="my-6 w-96"
         />

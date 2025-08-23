@@ -104,8 +104,8 @@ import { useAuthStore } from '#imports';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue'
 import { useToast } from '#imports'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 import { NSpin } from 'naive-ui'
 
 const loadedImages = ref<Record<number, boolean>>({})

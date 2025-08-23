@@ -1,21 +1,22 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { NCarousel } from 'naive-ui'
+import axios from 'axios'
 
 const route = useRoute();
 const router = useRouter();
-
+const totalCount = ref(0)
 definePageMeta({
   ssr: false
 })
 
-const marketplaces = [
+const marketplaces = ref([
   {
     id: 1,
     name: 'Uzum market',
     icon: '/uzum-icon.png',
-    productCount: '290K',
+    productCount: null, // API’dan keladi
     bgClass: 'bg-gradient-to-br from-purple-500 via-purple-600 to-purple-800',
     shadowClass: 'shadow-purple-500/30',
     hoverShadowClass: 'hover:shadow-purple-500/50',
@@ -25,7 +26,7 @@ const marketplaces = [
     id: 6,
     name: 'Idea.uz',
     icon: '/idea.png',
-    productCount: '10K',
+    productCount: null,
     bgClass: 'bg-gradient-to-br from-pink-500 via-rose-600 to-pink-800',
     shadowClass: 'shadow-pink-500/30',
     hoverShadowClass: 'hover:shadow-pink-500/50',
@@ -35,7 +36,7 @@ const marketplaces = [
     id: 2,
     name: 'Olcha.uz',
     icon: '/olcha-icon.png',
-    productCount: '32K',
+    productCount: null,
     bgClass: 'bg-gradient-to-br from-red-400 via-red-500 to-red-700',
     shadowClass: 'shadow-red-500/30',
     hoverShadowClass: 'hover:shadow-red-500/50',
@@ -45,7 +46,7 @@ const marketplaces = [
     id: 3,
     name: 'Texnomart',
     icon: '/texnomart-icon.png',
-    productCount: 1450,
+    productCount: null,
     bgClass: 'bg-gradient-to-br from-yellow-300 via-yellow-400 to-orange-500',
     shadowClass: 'shadow-yellow-500/30',
     hoverShadowClass: 'hover:shadow-yellow-500/50',
@@ -55,7 +56,7 @@ const marketplaces = [
     id: 4,
     name: 'Elmakon',
     icon: '/elmakon.png',
-    productCount: 780,
+    productCount: null,
     bgClass: 'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-700',
     shadowClass: 'shadow-blue-500/30',
     hoverShadowClass: 'hover:shadow-blue-500/50',
@@ -65,7 +66,7 @@ const marketplaces = [
     id: 5,
     name: 'Mediapark',
     icon: '/mediapark.webp',
-    productCount: 1960,
+    productCount: null,
     bgClass: 'bg-gradient-to-br from-cyan-400 via-blue-500 to-blue-700',
     shadowClass: 'shadow-blue-500/30',
     hoverShadowClass: 'hover:shadow-blue-500/50',
@@ -75,18 +76,45 @@ const marketplaces = [
     id: 7,
     name: 'AllGood',
     icon: '/allgood.png',
-    productCount: 540,
+    productCount: null,
     bgClass: 'bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-600',
     shadowClass: 'shadow-orange-500/30',
     hoverShadowClass: 'hover:shadow-orange-500/50',
     imgClass: 'drop-shadow-lg rounded-xl'
   }
-]
+])
+
+// API’dan product count olish
+const fetchCounts = async () => {
+  try {
+    const res = await axios.get('https://api.albaraka.uz/api/market/getproductscountforeachmarket')
+    if (res.data?.code === 200) {
+      const counts = res.data.data
+      counts.forEach(element => {
+        totalCount.value += element.count
+      });
+      marketplaces.value = marketplaces.value.map(market => {
+        const found = counts.find(c => c.marketId === market.id)
+        return {
+          ...market,
+          productCount: found ? found.count : 0
+        }
+      })
+    }
+  } catch (err) {
+    console.error("API error:", err)
+  }
+}
+
+onMounted(() => {
+  fetchCounts()
+})
 
 const navigateMarket = (id) => {
   router.push(`market/${id}`)
 }
 </script>
+
 
 <template>
   <div class="container mx-auto px-4">
@@ -95,9 +123,9 @@ const navigateMarket = (id) => {
         Ulangan marketlar
       </h2>
 
-      <div class="flex items-center justify-center sm:w-[20%] mx-auto my-4 text-black px-3 md:px-4 py-2 rounded-full border border-yellow-200">
+      <div class="flex items-center justify-center  sm:w-[36%] mx-auto my-4 text-black px-3 md:px-2 py-2 rounded-full border border-yellow-200">
         <div class="w-2 h-2 bg-[#feee00] rounded-full mr-2 animate-pulse"></div>
-        <span class="text-xs md:text-sm font-medium">Bizda 7 ta market mavjud</span>
+        <span class="text-xs md:text-sm font-medium">Bizda 7 ta market va ularda jami {{ totalCount  }} ta mahsulot mavjud</span>
       </div>
 
       <p class="text-gray-600 sm:w-[50%] mx-auto text-sm sm:text-lg">
@@ -149,7 +177,7 @@ const navigateMarket = (id) => {
         ]"
           class="cursor-pointer rounded-3xl p-8 flex flex-col items-center justify-center h-[220px] shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 relative overflow-hidden group">
 
-          <NuxtImg :class="[
+          <img :class="[
             'w-20 h-20 object-contain mb-4',
             item.imgClass
           ]" :src="item.icon" :alt="item.name" />
