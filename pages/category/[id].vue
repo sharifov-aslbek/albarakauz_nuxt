@@ -1,7 +1,7 @@
 <template>
     <div class="container" v-if="store.oneCategoryProducts">
-      <h3 class="text-2xl font-bold mt-5">{{ categoryStore.onecategoryData.name }}</h3>
-      <p class="text-lg font-bold mt-4 mb-10">{{ store.oneCategoryProducts.length }} ta mahsulot topildi.</p>
+      <h3 class="text-xl sm:text-2xl font-bold mt-5">{{ categoryStore.onecategoryData.name }}</h3>
+      <p class="text-sm sm:text-lg sm:font-bold mt-4 mb-10">{{ store.oneCategoryProducts.length }} ta mahsulot topildi.</p>
       <CategoryPath />
       <CategoryTagSlide />
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">

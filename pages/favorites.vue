@@ -2,7 +2,7 @@
   <div v-if="!favoriteProducts.length" class="flex justify-center">
     <div class="text-center">
       <div class="sm:bg-white p-6 md:p-4 rounded-lg sm:shadow-md max-w-md mx-auto">
-        <img class="mb-10" src="///hearts.png" alt="Error">
+        <img class="mb-10" src="/hearts.png" alt="Error">
         <h2 class="text-2xl font-semibold text-gray-800 mb-2">Sizning sevimlingiz bo'sh</h2>
         <p class="text-gray-600 mb-6">
           Mahsulotdagi

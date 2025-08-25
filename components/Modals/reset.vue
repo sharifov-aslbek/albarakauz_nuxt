@@ -5,11 +5,11 @@
       <div @click="store.resetPasswordModal = !store.resetPasswordModal" class="group absolute right-3 top-5 p-3 cursor-pointer">
               <!-- Background circle with scale animation -->
               <div
-                class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
+                class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
               <X class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" />
             </div>
       <!-- Left Side - Orange Section -->
-      <div class="relative bg-[#06D6A0] p-12 hidden md:block">
+      <div class="relative bg-[#feee00] p-12 hidden md:block">
         <div class="max-w-md text-white">
           <h1 class="text-4xl font-bold mb-4">
             Reset password on your account
@@ -19,7 +19,7 @@
           </p>
         </div>
         <img 
-          src="///shop-icon.png" 
+          src="/shop-icon.png" 
           alt="Dashboard illustration" 
           class="my-6 w-96"
         />
@@ -30,7 +30,7 @@
         <div class="flex flex-col justify-around h-full max-w-md mx-auto">
           <!-- Logo -->
           <div class="flex items-center gap-2 mb-8">
-            <div class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center">
+            <div class="w-10 h-10 bg-[#feee00] rounded-full flex items-center justify-center">
               <span class="text-white font-bold">A</span>
             </div>
             <span class="font-bold text-xl">api.albaraka.uz</span>
@@ -48,7 +48,7 @@
       <n-input
                 type="email"
                 placeholder="Email address"
-                class="w-full px-1 py-2 rounded-lg bg-gray-50 border outline-none mb-10  focus:border-[#06D6A0] border-gray-200"
+                class="w-full px-1 py-2 rounded-lg bg-gray-50 border outline-none mb-10  focus:border-[#feee00] border-gray-200"
                 v-model:value="emailStep"
               />
 
@@ -58,7 +58,7 @@
     <br>
 
       <n-button @click="goToNextStep"    type="quaternary"
-  class="!bg-[#06D6A0] !text-white !hover:bg-[#06D6A0] !hover:text-white !border-none flex items-center justify-center mt-10">
+  class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none flex items-center justify-center mt-10">
         <div
                 v-if="loader"
                 class="w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
@@ -101,7 +101,7 @@
      <div class="flex gap-5 items-center">
 
       <n-button   type="quaternary"
-  class="!bg-[#06D6A0] !text-white !hover:bg-[#06D6A0] !hover:text-white !border-none" @click="submitForm">Submit</n-button>
+  class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none" @click="submitForm">Submit</n-button>
       <n-button @click="goToPreviousStep">Back</n-button>
       </div>
     </div>
@@ -145,7 +145,7 @@
      <div class="flex gap-5 items-center">
          <n-button
            type="quaternary"
-           class="!bg-[#06D6A0] !text-white !hover:bg-[#06D6A0] !hover:text-white !border-none"
+           class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none"
            @click="resetSubmitHandler"
          >
            Submit
@@ -167,7 +167,7 @@
               <input
                 :type="showChangePassword ? 'text' : 'password'"
                 placeholder="Enter 6 code"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#06D6A0]"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
                 required
                 v-model="oldpassword"
               />
@@ -187,7 +187,7 @@
               <input
                 :type="showChangePassword2 ? 'text' : 'password'"
                 placeholder="New password"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#06D6A0]"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
                 required
                 v-model="newpassword"
               />
@@ -206,7 +206,7 @@
               <input
                 :type="showChangePassword3 ? 'text' : 'password'"
                 placeholder="Confirm new password"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#06D6A0]"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
                 required
                 v-model="confirmPassword"
               />
@@ -223,7 +223,7 @@
             <h3 v-if="resendChecker" class="text-xs flex gap-1 items-center">
               Try again <span v-if="store.count > 0">with {{ store.count }} seconds</span>
   
-  <button type="button" @click="store.count <= 10 && resendSubmitReset()" :disabled="store.count < 10 && store.count != 0" class="bg-[#06D6A0] py-1 px-2 rounded-lg text-white" >
+  <button type="button" @click="store.count <= 10 && resendSubmitReset()" :disabled="store.count < 10 && store.count != 0" class="bg-[#feee00] py-1 px-2 rounded-lg text-white" >
               Send
               </button>
 
@@ -231,7 +231,7 @@
 
             <button
               type="submit"
-              class="w-full py-3 px-4 bg-[#06D6A0] hover:bg-[#06D6A0]/70 text-white rounded-lg transition-colors"
+              class="w-full py-3 px-4 bg-[#feee00] hover:bg-[#feee00]/70 text-white rounded-lg transition-colors"
             >
               Change password
             </button>

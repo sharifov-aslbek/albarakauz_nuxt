@@ -9,7 +9,7 @@
         store.product.productModel &&
         getParsedProductModel(store.product.productModel).Rating
       " 
-      class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-4"
+      class="sm:flex hidden flex-col sm:flex-row sm:items-center sm:gap-4 mt-4"
     >
       <n-rate
         readonly 
@@ -185,6 +185,32 @@
                            <h1 class="text-xl mt-5 sm:mt-0 sm:text-2xl mr-4 w-full max-w-full sm:max-w-[470px] font-medium">{{ store.product.name }}</h1>
                        </div>
   
+                       <div 
+      v-if="
+        store.product.productModel &&
+        getParsedProductModel(store.product.productModel).Rating
+      " 
+      class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-4 border border-gray-300 sm:hidden p-5 w-full rounded-lg"
+    >
+    <div class="font-bold text-2xl">
+      {{ getParsedProductModel(store.product.productModel).Rating }}
+      <n-rate
+        readonly 
+        :default-value="getParsedProductModel(store.product.productModel).Rating" 
+      />
+    </div>
+
+      <a 
+        target="_blank" 
+        :href="store.product.productUrl" 
+        class="text-gray-500 text-sm mt-2 sm:mt-0"
+      > 
+        <span>({{ getParsedProductModel(store.product.productModel).ReviewsAmount }} sharh)</span> - 
+        <span>{{ getParsedProductModel(store.product.productModel).OrdersAmount }} marta sotilgan</span>
+      </a>
+    </div>
+
+
                        <div class="w-full max-w-full sm:w-[530px] border border-gray-300 rounded-xl shadow-lg p-5">
             <div class="flex items-center justify-between">
               <div class="text-3xl font-medium text-gray-900 mb-5">
@@ -232,7 +258,7 @@
   
   
                <div class="flex items-center gap-2 mt-4">
-                 <img class="w-10 rounded-lg" src="///uzum-nasiya.png" alt="Error">
+                 <img class="w-10 rounded-lg" src="/uzum-nasiya.png" alt="Error">
                  <span class="text-lg font-medium">
                    {{ monthlyRepayment }} so'm/oy dan
                  </span>

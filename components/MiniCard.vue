@@ -1,6 +1,6 @@
 <template>
   <h3 class="text-xl font-bold mt-12">Boshqa do'konlarda</h3>
-    <n-scrollbar class="max-h-[300px]">
+    <n-scrollbar class="max-h-[420px]">
       <div
         @click="navigaItem(product.id, product.name)"
         v-for="product in data"

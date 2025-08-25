@@ -6,7 +6,7 @@
     <div v-if="store.profileData" @click="store.profileModal = !store.profileModal" class="relative cursor-pointer w-fit">
                   <!-- Heart icon container -->
     <UAvatar v-if="data.image?.localImagePath"
-                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '///user-avatar.jpg'"
+                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/user-avatar.jpg'"
       :alt="data.name"
     />
 
@@ -31,13 +31,13 @@
           <!-- Profile Image -->
           <div class="flex flex-col items-center md:items-start">
             <!-- <img class="w-24 h-24 rounded-full object-cover"
-              :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '///user-avatar.jpg'"
+              :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/user-avatar.jpg'"
               alt="Error"> -->
 
               <UAvatar
               class="w-24 h-24 text-3xl rounded-full object-cover" 
                v-if="data.image?.localImagePath"
-                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '///user-avatar.jpg'"
+                    :src="data.image?.localImagePath ? `https://api.albaraka.uz/${data.image.localImagePath}` : '/user-avatar.jpg'"
       :alt="data.name"
     />
 
@@ -176,11 +176,11 @@
           <!-- Left Side - Orange Section -->
           <div class="relative bg-[#feee00] p-12">
             <div class="max-w-md text-white">
-              <h1 class="text-4xl font-bold mb-4">
+              <h1 class="text-2xl sm:text-4xl font-bold mb-4">
                 Iltimos, tizimdan chiqmoqchi ekanligingizni tasdiqlang.
               </h1>
             </div>
-            <img src="///logout.png" alt="Dashboard illustration" class="my-6 w-96 hidden md:block" />
+            <img src="/logout.png" alt="Dashboard illustration" class="my-6 w-96 hidden md:block" />
           </div>
   
           <!-- Right Side - Login Form -->
@@ -188,7 +188,7 @@
             <div class="flex flex-col justify-between h-full max-w-md mx-auto">
               <!-- Logo -->
               <div>
-                <div class="flex items-center gap-2 mb-8">
+                <div class="hidden sm:flex items-center gap-2 mb-8">
                   <div class="w-10 h-10 bg-[#feee00] rounded-full flex items-center justify-center">
                     <span class="text-black">A</span>
                   </div>
@@ -234,7 +234,7 @@
 
           <n-button class="mt-3">
             <a class="flex items-center justify-center" target="_blank" href="https://mail.google.com/">
-              Open gmail <img class="w-8 ml-1" src="///gmail.webp" alt="Error">
+              Open gmail <img class="w-8 ml-1" src="/gmail.webp" alt="Error">
             </a>
           </n-button>
         </div>

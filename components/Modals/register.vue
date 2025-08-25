@@ -18,7 +18,7 @@
                 <!-- Background circle with scale animation -->
                 <div
                   class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-                <UIcon class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" name="meteor-icons:xmark" />
+                <UIcon class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-[#fee000] transition-colors duration-300" name="meteor-icons:xmark" />
               </div>
           <div class="flex items-center gap-2 mb-8">
             <div class="w-10 h-10 bg-[#feee00] rounded-full flex items-center justify-center">
@@ -118,7 +118,7 @@
             <button type="submit"
               class="w-full h-[50px] py-3 px-4 bg-[#feee00] hover:bg-[#feee00]/70 text-white rounded-lg transition-colors">
               <span v-if="loader">
-                <n-spin size="small" />
+                <UIcon class="size-7" name="line-md:loading-twotone-loop" />
               </span>
               <span v-else class="text-[16px]">
                 Jo'natish
@@ -127,10 +127,10 @@
             </button>
           </form>
 
-          <!-- <p class="mt-8 text-center text-gray-500">
-            Don't have an account?
-            <a href="#" class="text-brand-green hover:text-brand-green/70">Signup</a>
-          </p> -->
+          <p class="mt-8 text-center text-gray-500">
+            Akkauntingiz bormi?
+            <button @click="toggleLogin" class="text-blue-500 border-b border-b-blue-500 hover:text-blue-500/70">Login</button>
+          </p>
         </div>
       </div>
     </div>
@@ -192,6 +192,10 @@ const formatPhoneNumber = () => {
   phone.value = formatted
 }
 
+const toggleLogin = () => {
+  store.loginModal = !store.loginModal
+  store.registerModal = !store.registerModal
+}
 
 const selectedFile = ref(null);
 
