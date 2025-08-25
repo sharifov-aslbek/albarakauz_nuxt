@@ -1,7 +1,6 @@
 <template>
   <div class="bg-imgg relative overflow-hidden min-h-screen">
     <div class="glass-box relative flex flex-col items-center justify-center mx-auto p-8 rounded-2xl">
-
       <h1 class="error-title">Error {{ error.statusCode }}</h1>
 
       <div class="flex items-center mb-8">
@@ -35,6 +34,9 @@
         <p class="text-lg md:text-xl mb-6 text-gray-200">
           {{ errorDetails.message }}
         </p>
+        <p v-if="error.data?.message" class="text-md mb-6 text-yellow-300 bg-red-500 bg-opacity-20 px-4 py-2 rounded-md">
+          <strong>API Xabari:</strong> {{ error.data.message }}
+        </p>
         <button class="font-bold py-3 px-6 rounded-lg bg-gray-800 text-white transition-colors duration-300 cursor-pointer" @click="handleError">
           Bosh sahifaga qaytish
         </button>
@@ -55,12 +57,19 @@ const errorMessages = {
   403: { title: 'Taqiqlangan', message: 'Sizda ushbu resursga kirish uchun ruxsat yo\'q.' },
   404: { title: 'Sahifa topilmadi', message: 'Bu serverda soʻralgan URL topilmadi.' },
   500: { title: 'Ichki server xatosi', message: 'Serverda kutilmagan xatolik yuz berdi. Biz buni tuzatish ustida ishlayapmiz.' },
-  502: { title: 'Noto\'g\'ri shlyuz', message: 'Server yuqori turuvchi serverdan noto\'g\'ri javob oldi.' }
+  502: { title: 'Noto\'g\'ri shlyuz', message: 'Server yuqori turuvchi serverdan noto\'g\'ri javob oldi.' },
+  default: { title: 'Xatolik yuz berdi', message: 'Kechirasiz, kutilmagan xatolik yuz berdi.' }
 };
 
-
 const errorDetails = computed(() => {
-  return errorMessages[props.error.statusCode] || errorMessages[404];
+
+  if (props.error.data?.title) {
+    return {
+      title: props.error.data.title,
+      message: props.error.data.message || 'Batafsil ma\'lumot yo\'q'
+    }
+  }
+  return errorMessages[props.error.statusCode] || errorMessages.default;
 });
 
 const firstDigit = computed(() => String(props.error.statusCode).charAt(0));
@@ -84,7 +93,7 @@ const handleError = () => clearError({ redirect: '/' });
 .glass-box {
   height: 100vh;
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px); 
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);

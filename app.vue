@@ -1,25 +1,27 @@
 <template>
   <n-message-provider>
-    <Banner />
-    <Navbar />
-    <br>
-    <UApp>
-      <SharedOfflineAlert />
-      <NuxtPage />
-      <SharedLoader />
-      <SharedBackTop />
-
-      <BottomMenu />
-    </UApp>
+    <div class="">
+      <Banner />
+      <Navbar />
+      <br>
+      <UApp>
+        <SharedOfflineAlert />
+        <NuxtPage />
+        <SharedLoader />
+        <SharedBackTop />
   
-    <Suspense>
-      <template #default>
-        <LazyFooter />
-      </template>
-      <template #fallback>
-        <!-- <div class="text-center py-4 text-gray-500">Footer yuklanmoqda...</div> -->
-      </template>
-    </Suspense>
+        <!-- <BottomMenu /> -->
+      </UApp>
+    
+      <Suspense>
+        <template #default>
+          <LazyFooter />
+        </template>
+        <template #fallback>
+          <!-- <div class="text-center py-4 text-gray-500">Footer yuklanmoqda...</div> -->
+        </template>
+      </Suspense>
+    </div>
   </n-message-provider>
 </template>
 

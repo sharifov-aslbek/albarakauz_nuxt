@@ -1,7 +1,7 @@
 <template>
   <header class="bg-[#F7F7FA]">
     <div class="container">
-      <div class="hidden items-center justify-between sm:hidden py-5">
+      <div class="flex items-center justify-between sm:hidden py-5">
         <a href="/" class="flex items-center space-x-2">
           <img class="w-24" src="/assets/logo.png" alt="">
         </a>
@@ -25,7 +25,7 @@
         <!-- Qidiruv bo‘limi -->
         <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
           <button @click="categoryStore.showCategory = !categoryStore.showCategory , testCategory()"
-            class="hidden sm:flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-gray-200 transition-all duration-300 cursor-pointer hover:bg-gray-500/30">
+            class="sm:flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-gray-200 transition-all duration-300 cursor-pointer hover:bg-gray-500/30">
             <div class="relative w-6 h-6">
               <!-- Folder Icon -->
               <svg :class="[

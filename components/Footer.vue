@@ -1,5 +1,5 @@
 <template>
-  <footer class="w-full bg-white mt-30 px-4 sm:px-6 md:px-8 lg:px-12">
+  <footer class="w-full bg-white mt-30 px-4 py-4 sm:px-6 md:px-8 lg:px-12">
     <div class="max-w-full mx-auto">
       <div class="flex flex-col lg:flex-row gap-10 justify-between items-center lg:items-start py-10">
         

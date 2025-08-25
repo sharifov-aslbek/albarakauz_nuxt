@@ -41,7 +41,7 @@
 
   <script setup>
   import { useRoute } from 'vue-router';
-  import { onMounted } from '#imports';
+  // import { onMounted } from '#imports';
   import { useCategoryAllStore } from '#imports';
   import { useCategoryStore } from '#imports';
   import { useProductSeoStore } from '#imports';
@@ -103,6 +103,13 @@
 
     return []
   }
+
+
+  // onMounted(() => {
+  //   if(allCategoryStore.categoryData.length === 0) {
+  //     allCategoryStore.getAllCategory()
+  //   }
+  // })
 
 
 

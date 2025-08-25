@@ -3,7 +3,7 @@
   @click="navigaItem(product.id , product.name)"
   v-for="product in data"
   :key="product.id"
-  class="bg-gray-50 shadow-sm relative card w-full max-w-[300px] h-[400px] sm:h-[500px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
+  class="bg-gray-50 shadow-sm relative card w-full max-w-[300px] h-[420px] sm:h-[500px] cursor-pointer rounded-lg p-4 flex flex-col justify-between"
 >
 <UIcon  v-if="isFavorite(product.id)"  @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.id , product.name)" class="w-8 h-8 text-red-500 absolute right-2 z-50" name="material-symbols:favorite" />
 <UIcon v-else  @click.stop="handleAddFavorites(product)" class="w-8 h-8 absolute right-2 z-50" name="material-symbols-light:favorite-outline" />

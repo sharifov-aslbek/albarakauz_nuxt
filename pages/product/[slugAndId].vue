@@ -1,5 +1,14 @@
 <template>
-    <ProductSkeleton v-if="!seoStore.product" />
+  <div v-if="seoStore.checkError" class="flex flex-col items-center justify-center pb-12"
+>
+          <img class="w-96" src="/assets/search.png" alt="Image for not found product">
+
+          <h3 class="font-bold text-2xl mb-4">Mahsulotlar topilmadi</h3>
+
+          <p class="">Bu marketda hali mahsulotlar bo'lmasligi mumkin ! </p>
+        </div>
+
+    <ItemProductSkeleton v-if="!seoStore.product && !seoStore.checkError" />
   <template v-else-if="seoStore.product && seoStore.product.marketResultmodel">
     <UzumItem 
       v-if="seoStore.product.marketResultmodel.url.includes('uzum.uz')"

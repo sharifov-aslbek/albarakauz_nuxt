@@ -335,53 +335,60 @@
 
   </div>
 
-            <n-tabs type="line" animated :style="tabStyle">
-  <template #tabs="{ panes }">
-    <div class="flex w-full">
-      <div
-        v-for="pane in panes"
-        :key="pane.name"
-        class="flex-1 text-center border border-gray-300 py-2 cursor-pointer"
-        :class="{ 'bg-gray-200 font-bold': pane.name === store.activeTab }"
-        @click="store.activeTab = pane.name"
-      >
-        {{ pane.tab }}
-      </div>
-    </div>
-  </template>
-
-  <n-tab-pane name="oasis" tab="Tavsifi">
-     <div
-    v-if="store.product.description"
-    class="gap-x-12 gap-y-2 max-w-full mt-6"
-  >
-
-               <div class="text-gray-700 leading-relaxed" v-html="store.product.description"></div>
+  <div class="sm:hidden block">
+    <SharedDrawer />
   </div>
 
-    <p
-      v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
-      class="w-full max-w-[900px] mt-12"
-      v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
-    ></p>
-  </n-tab-pane>
 
-  <n-tab-pane
-    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.composition"
-    name="sostav"
-    tab="Sostavi"
-  >
-    <p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].composition"></p>
-  </n-tab-pane>
+  <div class="sm:block hidden">
+    <n-tabs type="line" animated :style="tabStyle">
+<template #tabs="{ panes }">
+<div class="flex w-full">
+<div
+v-for="pane in panes"
+:key="pane.name"
+class="flex-1 text-center border border-gray-300 py-2 cursor-pointer"
+:class="{ 'bg-gray-200 font-bold': pane.name === store.activeTab }"
+@click="store.activeTab = pane.name"
+>
+{{ pane.tab }}
+</div>
+</div>
+</template>
 
-  <n-tab-pane
-    v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.sizes"
-    name="the beatles"
-    tab="O'lchovlar"
-  >
-    <p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].sizes"></p>
-  </n-tab-pane>
+<n-tab-pane name="oasis" tab="Tavsifi">
+<div
+v-if="store.product.description"
+class="gap-x-12 gap-y-2 max-w-full mt-6"
+>
+
+       <div class="text-gray-700 leading-relaxed" v-html="store.product.description"></div>
+</div>
+
+<p
+v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
+class="w-full max-w-[900px] mt-12"
+v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
+></p>
+</n-tab-pane>
+
+<n-tab-pane
+v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.composition"
+name="sostav"
+tab="Sostavi"
+>
+<p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].composition"></p>
+</n-tab-pane>
+
+<n-tab-pane
+v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.sizes"
+name="the beatles"
+tab="O'lchovlar"
+>
+<p class="w-full max-w-full mt-12" v-html="getParsedProductModel(store.product.productModel)?.[locale].sizes"></p>
+</n-tab-pane>
 </n-tabs>
+  </div>
     </div>
 </template>
 
