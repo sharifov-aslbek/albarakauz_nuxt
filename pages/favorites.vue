@@ -2,7 +2,7 @@
   <div v-if="!favoriteProducts.length" class="flex justify-center">
     <div class="text-center">
       <div class="sm:bg-white p-6 md:p-4 rounded-lg sm:shadow-md max-w-md mx-auto">
-        <img class="mb-10" src="/assets/hearts.png" alt="Error">
+        <img class="mb-10" src="/hearts.png" alt="Error">
         <h2 class="text-2xl font-semibold text-gray-800 mb-2">Sizning sevimlingiz bo'sh</h2>
         <p class="text-gray-600 mb-6">
           Mahsulotdagi
@@ -28,7 +28,7 @@
   <div v-if="favoriteProducts.length" class="container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
     <div @click="navigaItem(product.product.id, product.product.name)" v-for="product in favoriteProducts"
       :key="product.product.id"
-      class="bg-gray-200 relative card w-full max-w-[300px] h-[390px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
+      class="bg-gray-200 relative card w-full max-w-[300px] h-[410px] cursor-pointer rounded-lg p-4 flex flex-col justify-between">
       <UIcon
         @click.stop="deleteFavoritesHandler(store.profileData.data.favorites.id, product.product.id, product.product.name)"
         class="w-8 h-8 text-red-500 absolute right-2 z-50" name="mdi:heart" />
@@ -95,8 +95,8 @@ import { useAuthStore } from '#imports';
 import { useRouter } from 'vue-router';
 import { ref, computed } from 'vue'
 import { useToast } from '#imports'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 
 

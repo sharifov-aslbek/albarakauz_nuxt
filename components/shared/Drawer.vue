@@ -1,4 +1,7 @@
 <template>
+
+  <h3 class="text-xl font-bold mb-4">Mahsulot tavsifi</h3>
+
   <UButton class="w-full" @click="activate('bottom')" color="neutral" variant="outline">
     <UIcon name="fluent:text-description-16-filled" />
     Mahsulot tavsifi

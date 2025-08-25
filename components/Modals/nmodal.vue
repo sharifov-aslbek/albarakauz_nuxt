@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Login tugmasi -->
-    <div @click="loginModal = true" class="relative w-fit">
+    <div @click="authStore.loginModal = true" class="relative w-fit">
       <div class="group relative p-2 flex justify-center items-center cursor-pointer">
         <div
           class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
@@ -10,10 +10,10 @@
     </div>
 
     <!-- Overlay -->
-    <div v-if="loginModal" class="glass-overlay"></div>
+    <div v-if="authStore.loginModal" class="glass-overlay"></div>
 
     <client-only>
-      <n-modal v-model:show="loginModal" transform-origin="center" :teleport-disabled="true">
+      <n-modal v-model:show="authStore.loginModal" transform-origin="center" :teleport-disabled="true">
         <div class="w-full max-w-6xl grid md:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-xl">
           
           <!-- Chap tomon -->
@@ -25,7 +25,7 @@
                 Simplify your e-commerce management with our user-friendly admin dashboard.
               </p> -->
             </div>
-            <img src="/assets/login.png" alt="Dashboard illustration" class="mt-2 w-96" />
+            <img src="/login.png" alt="Dashboard illustration" class="mt-2 w-96" />
           </div>
 
           <!-- O'ng tomon -->
@@ -33,14 +33,8 @@
             <div class="max-w-md mx-auto relative">
               
               <!-- Modal yopish tugmasi -->
-              <div @click="loginModal = false" class="group absolute right-0 p-3 cursor-pointer">
-                <UButton
-                  icon="mynaui:x-circle"
-                  size="md"
-                  color="primary"
-                  variant="solid"
-                  class="bg-[#feee00] cursor-pointer border-none hover:bg-[#feee00] text-white"
-                ></UButton>
+              <div @click="authStore.loginModal = false" class="group absolute right-0 p-3 cursor-pointer">
+                <UIcon class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-[#feee00] transition-colors duration-300" name="meteor-icons:xmark" />
               </div>
 
               <div class="flex items-center gap-2 mb-8">
@@ -94,7 +88,7 @@
                 </p>
 
                 <div class="text-right">
-                  <h3 class="text-sm cursor-pointer text-gray-500 hover:text-brand-green">
+                  <h3 @click="authStore.resetPasswordModal = !authStore.resetPasswordModal" class="text-sm cursor-pointer text-gray-500 hover:text-[#feee00]">
                     Parolingiz esdan chiqdimi?
                   </h3>
                 </div>
@@ -134,8 +128,8 @@ import { ref } from "vue";
 import { useToast } from "#imports";
 import { useAuthStore } from "#imports";
 import { useMessage } from "#imports";
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 const loginModal = ref(false);
 const email = ref(null);

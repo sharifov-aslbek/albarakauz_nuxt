@@ -1,6 +1,6 @@
 <template>
   <div class="container py-6">
-    <div class="sm:flex items-center justify-between">
+    <div class="flex items-center justify-between">
       <div>
         <CategoryPath />
 
@@ -22,12 +22,22 @@
       <div class="flex gap-3">
         <UButton v-if="isFavorite(store.product.id)"
           @click.stop="deleteFavoritesHandler(authStore.profileData.data.favorites.id, store.product.id, store.product.name)"
-          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">Added to favorites</UButton>
+          icon="material-symbols-light:heart-check" size="md" color="error" variant="soft">
+          <span class="sm:block hidden">
+            Qo'shilgan
+          </span>
+        </UButton>
         <UButton v-else @click.stop="handleAddFavorites(store.product)" icon="material-symbols-light:favorite-outline"
-          size="md" color="neutral" variant="outline">Sevimliga qo'shish</UButton>
+          size="md" color="neutral" variant="outline">
+          <span class="sm:block hidden">
+            Sevimliga qo'shish
+          </span>
+        </UButton>
 
         <UButton @click="copyRoute" icon="material-symbols-light:content-copy-outline-rounded" size="md" color="neutral"
-          variant="outline">Copy Product</UButton>
+          variant="outline">
+          <span class="sm:block hidden">Nusxalash</span>
+        </UButton>
       </div>
     </div>
 
@@ -145,8 +155,13 @@
           </div>
         </div>
 
-        <div v-if="store.product.marketResultmodel.name === 'Olcha' &&
-          getParsedProductModel(store.product.productModel)?.main_features?.data" class="flex items-center gap-3">
+
+        <div class="border border-gray-300 font-bold rounded-lg text-gray-900 text-2xl py-5 px-2 sm:px-3 w-full">
+          {{ store.product.price.toLocaleString('uz-UZ') }} so'm
+
+
+              <div v-if="store.product.marketResultmodel.name === 'Olcha' &&
+          getParsedProductModel(store.product.productModel)?.main_features?.data" class="flex items-center gap-3 mt-4">
           <!-- IMG tag: faqat slug mavjud bo‘lsa va null bo‘lmasa ko‘rsatish -->
           <img v-if="getParsedProductModel(store.product.productModel)?.manufacturer?.slug"
             class="w-8 md:w-12 rounded-md"
@@ -160,9 +175,6 @@
           </a>
         </div>
 
-
-        <div class="text-2xl font-bold text-gray-900 mb-6">
-          {{ store.product.price.toLocaleString('uz-UZ') }} so'm
         </div>
 
 
@@ -200,12 +212,12 @@
     </div>
 
 
-    <div class="flex flex-col sm:flex-row gap-12 justify-center">
-      <div class="sm:hidden block mt-5">
+    <div class="flex flex-col sm:flex-row justify-between w-full gap-12">
+      <!-- <div class="sm:hidden block mt-5">
         <SharedDrawer />
-      </div>
+      </div> -->
 
-      <div class="sm:block hidden">
+      <div class="block w-[97.5%]">
         <n-tabs type="line" animated :style="tabStyle">
           <template #tabs="{ panes }">
             <div class="flex w-full">
@@ -327,8 +339,8 @@ import { useProductSeoStore } from '@/stores/productSeo'
 import { ref, computed, watch } from 'vue'
 import CategoryPath from './CategoryPath.vue'
 import Card from './Card.vue'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 definePageMeta({
   ssr: false

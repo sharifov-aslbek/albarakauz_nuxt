@@ -321,8 +321,8 @@ import { useProductSeoStore } from '@/stores/productSeo'
 import { ref, computed , watch } from 'vue'
 import CategoryPath from './CategoryPath.vue'
 import Card from './Card.vue'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 definePageMeta({
   ssr: false

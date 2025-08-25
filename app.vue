@@ -9,8 +9,7 @@
         <NuxtPage />
         <SharedLoader />
         <SharedBackTop />
-  
-        <!-- <BottomMenu /> -->
+        <BottomMenu />
       </UApp>
     
       <Suspense>

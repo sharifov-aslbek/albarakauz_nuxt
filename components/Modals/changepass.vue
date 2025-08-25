@@ -8,7 +8,7 @@
         class="group absolute right-3 top-5 p-3 cursor-pointer"
       >
         <div
-          class="absolute inset-0 bg-[#06D6A0] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out"
+          class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out"
         />
         <UIcon
           name="i-heroicons-x-mark"
@@ -17,7 +17,7 @@
       </div>
 
       <!-- Left Section -->
-      <div class="relative bg-[#06D6A0] p-12 hidden md:block">
+      <div class="relative bg-[#feee00] p-12 hidden md:block">
         <div class="max-w-md text-white">
           <h1 class="text-4xl font-bold mb-4">
             Set a new password for your account
@@ -27,7 +27,7 @@
           </p>
         </div>
         <img
-          src="/assets/shop-icon.png"
+          src="/shop-icon.png"
           alt="Dashboard illustration"
           class="my-6 w-96"
         />
@@ -39,16 +39,16 @@
           <!-- Logo -->
           <div class="flex items-center gap-2 mb-8">
             <div
-              class="w-10 h-10 bg-[#06D6A0] rounded-full flex items-center justify-center"
+              class="w-10 h-10 bg-[#feee00] rounded-full flex items-center justify-center"
             >
               <span class="text-white font-bold">A</span>
             </div>
-            <span class="font-bold text-xl">api.albaraka.uz</span>
+            <span class="font-bold text-xl">Albaraka.uz</span>
           </div>
 
           <!-- Title -->
           <h2 class="text-2xl font-bold text-gray-900 mb-2">
-            Enter your passwords
+            Parollaringizni kiriting
           </h2>
           <p class="text-gray-500 mb-8">Please enter passwords</p>
 
@@ -58,8 +58,8 @@
             <div class="relative">
               <input
                 :type="showChangePassword3 ? 'text' : 'password'"
-                placeholder="Old password"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#06D6A0]"
+                placeholder="Eski parol"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#feee00]"
                 required
                 v-model="oldpassword"
               />
@@ -85,8 +85,8 @@
             <div class="relative">
               <input
                 :type="showChangePassword2 ? 'text' : 'password'"
-                placeholder="New password"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#06D6A0]"
+                placeholder="Yangi parol"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#feee00]"
                 required
                 v-model="newpassword"
               />
@@ -112,8 +112,8 @@
             <div class="relative">
               <input
                 :type="showChangePassword ? 'text' : 'password'"
-                placeholder="Confirm new password"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#06D6A0]"
+                placeholder="Yangi parolni tasdiqlang"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-[#feee00]"
                 required
                 v-model="confirmPassword"
               />
@@ -138,7 +138,7 @@
             <div class="text-right">
               <a
                 href="#"
-                class="text-sm text-gray-500 hover:text-[#06D6A0]"
+                class="text-sm text-gray-500 hover:text-[#feee00]"
               >
                 Forgot password?
               </a>
@@ -148,7 +148,7 @@
             <button
               type="submit"
               :disabled="isSubmitting"
-              class="w-full py-3 px-4 bg-[#06D6A0] hover:bg-[#06D6A0]/70 text-white rounded-lg transition-colors flex justify-center items-center gap-2 disabled:opacity-60"
+              class="w-full py-3 px-4 bg-[#feee00] hover:bg-[#feee00]/70 text-white rounded-lg transition-colors flex justify-center items-center gap-2 disabled:opacity-60"
             >
               <span v-if="!isSubmitting">Change password</span>
               <svg
@@ -181,7 +181,7 @@
             Akkauntingiz yo'qmi?
             <h3
               @click="registerOpener"
-              class="cursor-pointer text-[#06D6A0] hover:text-[#06D6A0]/70"
+              class="cursor-pointer text-[#feee00] hover:text-[#feee00]/70"
             >
               Ro'yxatdan o'ting
             </h3>
@@ -196,8 +196,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useToast, useAuthStore } from '#imports'
-import successAudio from '@/assets/audio.mp3'
-import errorAudio from '@/assets/not-success.m4a'
+import successAudio from '/public/audio.mp3'
+import errorAudio from '/public/not-success.m4a'
 
 const store = useAuthStore()
 const toast = useToast()

@@ -1,40 +1,3 @@
-<template>
-  <div class="container">
-    <h2 class="text-xl sm:text-3xl font-medium sm:my-8 sm:block hidden">
-      Topilgan mahsulotlar soni: {{ store.searchProductsData.totalCount }}
-    </h2>
-
-    <div v-if="store.searchProductsData.items" class="flex justify-between items-center sm:hidden mb-5">
-      <h3><span class="text-gray-500">"{{ route.params.id }}"</span> uchun natijalar</h3>
-
-      <h3><span class="text-gray-500">"{{ store.searchProductsData.items.length }}"</span> ta topildi</h3>
-    </div>
-
-    <!-- Loading Skeleton -->
-    <div v-if="store.productLoader" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      <div v-for="i in 10" :key="i" class="flex flex-col bg-neutral-300 animate-pulse rounded-lg p-4 gap-4">
-        <div class="bg-neutral-400/50 w-full h-32 rounded-md"></div>
-        <div class="flex flex-col gap-2">
-          <div class="bg-neutral-400/50 w-full h-4 rounded-md"></div>
-          <div class="bg-neutral-400/50 w-4/5 h-4 rounded-md"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cardlar -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-      <Card :data="store.searchProductsData.items" />
-    </div>
-
-    <LazySharedLoaderSmall />
-    <!-- Trigger div -->
-    <div ref="infiniteTrigger" class="h-10"></div>
-
-    <not-found-search v-if="store.searchProductsData.totalCount === 0" />
-  </div>
-</template>
-
-
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -55,6 +18,14 @@ definePageMeta({
 // Har doim yana data bormi tekshiradi
 const hasMore = computed(() => {
   return store.searchProductsData.items.length < store.searchProductsData.totalCount
+})
+
+// Mahsulotlar ro'yxatini narxi bo'yicha kamayish tartibida saralash
+const sortedProducts = computed(() => {
+  if (!store.searchProductsData.items) {
+    return []
+  }
+  return [...store.searchProductsData.items].sort((a, b) => b.price - a.price)
 })
 
 // Birinchi yuklash
@@ -82,3 +53,35 @@ useInfiniteScroll(
 )
 </script>
 
+<template>
+  <div class="container">
+    <h2 class="text-xl sm:text-3xl font-medium sm:my-8 sm:block hidden">
+      Topilgan mahsulotlar soni: {{ store.searchProductsData.totalCount }}
+    </h2>
+
+    <div v-if="store.searchProductsData.items" class="flex justify-between items-center sm:hidden mb-5">
+      <h3><span class="text-gray-500">"{{ route.params.id }}"</span> uchun natijalar</h3>
+
+      <h3><span class="text-gray-500">"{{ store.searchProductsData.items.length }}"</span> ta topildi</h3>
+    </div>
+
+    <div v-if="store.productLoader" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div v-for="i in 10" :key="i" class="flex flex-col bg-neutral-300 animate-pulse rounded-lg p-4 gap-4">
+        <div class="bg-neutral-400/50 w-full h-32 rounded-md"></div>
+        <div class="flex flex-col gap-2">
+          <div class="bg-neutral-400/50 w-full h-4 rounded-md"></div>
+          <div class="bg-neutral-400/50 w-4/5 h-4 rounded-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+      <Card :data="sortedProducts" /> 
+    </div>
+
+    <LazySharedLoaderSmall />
+    <div ref="infiniteTrigger" class="h-10"></div>
+
+    <not-found-search v-if="store.searchProductsData.totalCount === 0" />
+  </div>
+</template>

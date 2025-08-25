@@ -160,7 +160,7 @@ const productCards = [
     store: "albaraka.uz",
     bgGradient: "bg-gradient-to-br from-orange-500 to-red-500",
     productImage: "/testproduct.png",
-    logoImage: "./assets/logo.png",
+    logoImage: "/logo.png",
     logoStyle: "w-30 h-30 absolute z-10 top-39 left-71 object-cover scale-[1.1]",
     dividerGradient: null
   }

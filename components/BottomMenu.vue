@@ -6,15 +6,10 @@
       class="flex flex-col items-center"
       :class="route.path === '/' ? 'text-[#feee00]' : 'text-gray-500'"
     >
-      <UIcon name="i-heroicons-power" class="text-2xl" />
+      <UIcon name="material-symbols:home" class="text-2xl" />
       <span class="text-xs mt-1">Bosh sahifa</span>
     </RouterLink>
 
-    <!-- Katalog (doim gray, hali route qilinmagan shekilli) -->
-    <div class="flex flex-col items-center text-gray-500">
-      <UIcon name="material-symbols:category-outline-rounded" class="text-2xl" />
-      <span class="text-xs mt-1">Kataloglar</span>
-    </div>
 
     <!-- Sevimlilar -->
     <RouterLink
@@ -26,10 +21,11 @@
       <span class="text-xs mt-1">Sevimlilar</span>
     </RouterLink>
 
-    <button @click="store.profileModal = !store.profileModal" class="flex flex-col items-center text-gray-500">
-      <UIcon name="ic:round-person-outline" class="text-2xl" />
-      <span class="text-xs mt-1">Profil</span>
+    <button @click="openModal" class="flex flex-col items-center text-gray-500">
+      <UIcon name="material-symbols:account-circle" class="text-2xl" />
+      <span class="text-xs mt-1">My Kabinet</span>
     </button>
+
   </div>
 </template>
 
@@ -39,4 +35,13 @@ import { useRoute } from 'vue-router'
 
 const store = useAuthStore()
 const route = useRoute()
+
+const openModal = () => {
+  const token = localStorage.getItem('accessToken')
+  if (token) {
+    store.profileModal = !store.profileModal
+  } else {
+    store.registerModal = !store.registerModal
+  }
+}
 </script>

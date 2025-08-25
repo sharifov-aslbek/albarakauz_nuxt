@@ -16,6 +16,7 @@
       }"
     >
       <img
+        @click="onClickFunction"
         class="rounded-full w-[70px] h-[70px] sm:w-[112px] sm:h-[112px] cursor-pointer img-3d"
         v-if="item"
         :src="item"
@@ -25,7 +26,7 @@
 
     <!-- Desktop carousel -->
     <UCarousel
-      class="sm:flex items-center justify-between hidden"
+      class="sm:flex items-center justify-between  hidden"
       v-if="categoryStore.categoryData.length > 0"
       prev-icon="i-lucide-chevron-left"
       next-icon="i-lucide-chevron-right"
@@ -38,8 +39,7 @@
       }"
     >
       <img
-        @click="onClickFunction"
-        class="rounded-full w-[70px] h-[70px] sm:w-[112px] sm:h-[112px] cursor-pointer img-3d"
+        class="rounded-full w-[70px] h-[70px] sm:w-[112px] sm:h-[112px] mb-6 cursor-pointer img-3d"
         v-if="item"
         :src="item"
         alt="Error"

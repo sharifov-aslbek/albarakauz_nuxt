@@ -3,7 +3,7 @@
 
          <div class="flex flex-col items-center justify-center" v-if="store.marketProductsData.length === 0 && store.marketProductsCount === 0 && !store.marketProductLoader"
 >
-          <img class="w-96" src="/assets/search.png" alt="Image for not found product">
+          <img class="w-96" src="/search.png" alt="Image for not found product">
 
           <h3 class="font-bold text-2xl mb-4">Mahsulotlar topilmadi</h3>
 
@@ -20,7 +20,7 @@
     <n-pagination
     class="py-10 flex justify-center md:justify-end"
     v-model:page="page"
-    :page-count="Math.ceil(store.marketProductsCount / 20)"
+    :page-count="Math.ceil(store.marketProductsCount / 30)"
     :page-slot="5"
     :theme-overrides="paginationTheme"
   />

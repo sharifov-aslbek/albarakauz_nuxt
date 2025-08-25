@@ -1,12 +1,12 @@
 <template>
   <header class="bg-[#F7F7FA]">
     <div class="container">
-      <div class="flex items-center justify-between sm:hidden py-5">
+      <div class="hidden items-center justify-between sm:hidden py-5">
         <a href="/" class="flex items-center space-x-2">
-          <img class="w-24" src="/assets/logo.png" alt="">
+          <img class="w-24" src="/logo.png" alt="">
         </a>
 
-        <div class="block sm:hidden">
+        <div class="hidden">
           <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
           <ModalsNmodal v-else />
         </div>
@@ -14,7 +14,7 @@
       <div class="flex justify-between gap-1 sm:gap-4 sm:gap-0 my-8 sm:my-0">
         <div class="hidden sm:flex items-center py-5">
           <a href="/" class="flex items-center space-x-2">
-            <img class="w-20" src="/assets/logo.png" alt="">
+            <img class="w-20" src="/logo.png" alt="">
             <div>
               <span class="text-xl font-bold hidden md:block text-brand-green">Albaraka.uz</span>
               <span class="text-brand-green text-sm font-bold">Tovarlarni solishtiring</span>
@@ -23,7 +23,8 @@
         </div>
 
         <!-- Qidiruv bo‘limi -->
-        <div class="flex items-center justify-center w-full max-w-[850px] mx-auto">
+        <div class="flex items-center justify-center w-full sm:max-w-[850px] mx-auto">
+
           <button @click="categoryStore.showCategory = !categoryStore.showCategory , testCategory()"
             class="sm:flex items-center sm:gap-2 sm:px-4 px-2 py-1 rounded-l-xs bg-gray-200 transition-all duration-300 cursor-pointer hover:bg-gray-500/30">
             <div class="relative w-6 h-6">
@@ -51,6 +52,7 @@
           <!-- Qidiruv input + mikrofon -->
           <n-config-provider :theme-overrides="themeOverrides" class="w-full flex items-center">
             <n-auto-complete 
+            :disabled="checkAutoComplete"
               v-model:value="search" 
               :options="filteredOptions" 
               @keydown.enter="navigateSearch"
@@ -67,10 +69,11 @@
                 <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3m5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0h-2m-5 9a7 7 0 0 0 7-7h-2a5 5 0 0 1-10 0H5a7 7 0 0 0 7 7z"/>
               </svg>
             </button>
+
           </n-config-provider>
 
           <UButton @click="navigateSearch()" icon="material-symbols:search" size="md" variant="solid"
-            class="bg-gray-200 text-gray-500 rounded-xs cursor-pointer hover:bg-gray-500/30 py-1.5 px-4 ml-2"></UButton>
+            class="bg-gray-200 text-gray-500 rounded-xs cursor-pointer hover:bg-gray-500/30 py-1.7 sm:px-4 sm:ml-2"></UButton>
         </div>
 
         <!-- O'ng tarafdagi tugmalar -->
@@ -188,6 +191,7 @@
 </template>
 
 <script setup>
+import { onMounted } from '#imports';
 import { NAutoComplete } from '#components';
 import { useAuthStore } from "@/stores/auth"
 import { useCategoryAllStore } from '#imports';
@@ -200,6 +204,7 @@ const router = useRouter();
 const allCategoryStore = useCategoryAllStore();
 const activeCategory = ref(1);
 const search = ref('');
+const checkAutoComplete = ref(true);
 
 const testCategory = () => {
   if(!allCategoryStore.categoryData) {
@@ -284,5 +289,10 @@ const startVoiceSearch = () => {
     navigateSearch();
   };
 };
+
+
+onMounted(() => {
+  checkAutoComplete.value = false;
+})
 
 </script>
