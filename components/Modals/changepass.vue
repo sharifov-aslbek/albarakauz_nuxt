@@ -27,7 +27,7 @@
           </p>
         </div>
         <img
-          src="/shop-icon.png"
+          src="/register.png"
           alt="Dashboard illustration"
           class="my-6 w-96"
         />

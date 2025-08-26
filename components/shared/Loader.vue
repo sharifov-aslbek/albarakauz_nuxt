@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="load"
+  v-if="load"
     class="overlay h-screen fixed top-0 flex z-50 items-center justify-center w-full"
   >
     <!-- From Uiverse.io by PriyanshuGupta28 -->
@@ -133,15 +133,12 @@ router.afterEach((to, from) => {
 }
 
 .overlay {
-  /* Yengil oppoq, 20% shaffof: */
-  background-color: rgba(255, 255, 255, 0.2);
-
-  /* Orqa-fondagi elementlarni blurlash: */
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  /* Agar Tailwind ishlatmoqchi bo‘lsangiz, o‘rniga: */
-  /* class="bg-white/20 backdrop-blur-md" */
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.11);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
 }
 
   

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useCategoryAllStore } from '#imports'
+
 const items = [
   '/wildberries-slider.webp',
   '/slider-img.png',
@@ -19,35 +20,20 @@ const mobileItem = [
   'slider-img-mobile2.png',
 ]
 
-const showSkeleton = ref(true)
-const categoryStore = useCategoryAllStore();
-// Rasm yuklanishini kuzatish
-function preloadImages(urls: string[]) {
-  return Promise.all(
-    urls.map(
-      src =>
-        new Promise<void>((resolve) => {
-          const img = new Image()
-          img.src = src
-          img.onload = () => resolve()
-          img.onerror = () => resolve() // xatolik bo‘lsa ham davom etadi
-        })
-    )
-  )
-}
+const showCarousel = ref(false) // carouselni ko‘rsatish flagi
+const categoryStore = useCategoryAllStore()
 
-onMounted(async () => {
-  await preloadImages(items)
-  showSkeleton.value = false
+onMounted(() => {
+  setTimeout(() => {
+    showCarousel.value = true
+  }, 1000) // 1 sekunddan keyin ko‘rinadi
 })
 </script>
-
-
 
 <template>
   <div class="container relative">
     <UCarousel
-    v-if="categoryStore.categoryData"
+      v-if="showCarousel"
       v-slot="{ item }"
       autoplay
       prev-icon="i-lucide-chevron-left"
@@ -59,7 +45,7 @@ onMounted(async () => {
     </UCarousel>
 
     <UCarousel
-    v-if="categoryStore.categoryData"
+      v-if="showCarousel"
       v-slot="{ item }"
       autoplay
       prev-icon="i-lucide-chevron-left"
@@ -70,13 +56,9 @@ onMounted(async () => {
       <img :src="item" width="100%" class="rounded-lg" />
     </UCarousel>
 
-     <USkeleton
-     v-else
-            class="bg-[#D9D9D9] w-full h-[190px]"
-          />
+    <USkeleton
+      v-else
+      class="bg-[#D9D9D9] w-full h-[190px]"
+    />
   </div>
 </template>
-
-
-
-

@@ -20,13 +20,6 @@ const hasMore = computed(() => {
   return store.searchProductsData.items.length < store.searchProductsData.totalCount
 })
 
-// Mahsulotlar ro'yxatini narxi bo'yicha kamayish tartibida saralash
-const sortedProducts = computed(() => {
-  if (!store.searchProductsData.items) {
-    return []
-  }
-  return [...store.searchProductsData.items].sort((a, b) => b.price - a.price)
-})
 
 // Birinchi yuklash
 onMounted(() => {
@@ -76,7 +69,7 @@ useInfiniteScroll(
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-      <Card :data="sortedProducts" /> 
+      <Card :data="store.searchProductsData.items" /> 
     </div>
 
     <LazySharedLoaderSmall />

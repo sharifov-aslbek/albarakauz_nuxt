@@ -42,6 +42,12 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@vueuse/nuxt",
   ],
+piniaPluginPersistedstate: {
+    // Qo'shimcha konfiguratsiya
+    cookieOptions: {
+      sameSite: 'strict',
+    },
+  },
   image: {
     domains: ["api.albaraka.uz"],
   },

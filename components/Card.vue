@@ -137,7 +137,7 @@ function handleAddFavorites(product: Product) {
   description: 'Avval login qilishingiz kerak.',
   icon: 'mynaui:x-circle',
   duration: 3000,
-  color: 'warning'
+  color: 'error'
 })
     return
   }
@@ -168,6 +168,7 @@ async function addFavorites(
         title: 'Diqqat!',
         description: 'Avval login qilishingiz kerak.',
         icon: 'mynaui:x-circle',
+        color: 'error'
       })
       favoritesLoader.value = false
       return

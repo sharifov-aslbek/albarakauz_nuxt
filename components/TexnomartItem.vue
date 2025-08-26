@@ -46,7 +46,7 @@
       </div>
       </div>
 
-      <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+      <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">Boshqa do'konlarda</h3>
 
       <MiniCard v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
@@ -181,7 +181,7 @@
 
            </div>  
             <div class="sm:flex hidden h-[510px] w-full max-w-[305px] overflow-y-auto flex-col gap-5" >
-                        <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+                        <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">Boshqa do'konlarda</h3>
             <Card  v-if="linkedProducts && linkedProducts.length > 0"  :data="linkedProducts" />
 
             <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
@@ -191,7 +191,7 @@
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">Mahsulot topilmadi</h3>
         <p class="text-gray-500 text-center max-w-sm">
-          Hozirda o'xshash mahsulotlar mavjud emas. Iltimos, keyinroq qayta tekshiring.
+          Hozirda Boshqa do'konlarda mavjud emas. Iltimos, keyinroq qayta tekshiring.
         </p>
         <RouterLink to="/" class="mt-6 px-4 py-2 bg-warning text-white rounded-md hover:bg-warning/90 transition-colors">
           Bosh sahifaga qaytish

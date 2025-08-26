@@ -1,14 +1,10 @@
 <template>
-
-     <n-modal v-model:show="store.resetPasswordModal" transform-origin="center">
+  <n-modal v-model:show="store.resetPasswordModal" transform-origin="center">
     <div class="w-full max-w-6xl grid md:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-xl">
       <div @click="store.resetPasswordModal = !store.resetPasswordModal" class="group absolute right-3 top-5 p-3 cursor-pointer">
-              <!-- Background circle with scale animation -->
-              <div
-                class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-              <X class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" />
-            </div>
-      <!-- Left Side - Orange Section -->
+        <div class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
+        <X class="w-6 h-6 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" />
+      </div>
       <div class="relative bg-[#feee00] p-12 hidden md:block">
         <div class="max-w-md text-white">
           <h1 class="text-4xl font-bold mb-4">
@@ -25,10 +21,8 @@
         />
       </div>
 
-      <!-- Right Side - Login Form -->
       <div class="p-12">
         <div class="flex flex-col justify-around h-full max-w-md mx-auto">
-          <!-- Logo -->
           <div class="flex items-center gap-2 mb-8">
             <div class="w-10 h-10 bg-[#feee00] rounded-full flex items-center justify-center">
               <span class="text-white font-bold">A</span>
@@ -36,207 +30,202 @@
             <span class="font-bold text-xl">Albaraka.uz</span>
           </div>
 
-            <n-space v-if="!store.profileData.data" vertical :size="30">
-                <n-steps :current="currentStep" size="small">
-                  <n-step title="Email" />
-                  <n-step title="Verify & Reset Password" />
-                </n-steps>
+          <n-space v-if="!store.profileData.data" vertical :size="30">
+            <n-steps :current="currentStep" size="small">
+              <n-step title="Email" />
+              <n-step title="Verify & Reset Password" />
+            </n-steps>
 
-
-    <!-- Step 1: Email input -->
-    <div v-if="currentStep === 1">
-      <n-input
-                type="email"
+            <div v-if="currentStep === 1">
+              <UInput
+                color="warning"
+                v-model="emailStep"
                 placeholder="Email address"
-                class="w-full px-1 py-2 rounded-lg bg-gray-50 border outline-none mb-10  focus:border-[#feee00] border-gray-200"
-                v-model:value="emailStep"
+                type="email"
+                :ui="{
+                  base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
+                  input: 'py-2 px-3',
+                }"
+                class="w-full mb-10"
               />
 
-        <!-- <n-button @click="emailStep = store.profileData?.email" type="success" class="flex items-center" :bordered="false">
-      {{ store.profileData?.email }} <Copy class="ml-2" />
-    </n-button> -->
-    <br>
+              <n-button @click="goToNextStep" type="quaternary" class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none flex items-center justify-center mt-10">
+                <div
+                  v-if="loader"
+                  class="w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
+                ></div>
+                <span v-else>
+                  Next
+                </span>
+              </n-button>
+            </div>
 
-      <n-button @click="goToNextStep"    type="quaternary"
-  class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none flex items-center justify-center mt-10">
-        <div
-                v-if="loader"
-                class="w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
-              ></div>
-        <span v-else>
-          Next
-        </span>
-
-      </n-button>
-    </div>
-
-    <!-- Step 2: Verification Code & New Password -->
-    <div v-else-if="currentStep === 2">
-     <!-- <n-config-provider :theme-overrides="themeOverrides"> -->
-        <n-input
-      v-model:value="sixCodeStep"
-      class="w-full py-2 px-1 rounded-lg bg-gray-50 outline-none border-gray-200"
-      type="password"
-      show-password-on="click"
-      placeholder="Enter 6 code"
-      @keypress="onlyNumber"
-    />
-
-     <n-input
-      v-model:value="newPasswordStep"
-      class="w-full py-2 px-1 rounded-lg bg-gray-50 outline-none my-5 border-gray-200"
-      type="password"
-      show-password-on="click"
-      placeholder="New password"
-    />
-
-      <n-input
-      v-model:value="confirmPasswordStep"
-      class="w-full py-2 px-1 rounded-lg bg-gray-50 mb-5 outline-none border-gray-200"
-      type="password"
-      show-password-on="click"
-      placeholder="Confirm new password"
-    />
-     <!-- </n-config-provider> -->
-     <div class="flex gap-5 items-center">
-
-      <n-button   type="quaternary"
-  class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none" @click="submitForm">Submit</n-button>
-      <n-button @click="goToPreviousStep">Back</n-button>
-      </div>
-    </div>
-  </n-space>
-
-  <div v-else>
-    <span v-if="forgotloader" class="flex items-center gap-2 py-5">
-      <p>A 6-digit code is being sent to your email</p>
-      <div
-                class="w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
-              ></div>
-    </span>
-     <!-- <n-config-provider :theme-overrides="themeOverrides"> -->
-       <n-input
- v-model:value="sixCodeReset"
- class="w-full py-2 px-1 rounded-lg bg-gray-50 outline-none border-gray-200"
- type="password"
- show-password-on="click"
- placeholder="Enter 6 code"
- @keypress="onlyNumber"
-/>
-
-
-    <n-input
-     v-model:value="newPasswordReset"
-     class="w-full py-2 px-1 rounded-lg bg-gray-50 outline-none my-5 border-gray-200"
-     type="password"
-     show-password-on="click"
-     placeholder="New password"
-   />
-
-     <n-input
-     v-model:value="confirmPasswordReset"
-     class="w-full py-2 px-1 rounded-lg bg-gray-50 mb-8 outline-none border-gray-200"
-     type="password"
-     show-password-on="click"
-     placeholder="Confirm new password"
-   />
-     <!-- </n-config-provider> -->
-
-     <div class="flex gap-5 items-center">
-         <n-button
-           type="quaternary"
-           class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none"
-           @click="resetSubmitHandler"
-         >
-           Submit
-         </n-button>
-               <n-button class="" @click="store.changePasswordModal = !store.changePasswordModal">Back</n-button>
-     </div>
-    </div>
-
-
-
-          <!-- Login Form -->
-          <!-- <h2 class="text-2xl font-bold text-gray-900 mb-2">Enter your passwords</h2>
-          <p class="text-gray-500 mb-8">Please enter passwords</p>
-
-          <form @submit.prevent="handleResetPasswordSubmit" class="space-y-6">
-            
-
-            <div class="relative">
-              <input
-                :type="showChangePassword ? 'text' : 'password'"
+            <div v-else-if="currentStep === 2">
+              <UInput
+                size="xs"
+                color="warning"
+                v-model="sixCodeStep"
                 placeholder="Enter 6 code"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
-                required
-                v-model="oldpassword"
-              />
-              <button 
-                @click="showChangePassword = !showChangePassword"
-                type="button"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                :type="showSixCodeStep ? 'text' : 'password'"
+                :ui="{
+                  base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
+                  input: 'py-2 px-3',
+                }"
+                class="w-full"
+                @keypress="onlyNumber"
               >
-                <EyeIcon v-if="!showChangePassword" class="w-5 h-5" />
-                <EyeOffIcon v-else class="w-5 h-5" />
-              </button>
-            </div>
-
-          
-            
-            <div class="relative">
-              <input
-                :type="showChangePassword2 ? 'text' : 'password'"
+                <template #trailing>
+                  <UButton
+                    color="neutral"
+                    variant="link"
+                    size="sm"
+                    :icon="showSixCodeStep ? 'i-heroicons-eye-slash-solid' : 'i-heroicons-eye-solid'"
+                    :aria-label="showSixCodeStep ? 'Hide code' : 'Show code'"
+                    :aria-pressed="showSixCodeStep"
+                    aria-controls="sixCodeStep"
+                    @click="showSixCodeStep = !showSixCodeStep"
+                  />
+                </template>
+              </UInput>
+              <UInput
+                color="warning"
+                v-model="newPasswordStep"
                 placeholder="New password"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
-                required
-                v-model="newpassword"
-              />
-              <button 
-                @click="showChangePassword2 = !showChangePassword2"
-                type="button"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                :type="showNewPasswordStep ? 'text' : 'password'"
+                :ui="{
+                  base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
+                  input: 'py-2 px-3',
+                }"
+                class="w-full my-5"
               >
-                <EyeIcon v-if="!showChangePassword2" class="w-5 h-5" />
-                <EyeOffIcon v-else class="w-5 h-5" />
-              </button>
-            </div>
-
-            
-            <div class="relative">
-              <input
-                :type="showChangePassword3 ? 'text' : 'password'"
+                <template #trailing>
+                  <UButton
+                    color="neutral"
+                    variant="link"
+                    size="sm"
+                    :icon="showNewPasswordStep ? 'i-heroicons-eye-slash-solid' : 'i-heroicons-eye-solid'"
+                    :aria-label="showNewPasswordStep ? 'Hide password' : 'Show password'"
+                    :aria-pressed="showNewPasswordStep"
+                    aria-controls="newPasswordStep"
+                    @click="showNewPasswordStep = !showNewPasswordStep"
+                  />
+                </template>
+              </UInput>
+              <UInput
+                color="warning"
+                v-model="confirmPasswordStep"
                 placeholder="Confirm new password"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
-                required
-                v-model="confirmPassword"
-              />
-              <button 
-                @click="showChangePassword3 = !showChangePassword3"
-                type="button"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                :type="showConfirmPasswordStep ? 'text' : 'password'"
+                :ui="{
+                  base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
+                  input: 'py-2 px-3',
+                }"
+                class="w-full mb-5"
               >
-                <EyeIcon v-if="!showChangePassword3" class="w-5 h-5" />
-                <EyeOffIcon v-else class="w-5 h-5" />
-              </button>
+                <template #trailing>
+                  <UButton
+                    color="neutral"
+                    variant="link"
+                    size="sm"
+                    :icon="showConfirmPasswordStep ? 'i-heroicons-eye-slash-solid' : 'i-heroicons-eye-solid'"
+                    :aria-label="showConfirmPasswordStep ? 'Hide password' : 'Show password'"
+                    :aria-pressed="showConfirmPasswordStep"
+                    aria-controls="confirmPasswordStep"
+                    @click="showConfirmPasswordStep = !showConfirmPasswordStep"
+                  />
+                </template>
+              </UInput>
+              <div class="flex gap-5 items-center">
+                <n-button type="quaternary" class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none" @click="submitForm">Submit</n-button>
+                <n-button @click="goToPreviousStep">Back</n-button>
+              </div>
             </div>
+          </n-space>
 
-            <h3 v-if="resendChecker" class="text-xs flex gap-1 items-center">
-              Try again <span v-if="store.count > 0">with {{ store.count }} seconds</span>
-  
-  <button type="button" @click="store.count <= 10 && resendSubmitReset()" :disabled="store.count < 10 && store.count != 0" class="bg-[#feee00] py-1 px-2 rounded-lg text-white" >
-              Send
-              </button>
-
-            </h3>
-
-            <button
-              type="submit"
-              class="w-full py-3 px-4 bg-[#feee00] hover:bg-[#feee00]/70 text-white rounded-lg transition-colors"
+          <div v-else>
+            <span v-if="forgotloader" class="flex items-center gap-2 py-5">
+              <p>A 6-digit code is being sent to your email</p>
+              <div class="w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"></div>
+            </span>
+            <UInput
+              color="warning"
+              v-model="sixCodeReset"
+              placeholder="Enter 6 code"
+              :type="showSixCodeReset ? 'text' : 'password'"
+              :ui="{
+                base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
+                input: 'py-2 px-3',
+              }"
+              class="w-full"
             >
-              Change password
-            </button>
-          </form> -->
-
+              <template #trailing>
+                <UButton
+                  color="neutral"
+                  variant="link"
+                  size="sm"
+                  :icon="showSixCodeReset ? 'i-heroicons-eye-slash-solid' : 'i-heroicons-eye-solid'"
+                  :aria-label="showSixCodeReset ? 'Hide code' : 'Show code'"
+                  :aria-pressed="showSixCodeReset"
+                  aria-controls="sixCodeReset"
+                  @click="showSixCodeReset = !showSixCodeReset"
+                />
+              </template>
+            </UInput>
+            <UInput
+              color="warning"
+              v-model="newPasswordReset"
+              placeholder="New password"
+              :type="showNewPasswordReset ? 'text' : 'password'"
+              :ui="{
+                base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
+                input: 'py-2 px-3',
+              }"
+              class="w-full my-5"
+            >
+              <template #trailing>
+                <UButton
+                  color="neutral"
+                  variant="link"
+                  size="sm"
+                  :icon="showNewPasswordReset ? 'i-heroicons-eye-slash-solid' : 'i-heroicons-eye-solid'"
+                  :aria-label="showNewPasswordReset ? 'Hide password' : 'Show password'"
+                  :aria-pressed="showNewPasswordReset"
+                  aria-controls="newPasswordReset"
+                  @click="showNewPasswordReset = !showNewPasswordReset"
+                />
+              </template>
+            </UInput>
+            <UInput
+              color="warning"
+              v-model="confirmPasswordReset"
+              placeholder="Confirm new password"
+              :type="showConfirmPasswordReset ? 'text' : 'password'"
+              :ui="{
+                base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
+                input: 'py-2 px-3',
+              }"
+              class="w-full mb-8"
+            >
+              <template #trailing>
+                <UButton
+                  color="neutral"
+                  variant="link"
+                  size="sm"
+                  :icon="showConfirmPasswordReset ? 'i-heroicons-eye-slash-solid' : 'i-heroicons-eye-solid'"
+                  :aria-label="showConfirmPasswordReset ? 'Hide password' : 'Show password'"
+                  :aria-pressed="showConfirmPasswordReset"
+                  aria-controls="confirmPasswordReset"
+                  @click="showConfirmPasswordReset = !showConfirmPasswordReset"
+                />
+              </template>
+            </UInput>
+            <div class="flex gap-5 items-center">
+              <n-button type="quaternary" class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none" @click="resetSubmitHandler">
+                Submit
+              </n-button>
+              <n-button class="" @click="store.changePasswordModal = !store.changePasswordModal">Back</n-button>
+            </div>
+          </div>
           <p class="flex gap-3 mt-8 text-center text-gray-500">
             Akkauntingiz yo'qmi?
             <h3 @click="store.registerModal = !store.registerModal , store.changePasswordModal = !store.changePasswordModal" class="cursor-pointer text-[#feee00] hover:text-[#feee00]/60">Ro'yxatdan o'tish</h3>
@@ -248,12 +237,12 @@
 </template>
 
 <script setup>
-import { NStep , NSteps } from '#components';
+import { NStep , NSteps, useMessage } from 'naive-ui';
 import { ref, onMounted } from 'vue'
-import { useAuthStore } from '@/stores/auth'    
+import { useAuthStore } from '@/stores/auth'
 
 const store = useAuthStore()
-const toast = useToast();
+const message = useMessage();
 const emailStep = ref('')
 const sixCodeReset = ref('')
 const newPasswordReset = ref('')
@@ -265,13 +254,20 @@ const confirmPasswordStep = ref('')
 const sixCodeStep = ref('')
 const loader = ref(false)
 
+const showSixCodeStep = ref(false)
+const showNewPasswordStep = ref(false)
+const showConfirmPasswordStep = ref(false)
+const showSixCodeReset = ref(false)
+const showNewPasswordReset = ref(false)
+const showConfirmPasswordReset = ref(false)
+
 function submitForm() {
   if (
     sixCodeStep.value.length !== 6 ||
     !newPasswordStep.value ||
     newPasswordStep.value !== confirmPasswordStep.value
   ) {
-    window.alert('Please fill all fields correctly')
+    message.error('Iltimos, barcha maydonlarni to\'g\'ri to\'ldiring');
     return
   }
 
@@ -284,15 +280,11 @@ const resetSubmitHandler = () => {
     !newPasswordReset.value ||
     newPasswordReset.value !== confirmPasswordReset.value
   ) {
-    toast.add({
-      title: 'Xatolik',
-      description: 'Iltimos, barcha maydonlarni to\'g\'ri to\'ldiring',
-      color: 'error'
-    })
+    message.error('Iltimos, barcha maydonlarni to\'g\'ri to\'ldiring');
     return
   }
 
-  resetPassword(sixCodeReset.value, newPasswordReset.value, confirmPasswordReset.value, store.profileData.email)
+  resetPassword(sixCodeReset.value, newPasswordReset.value, confirmPasswordReset.value, store.profileData.value.email)
 }
 
 const resetPassword = async (sixCode, newPassword, confirmPassword, email) => {
@@ -311,11 +303,7 @@ const resetPassword = async (sixCode, newPassword, confirmPassword, email) => {
     const data = await res.json();
 
     if (res.ok) {
-      toast.add({
-        title: 'Success',
-        description: 'Your password has been successfully changed',
-        color: 'success'
-      });
+      message.success('Parolingiz muvaffaqiyatli o\'zgartirildi');
       store.resetPasswordModal = false;
       sixCodeReset.value = '';
       newPasswordReset.value = '';
@@ -323,29 +311,31 @@ const resetPassword = async (sixCode, newPassword, confirmPassword, email) => {
 
       return data;
     } else {
-      toast.add({
-        title: 'Xatolik',
-        description: data?.message || 'Serverda xatolik yuz berdi',
-        color: 'error'
-      });
+      message.error(data?.message || 'Serverda xatolik yuz berdi');
     }
   } catch (error) {
-    toast.add({
-      title: 'Xatolik',
-      description: error.message || 'Tarmoq xatoligi',
-      color: 'error'
-    });
+    message.error(error.message || 'Tarmoq xatoligi');
   }
 }
+
+const forgotPassword = async (email) => {
+  loader.value = true;
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log(`Sending password reset code to ${email}`);
+    currentStep.value = 2;
+    message.success('6 xonali kod emailingizga yuborildi');
+  } catch (error) {
+    message.error(error.message || 'Parolni tiklash kodi yuborishda xatolik yuz berdi');
+  } finally {
+    loader.value = false;
+  }
+};
 
 
 function goToNextStep() {
   if (!emailStep.value) {
-    toast.add({
-      title: 'Xatolik',
-      description: 'Please enter your email',
-      color: 'error',
-    })
+    message.error('Iltimos, emailingizni kiriting');
     return
   }
   forgotPassword(emailStep.value);
@@ -354,5 +344,12 @@ function goToNextStep() {
 
 function goToPreviousStep() {
   currentStep.value = 1
+}
+
+function onlyNumber(e) {
+  const charCode = (e.which) ? e.which : e.keyCode;
+  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    e.preventDefault();
+  }
 }
 </script>

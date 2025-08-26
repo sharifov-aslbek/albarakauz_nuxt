@@ -1,9 +1,10 @@
+// stores/categoryAllStore.ts
+
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRuntimeConfig } from "#app";
-import axios from "axios"; // ✅ AXIOSNI QO‘SHDIK
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate' // ⚠️ kerak bo‘lsa import qilish esdan chiqmasin
+import axios from "axios";
 
 export const useCategoryAllStore = defineStore(
   "categoryAllStore",
@@ -46,10 +47,11 @@ export const useCategoryAllStore = defineStore(
       showCategory,
     };
   },
-  // {
-    // persist: {
-    //   storage: piniaPluginPersistedstate.localStorage(),
-    //   paths: ["categoryData"],
-    // },
-  // }
-);
+  {
+    // ✅ Bu yerda persist konfiguratsiyasini qo'shamiz
+    persist: {
+      storage: piniaPluginPersistedstate.localStorage(),
+      paths: ["categoryData"],
+    },
+  }
+);  

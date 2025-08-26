@@ -33,11 +33,15 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from '#imports'
+import { useCategoryAllStore } from '#imports'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { useProductSeoStore } from '@/stores/productSeo'
 import { useHead } from '#imports'
 
 const route = useRoute()
+const router = useRouter()
+const store = useCategoryAllStore();
 const seoStore = useProductSeoStore()
 
 // SSR oldidan SEO-ni yuklab olish
@@ -89,6 +93,12 @@ useHead(() => {
     link: [
       { rel: 'canonical', href: url }
     ]
+  }
+})
+
+onMounted(() => {
+  if(!store.categoryData) {
+    store.getAllCategory()
   }
 })
 

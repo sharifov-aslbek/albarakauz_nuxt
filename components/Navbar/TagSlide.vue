@@ -3,7 +3,7 @@
     <div class="container h-[45.5px]" v-if="categoryStore.categoryData">
       <UCarousel
         class="w-full max-w-[95%] mx-auto"
-        arrows="true"
+        autoplay="true"
         v-if="categoryStore.categoryData.length > 0"
         prev-icon="i-lucide-chevron-left"
         next-icon="i-lucide-chevron-right"
@@ -17,7 +17,7 @@
       >
         <div
           @click="navigateToCategory(item.id)"
-          class="custom-tag cursor-pointer flex items-center gap-2 px-3 py-1 rounded-full bg-white shadow-sm hover:shadow-md transition"
+          class="custom-tag cursor-pointer flex items-center mb-2 gap-2 px-3 py-1 rounded-full bg-white shadow-sm hover:shadow-md transition"
         >
           <img
             class="w-5 h-5 rounded-full object-cover"

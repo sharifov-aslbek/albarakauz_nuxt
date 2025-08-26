@@ -180,7 +180,7 @@
 
       </div>
       <div class="sm:flex hidden h-[510px] w-full max-w-[305px] overflow-y-auto flex-col gap-5">
-        <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+        <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">Boshqa do'konlarda</h3>
         <Card v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
         <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
    class="flex-col flex items-center justify-center border border-gray-300 shadow-xl px-3 rounded-lg h-full py-6">
@@ -189,7 +189,7 @@
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">Mahsulot topilmadi</h3>
         <p class="text-gray-500 text-center max-w-sm">
-          Hozirda o'xshash mahsulotlar mavjud emas. Iltimos, keyinroq qayta tekshiring.
+          Hozirda Boshqa do'konlarda mavjud emas. Iltimos, keyinroq qayta tekshiring.
         </p>
         <RouterLink to="/" class="mt-6 px-4 py-2 bg-[#feee00] text-black rounded-md hover:bg-[#e6d900] transition-colors">
           Bosh sahifaga qaytish

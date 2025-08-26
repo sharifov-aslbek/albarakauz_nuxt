@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('authStore', () => {
   const verifyEmailModal = ref(false)
   const loginModal = ref(false);
   const changePasswordModal = ref(false)
-  const resetPasswordModal = ref(true)
+  const resetPasswordModal = ref(false)
   const currentStep = ref(1)
 
   const getProfileData = async () => {

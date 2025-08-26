@@ -41,10 +41,9 @@
       </div>
     </div>
 
-    <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash
-      mahsulotlar</h3>
-
-    <MiniCard v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
+    <div class="md:hidden block">
+      <MiniCard v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
+    </div>
 
     <div class="flex flex-col md:flex-row pb-5 justify-between gap-5 w-full max-w-full mr-7 py-12">
       <div class="flex flex-col sm:flex-row w-full h-[420px]">
@@ -192,7 +191,7 @@
 
       </div>
       <div class="h-[450px] w-full max-w-[305px] overflow-y-auto hidden sm:flex flex-col gap-5">
-        <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">O'xshash mahsulotlar</h3>
+        <h3 v-if="linkedProducts && linkedProducts.length > 0" class="text-2xl my-4 font-bold">Boshqa do'konlarda</h3>
         <Card v-if="linkedProducts && linkedProducts.length > 0" :data="linkedProducts" />
         <div   v-if="!store.linkedProducts || store.linkedProducts?.length === 0"
    class="flex flex-col items-center justify-center border border-gray-300 shadow-xl px-3 rounded-lg h-full py-6">
@@ -201,7 +200,7 @@
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">Mahsulot topilmadi</h3>
         <p class="text-gray-500 text-center max-w-sm">
-          Hozirda o'xshash mahsulotlar mavjud emas. Iltimos, keyinroq qayta tekshiring.
+          Hozirda Boshqa do'konlarda mavjud emas. Iltimos, keyinroq qayta tekshiring.
         </p>
         <RouterLink to="/" class="mt-6 px-4 py-2 bg-[#feee00] text-black rounded-md hover:bg-[#e6d900] transition-colors">
           Bosh sahifaga qaytish
@@ -228,31 +227,14 @@
               </div>
             </div>
           </template>
-  
+
           <n-tab-pane name="oasis" tab="Описание">
-            <p v-if="getParsedProductModel(store.product.productModel).description_ru"
-              class="w-full max-w-full text-sm md:text-base"
-              v-html="getParsedProductModel(store.product.productModel).description_ru"></p>
+            <ClientOnly>
+              <p
+                class="w-full max-w-full text-sm md:text-base"
+                v-html="getParsedProductModel(store.product.productModel).description_ru"></p>
+            </ClientOnly>
   
-            <p v-else class="w-full max-w-full text-sm md:text-base">
-              {{ getParsedProductModel(store.product.productModel).description_uz }}
-            </p>
-  
-            <div v-if="store.product.descriptionUz || store.product.descriptionRu"
-              class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 max-w-4xl mt-6">
-              <p v-if="store.product.descriptionUz" class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
-                {{ store.product.descriptionUz }}
-              </p>
-              <p v-else class="w-full max-w-full mb-6 md:mb-12 text-sm md:text-base">
-                {{ store.product.descriptionRu }}
-              </p>
-            </div>
-  
-            <!-- <p
-                        v-if="store.product.productModel && getParsedProductModel(store.product.productModel)?.[locale]?.description"
-                        class="w-full max-w-[900px] mt-6 md:mt-12 text-sm md:text-base"
-                        v-html="getParsedProductModel(store.product.productModel)?.[locale].description"
-                      ></p> -->
           </n-tab-pane>
   
           <n-tab-pane
@@ -270,6 +252,9 @@
               </span>
             </div>
           </n-tab-pane>
+
+
+          
         </n-tabs>
       </div>
 
@@ -349,7 +334,7 @@ definePageMeta({
 const authStore = useAuthStore() // <- o'zingiz ishlatayotgan store
 const store = useProductSeoStore() // <- o'zingiz ishlatayotgan store
 const toast = useToast();
-const route = useRoute();
+const route = useRoute(); 
 const linkedProducts = store.linkedProducts?.map(item => item.product) || []
 const tabStyle = {
   '--n-tab-text-color': 'gray',             // Oddiy holatdagi matn rangi

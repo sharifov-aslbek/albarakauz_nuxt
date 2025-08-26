@@ -39,6 +39,7 @@
       }"
     >
       <img
+      @click="onClickFunction"
         class="rounded-full w-[70px] h-[70px] sm:w-[112px] sm:h-[112px] mb-6 cursor-pointer img-3d"
         v-if="item"
         :src="item"

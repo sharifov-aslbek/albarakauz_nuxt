@@ -56,13 +56,13 @@
               <div class="w-full">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
                 <input v-model="data.name" type="text" placeholder="Enter your name"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#06D6A0]"
+                  class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
                   required />
               </div>
               <div class="w-full">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Surname</label>
                 <input v-model="data.surname" type="text" placeholder="Enter your surname"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#06D6A0]"
+                  class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
                   required />
               </div>
             </div>
@@ -71,7 +71,7 @@
               <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <div class="relative">
                 <input v-model="data.email" type="email" placeholder="Enter your email"
-                  class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#06D6A0]"
+                  class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
                   required />
                 <div class="absolute right-3 top-3">
                   <template v-if="data.isEmailVerified">
@@ -103,7 +103,7 @@
             <div class="mb-4">
               <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
               <input v-model="data.phone" type="tel" placeholder="Enter your phone number"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#06D6A0]"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 outline-none focus:border-[#feee00]"
                 required />
             </div>
 

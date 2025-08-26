@@ -80,7 +80,7 @@
   </div>
 </div>
 
-            <!-- <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">O'xshash mahsulotlar</h3> -->
+            <!-- <h3 v-if="linkedProducts && linkedProducts.length > 0" class="lg:hidden block text-2xl my-4 font-bold">Boshqa do'konlarda</h3> -->
 
 
       <div class="flex justify-between w-full items-center">
@@ -301,7 +301,7 @@
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">Mahsulot topilmadi</h3>
         <p class="text-gray-500 text-center max-w-sm">
-          Hozirda o'xshash mahsulotlar mavjud emas. Iltimos, keyinroq qayta tekshiring.
+          Hozirda Boshqa do'konlarda mavjud emas. Iltimos, keyinroq qayta tekshiring.
         </p>
         <RouterLink to="/" class="mt-6 px-4 py-2 bg-[#feee00] text-black rounded-md hover:bg-[#e6d900] transition-colors">
           Bosh sahifaga qaytish

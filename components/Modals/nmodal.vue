@@ -2,10 +2,10 @@
   <div>
     <!-- Login tugmasi -->
     <div @click="authStore.loginModal = true" class="relative w-fit">
-      <div class="group relative p-2 flex justify-center items-center cursor-pointer">
+      <div class="group relative p-1 flex justify-center items-center cursor-pointer">
         <div
           class="absolute inset-0 bg-[#feee00] rounded-lg opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-in-out" />
-        <UIcon class="size-8 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" name="mdi:account-badge-outline" />
+        <UIcon class="size-7 relative z-10 text-gray-700 group-hover:text-white transition-colors duration-300" name="solar:user-circle-outline" />
       </div>
     </div>
 
