@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRuntimeConfig } from "#app";
 import { useI18n } from "vue-i18n";
+import { useErrorStore } from '#imports';
 import axios from "axios"; // ✅ AXIOS QO‘SHILDI
 
 export const useCategoryStore = defineStore(
@@ -33,7 +34,13 @@ export const useCategoryStore = defineStore(
         } else {
           console.warn("APIdan data yo‘q");
         }
-      } catch (e) {
+      } catch (e: any) {
+        const errorStore = useErrorStore();
+        errorStore.showError({
+            statusCode: e.response?.status || 500,
+            title: e.response?.data?.title || 'Serverda xatolik',
+            message: e.response?.data?.message || 'Kategoriyalarni yuklashda muammo yuzaga keldi.'
+        });
         console.error("API error:", e);
       }
     };
@@ -52,7 +59,13 @@ export const useCategoryStore = defineStore(
         } else {
           console.warn("APIdan data yo‘q");
         }
-      } catch (e) {
+      } catch (e: any) {
+        const errorStore = useErrorStore();
+        errorStore.showError({
+            statusCode: e.response?.status || 500,
+            title: e.response?.data?.title || 'Serverda xatolik',
+            message: e.response?.data?.message || `ID si ${id} bo'lgan kategoriyani yuklashda muammo yuzaga keldi.`
+        });
         console.error("API error:", e);
       }
     };

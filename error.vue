@@ -62,7 +62,6 @@ const errorMessages = {
 };
 
 const errorDetails = computed(() => {
-
   if (props.error.data?.title) {
     return {
       title: props.error.data.title,
@@ -83,18 +82,23 @@ const handleError = () => clearError({ redirect: '/' });
   display: none;
 }
 
-.bg-imgg {
-  background-image: url("https://www.youthemployment.org.uk/dev/wp-content/uploads/2019/11/ecommerce-1.png");
+.bg-imgg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("public/home-background.png");
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
+  filter: blur(15px);
+  -webkit-filter: blur(15px);
 }
-
 .glass-box {
+  position: relative;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
