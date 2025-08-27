@@ -60,19 +60,24 @@ watch(
 
 // Head ni yuklash
 useHead(() => {
-  const url = `https://api.albaraka.uz/product/${route.params.slugAndId}`
+  const url = `https://albaraka.uz/product/${route.params.slugAndId}`
+
+  const keywordsArray = seoStore.title.toLowerCase().replace(/[^a-zA-Z0-9а-яёА-ЯЁўқғҳʼ\s]/g, " ").split(/\s+/)
+  const keywords = keywordsArray.join(", ")
+  const description = seoStore.description.length > 150 ? seoStore.description.slice(0, 150 - 3) + "..." : seoStore.description
+
 
   return {
-    title: seoStore.title,
+    title: `${seoStore.title} | albaraka.uz`,
     meta: [
-      { name: 'description', content: seoStore.description },
-      { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
+      { name: 'description', content: description },
+      { name: 'keywords', content: keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
       { name: 'author', content: 'albaraka.uz' },
       { name: 'robots', content: 'index, follow' },
 
       // Open Graph
       { property: 'og:title', content: seoStore.title },
-      { property: 'og:description', content: seoStore.description },
+      { property: 'og:description', content: description },
       { property: 'og:image', content: seoStore.image },
       { property: 'og:url', content: url },
       { property: 'og:type', content: 'product' },
@@ -81,7 +86,7 @@ useHead(() => {
       // Twitter
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: seoStore.title },
-      { name: 'twitter:description', content: seoStore.description },
+      { name: 'twitter:description', content: description },
       { name: 'twitter:image', content: seoStore.image },
 
       // Viewport
@@ -108,18 +113,23 @@ onBeforeRouteUpdate(async (to, from) => {
     await seoStore.getProductSeo(to.params.slugAndId as string)
 
     useHead(() => {
-      const url = `https://api.albaraka.uz/product/${to.params.slugAndId}`
+      const url = `https://albaraka.uz/product/${to.params.slugAndId}`
+      
+      const keywordsArray = seoStore.title.toLowerCase().replace(/[^a-zA-Z0-9а-яёА-ЯЁўқғҳʼ\s]/g, " ").split(/\s+/)
+      const keywords = keywordsArray.join(", ")
+      const description = seoStore.description.length > 150 ? seoStore.description.slice(0, 150 - 3) + "..." : seoStore.description
+
       return {
-        title: seoStore.title,
+        title: `${seoStore.title} | albaraka.uz`,
         meta: [
-          { name: 'description', content: seoStore.description },
-          { name: 'keywords', content: seoStore.keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
+          { name: 'description', content: description },
+          { name: 'keywords', content: keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
           { name: 'author', content: 'albaraka.uz' },
           { name: 'robots', content: 'index, follow' },
 
           // Open Graph
           { property: 'og:title', content: seoStore.title },
-          { property: 'og:description', content: seoStore.description },
+          { property: 'og:description', content: description },
           { property: 'og:image', content: seoStore.image },
           { property: 'og:url', content: url },
           { property: 'og:type', content: 'product' },
@@ -128,7 +138,7 @@ onBeforeRouteUpdate(async (to, from) => {
           // Twitter
           { name: 'twitter:card', content: 'summary_large_image' },
           { name: 'twitter:title', content: seoStore.title },
-          { name: 'twitter:description', content: seoStore.description },
+          { name: 'twitter:description', content: description },
           { name: 'twitter:image', content: seoStore.image },
 
           // Viewport

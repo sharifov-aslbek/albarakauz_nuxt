@@ -36,7 +36,7 @@ const defaultImage =
 // ✅ SEO HEAD
 useHead(() => {
   const data = categoryStore.onecategoryData
-  const url = `https://api.albaraka.uz/category/${categoryId}`
+  const url = `https://albaraka.uz/category/${categoryId}`
 
   if (!data || !data.name) {
     return {
@@ -45,11 +45,14 @@ useHead(() => {
     }
   }
 
+  const keywordsArray = data.name.toLowerCase().replace(/[^a-zA-Z0-9а-яёА-ЯЁўқғҳʼ\s]/g, " ").split(/\s+/)
+  const keywords = keywordsArray.join(", ")
+
   return {
-    title: data.name,
+    title: `${data.name} | albaraka.uz`,
     meta: [
-      { name: 'description', content: `Eng yaxshi mahsulotlar ${data.name} dagi` },
-      { name: 'keywords', content: 'Mahsulot, online do‘kon, albaraka, texnika' },
+      { name: 'description', content: `${data.name} kategoriyasidagi eng yaxshi mahsulotlarni albaraka.uz saytida toping. Arzon narxlar va tezkor yetkazib berish!` },
+      { name: 'keywords', content: keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
       { name: 'author', content: 'albaraka.uz' },
       { name: 'robots', content: 'index, follow' },
 
@@ -57,7 +60,7 @@ useHead(() => {
       { property: 'og:title', content: data.name },
       { property: 'og:description', content: `Eng yaxshi mahsulotlar ${data.name}` },
       { property: 'og:url', content: url },
-      { property: 'og:type', content: 'category' },
+      { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'albaraka.uz' },
       { property: 'og:image', content: defaultImage },
 
@@ -82,7 +85,7 @@ onBeforeRouteUpdate(async (to) => {
   // await store.getOneCategoryProducts(newCategoryId, 'uz')
   // await categoryStore.getOneCategory(newCategoryId)
 
-  const url = `https://api.albaraka.uz/category/${newCategoryId}`
+  const url = `https://albaraka.uz/category/${newCategoryId}`
   const data = categoryStore.onecategoryData
 
   useHead(() => {
@@ -93,11 +96,15 @@ onBeforeRouteUpdate(async (to) => {
       }
     }
 
+    const keywordsArray = data.name.toLowerCase().replace(/[^a-zA-Z0-9а-яёА-ЯЁўқғҳʼ\s]/g, " ").split(/\s+/)
+    const keywords = keywordsArray.join(", ")
+
+
     return {
-      title: data.name,
+      title: `${data.name} | albaraka.uz`,
       meta: [
-        { name: 'description', content: `Eng yaxshi mahsulotlar ${data.name} dagi` },
-        { name: 'keywords', content: 'Mahsulot, online do‘kon, albaraka, texnika' },
+        { name: 'description', content: `${data.name} kategoriyasidagi eng yaxshi mahsulotlarni albaraka.uz saytida toping. Arzon narxlar va tezkor yetkazib berish!` },
+        { name: 'keywords', content: keywords || 'Mahsulot, online do‘kon, albaraka, texnika' },
         { name: 'author', content: 'albaraka.uz' },
         { name: 'robots', content: 'index, follow' },
 
@@ -105,7 +112,7 @@ onBeforeRouteUpdate(async (to) => {
         { property: 'og:title', content: data.name },
         { property: 'og:description', content: `Eng yaxshi mahsulotlar ${data.name}` },
         { property: 'og:url', content: url },
-        { property: 'og:type', content: 'category' },
+        { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'albaraka.uz' },
         { property: 'og:image', content: defaultImage },
 

@@ -96,11 +96,12 @@ export const useProductSeoStore = defineStore('productSeo', () => {
       }
     } catch (e) {
       console.error('API error:', e)
-      if(e.status === 404) {
-        checkError.value = true;  
-      }
-      else if(e.status === 500) {
-        checkisError500.value = true;  
+      if (axios.isAxiosError(e) && e.response) {
+        if (e.response.status === 404) {
+          checkError.value = true;
+        } else if (e.response.status === 500) {
+          checkError.value = true;
+        }
       }
       
     }
