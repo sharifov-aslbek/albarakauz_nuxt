@@ -116,6 +116,8 @@
         </div>
       </n-modal>
 
+      <reset /> 
+
       <register />
     </client-only>
   </div>
@@ -123,6 +125,7 @@
 
 
 <script setup>
+import reset from "./reset.vue";
 import register from "./register.vue";
 import { ref } from "vue";
 import { useToast } from "#imports";

@@ -181,6 +181,7 @@ export const useProductSeoStore = defineStore('productSeo', () => {
       const response = await axios.get(`${API_HOST_DEFAULT}/uz/product/retrieve-by-categoryId`, {
         params: {
           PageSize: 5,
+          PageIndex: 3,
           id
         }
       })

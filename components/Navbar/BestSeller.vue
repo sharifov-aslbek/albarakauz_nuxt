@@ -25,7 +25,7 @@ const err = ref(null);
 
     const fetchData = async () => {
   try {
-    const res = await axios.get('https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=5&PageIndex=1&id=4');
+    const res = await axios.get('https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=5&PageIndex=9&id=4');
     data.value = res.data.data;
     console.log('avtomobil response', res.data);
   } catch (error) {

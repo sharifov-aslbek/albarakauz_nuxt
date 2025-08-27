@@ -1,4 +1,7 @@
 <template>
+
+<!-- <UButton @click="store.resetPasswordModal = !store.resetPasswordModal">Open</UButton> -->
+
   <n-modal v-model:show="store.resetPasswordModal" transform-origin="center">
     <div class="w-full max-w-6xl grid md:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-xl">
       <div @click="store.resetPasswordModal = !store.resetPasswordModal" class="group absolute right-3 top-5 p-3 cursor-pointer">
@@ -10,6 +13,8 @@
           <h1 class="text-4xl font-bold mb-4">
             Reset password on your account
           </h1>
+
+
           <p class="text-white/90">
             Simplify your e-commerce management with our user-friendly admin dashboard.
           </p>
@@ -30,11 +35,18 @@
             <span class="font-bold text-xl">Albaraka.uz</span>
           </div>
 
-          <n-space v-if="!store.profileData.data" vertical :size="30">
-            <n-steps :current="currentStep" size="small">
-              <n-step title="Email" />
-              <n-step title="Verify & Reset Password" />
-            </n-steps>
+          <n-space v-if="!token" vertical :size="30">
+             <n-steps :theme-overrides="{
+    indicatorColorProcess: '#feee00',
+    indicatorBorderColorFinish: '#fee00',
+    indicatorBorderColorProcess: '#fee00',
+    splitorColorFinish: '#feee00',
+    indicatorColorProcess: '#feee00',
+    indicatorColorProcess: '#feee00'
+  }" :current="currentStep" size="small">
+    <n-step title="Email" />
+    <n-step title="Verify & Reset Password" />
+  </n-steps>
 
             <div v-if="currentStep === 1">
               <UInput
@@ -46,18 +58,18 @@
                   base: 'rounded-lg border-gray-200 focus:border-[#feee00] focus:ring-[#feee00]',
                   input: 'py-2 px-3',
                 }"
-                class="w-full mb-10"
+                class="w-full mb-10 mt-10"
               />
 
-              <n-button @click="goToNextStep" type="quaternary" class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none flex items-center justify-center mt-10">
+              <UButton @click="goToNextStep" type="quaternary" color="warning" variant="subtle" class="flex items-center justify-center mt-5">
                 <div
                   v-if="loader"
                   class="w-5 h-5 border-4 border-t-white border-gray-300 rounded-full animate-spin"
                 ></div>
                 <span v-else>
-                  Next
+                  Keyingisi
                 </span>
-              </n-button>
+                </UButton>
             </div>
 
             <div v-else-if="currentStep === 2">
@@ -223,7 +235,7 @@
               <n-button type="quaternary" class="!bg-[#feee00] !text-white !hover:bg-[#feee00] !hover:text-white !border-none" @click="resetSubmitHandler">
                 Submit
               </n-button>
-              <n-button class="" @click="store.changePasswordModal = !store.changePasswordModal">Back</n-button>
+              <n-button class="" @click="store.resetPasswordModal = !store.resetPasswordModal">Back</n-button>
             </div>
           </div>
           <p class="flex gap-3 mt-8 text-center text-gray-500">
@@ -238,10 +250,11 @@
 
 <script setup>
 import { NStep , NSteps, useMessage } from 'naive-ui';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted , watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 
 const store = useAuthStore()
+const token = ref(null);
 const message = useMessage();
 const emailStep = ref('')
 const sixCodeReset = ref('')
@@ -253,7 +266,7 @@ const newPasswordStep = ref('')
 const confirmPasswordStep = ref('')
 const sixCodeStep = ref('')
 const loader = ref(false)
-
+const sendingCheck = ref(false);
 const showSixCodeStep = ref(false)
 const showNewPasswordStep = ref(false)
 const showConfirmPasswordStep = ref(false)
@@ -318,12 +331,19 @@ const resetPassword = async (sixCode, newPassword, confirmPassword, email) => {
   }
 }
 
+
+watch(sendingCheck, (newVal) => {
+  if (newVal === true) {
+    currentStep.value = 2
+  }
+})
+
+
 const forgotPassword = async (email) => {
   loader.value = true;
   try {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log(`Sending password reset code to ${email}`);
-    currentStep.value = 2;
+
+    await forgotPasswordapi(email);
     message.success('6 xonali kod emailingizga yuborildi');
   } catch (error) {
     message.error(error.message || 'Parolni tiklash kodi yuborishda xatolik yuz berdi');
@@ -331,6 +351,36 @@ const forgotPassword = async (email) => {
     loader.value = false;
   }
 };
+
+const forgotPasswordapi = async (email) => {
+  try {
+    const token = localStorage.getItem('accessToken') // Token olish
+
+    const res = await fetch(`https://api.albaraka.uz/api/user/forgot-password?email=${email}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({})
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+      message.success('6 xonali kod emailingizga yuborildi')
+      sendingCheck.value = true
+    } else {
+      message.error(data?.message || 'Serverda xatolik yuz berdi')
+    }
+
+    console.log(data, 'forgot password')
+  } catch (error) {
+    message.error(error.message || 'Tarmoq xatoligi')
+  } finally {
+    loader.value = false
+    forgotloader.value = false
+  }
+}
 
 
 function goToNextStep() {
@@ -352,4 +402,18 @@ function onlyNumber(e) {
     e.preventDefault();
   }
 }
+
+
+onMounted(() => {
+  const tokenLocal = localStorage.getItem('accessToken')
+
+  token.value = tokenLocal
+})
 </script>
+
+
+<style scoped>
+.custom-step .n-step-indicator {
+  background-color: #feee00;
+}
+</style>

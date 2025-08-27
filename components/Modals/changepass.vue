@@ -136,12 +136,12 @@
             </div>
 
             <div class="text-right">
-              <a
-                href="#"
-                class="text-sm text-gray-500 hover:text-[#feee00]"
+              <span
+              @click="store.resetPasswordModal = !store.resetPasswordModal"
+                class="text-sm text-gray-500 cursor-pointer hover:text-[#feee00]"
               >
-                Forgot password?
-              </a>
+                Parolingiz esdan chiqdimi?
+            </span>
             </div>
 
             <!-- SUBMIT BUTTON -->
@@ -150,7 +150,7 @@
               :disabled="isSubmitting"
               class="w-full py-3 px-4 bg-[#feee00] hover:bg-[#feee00]/70 text-white rounded-lg transition-colors flex justify-center items-center gap-2 disabled:opacity-60"
             >
-              <span v-if="!isSubmitting">Change password</span>
+              <span v-if="!isSubmitting">Parolni o'zgartirish</span>
               <svg
                 v-else
                 class="w-5 h-5 animate-spin"

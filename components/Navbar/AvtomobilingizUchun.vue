@@ -24,7 +24,7 @@ const data = ref(null);
 const err = ref(null);
     const fetchData = async () => {
   try {
-    const res = await axios.get('https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=5&PageIndex=1&id=852');
+    const res = await axios.get('https://api.albaraka.uz/api/uz/product/retrieve-by-categoryId?PageSize=5&PageIndex=16&id=852');
     data.value = res.data.data;
   } catch (error) {
     err.value = error;

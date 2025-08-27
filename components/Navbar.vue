@@ -9,6 +9,8 @@
         <div class="hidden">
           <ModalsProfile v-if="authStore.profileData != null && authStore.profileData !== ''" />
           <ModalsNmodal v-else />
+
+          <!-- <ModalsReset /> -->
         </div>
       </div>
       <div class="flex justify-between gap-1 sm:gap-4 sm:gap-0 my-8 sm:my-0">

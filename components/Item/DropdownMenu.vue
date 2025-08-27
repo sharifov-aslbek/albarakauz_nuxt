@@ -6,21 +6,14 @@ import { ref, computed } from 'vue'
 const route = useRoute()
 const copied = ref(false)
 
-// Faqat clientda to‘liq URL yaratamiz
-const fullUrl = computed(() => {
-  if (process.client) {
-    return `${window.location.origin}${route.fullPath}`
-  }
-  return ''
-})
+const fullUrl = computed(() => process.client ? `${window.location.origin}${route.fullPath}` : '')
 
-// Linkni clipboardga nusxalash funksiyasi
 const copyLink = async () => {
   if (!fullUrl.value) return
   try {
     await navigator.clipboard.writeText(fullUrl.value)
     copied.value = true
-    setTimeout(() => (copied.value = false), 1500) // 1.5s dan keyin xabar yo‘qoladi
+    setTimeout(() => (copied.value = false), 1500)
   } catch (err) {
     console.error('Failed to copy link:', err)
   }
@@ -28,34 +21,32 @@ const copyLink = async () => {
 
 const items = computed<DropdownMenuItem[]>(() => [
   {
+    id: 'telegram',
     label: 'Telegram',
     icon: 'stash:telegram',
     to: `https://t.me/share/url?url=${encodeURIComponent(fullUrl.value)}`,
     target: '_blank'
   },
   {
+    id: 'copy',
     label: copied.value ? 'Copied!' : 'Copy link',
-    icon: copied.value ? 'mdi:check' : 'solar:copy-bold',
-    click: copyLink // Bu joyda click event ishlaydi
+    icon: copied.value ? 'mdi:check' : 'solar:copy-bold'
   },
-  {
-    label: 'Instagram',
-    icon: 'tdesign:logo-instagram'
-  }
 ])
+
+const handleSelect = (id: string) => {
+  if (id === 'copy') {
+    copyLink()
+  }
+}
 </script>
 
 <template>
   <UDropdownMenu
     :items="items"
-    :content="{
-      align: 'start',
-      side: 'bottom',
-      sideOffset: 8
-    }"
-    :ui="{
-      content: 'w-48'
-    }"
+    @select="handleSelect"
+    :content="{ align: 'start', side: 'bottom', sideOffset: 8 }"
+    :ui="{ content: 'w-48' }"
   >
     <UButton
       label="Ulashish"

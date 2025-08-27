@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useProductSeoStore } from '#imports'
 import { useInfiniteScroll } from '@vueuse/core'
-import Card from '~/components/Card.vue'
+import { useProductSeoStore } from '@/stores/productSeo'
+import { definePageMeta } from '#imports'
 
 const store = useProductSeoStore()
 const route = useRoute()
@@ -20,18 +20,6 @@ const hasMore = computed(() => {
   return store.searchProductsData.items.length < store.searchProductsData.totalCount
 })
 
-
-// Birinchi yuklash
-onMounted(() => {
-  store.searchProducts(route.params.id)
-})
-
-// Route o‘zgarsa reset
-watch(() => route.params.id, (newId) => {
-  page.value = 1
-  store.searchProducts(newId)
-})
-
 // Infinite scroll ishlatish
 useInfiniteScroll(
   infiniteTrigger,
@@ -44,6 +32,17 @@ useInfiniteScroll(
     distance: 100,
   }
 )
+
+// Birinchi yuklash
+onMounted(() => {
+  store.searchProducts(route.params.id)
+})
+
+// Route o'zgarsa reset
+watch(() => route.params.id, (newId) => {
+  page.value = 1
+  store.searchProducts(newId)
+})
 </script>
 
 <template>
@@ -59,11 +58,12 @@ useInfiniteScroll(
     </div>
 
     <div v-if="store.productLoader" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      <div v-for="i in 10" :key="i" class="flex flex-col bg-neutral-300 animate-pulse rounded-lg p-4 gap-4">
-        <div class="bg-neutral-400/50 w-full h-32 rounded-md"></div>
-        <div class="flex flex-col gap-2">
+      <div v-for="i in 10" :key="i" class="flex flex-col bg-neutral-300 animate-pulse rounded-lg overflow-hidden" style="height: 430px;">
+        <div class="bg-neutral-400/50 w-[90%] mx-auto mt-4 flex-1 rounded-t-lg"></div>
+        <div class="p-4 flex flex-col gap-2">
           <div class="bg-neutral-400/50 w-full h-4 rounded-md"></div>
           <div class="bg-neutral-400/50 w-4/5 h-4 rounded-md"></div>
+          <div class="bg-neutral-400/50 w-3/5 h-4 rounded-md"></div>
         </div>
       </div>
     </div>
